@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <ui:composition template="/template.xhtml">
+        <ui:define name="title">
+            <h:outputText value="#{bundle.ViewNodeTableTitle}"></h:outputText>
+        </ui:define>
+        <ui:define name="body">
+            <h:panelGroup id="messagePanel" layout="block">
+                <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
+            </h:panelGroup>
+            <h:form>
+                <h:panelGrid columns="2">
+                    <h:outputText value="#{bundle.ViewNodeTableLabel_data}"/>
+                    <h:outputText value="#{nodeTableController.selected.data}" title="#{bundle.ViewNodeTableTitle_data}"/>
+                    <h:outputText value="#{bundle.ViewNodeTableLabel_nodeType}"/>
+                    <h:outputText value="#{nodeTableController.selected.nodeType}" title="#{bundle.ViewNodeTableTitle_nodeType}"/>
+                    <h:outputText value="#{bundle.ViewNodeTableLabel_NTIdentifier}"/>
+                    <h:outputText value="#{nodeTableController.selected.NTIdentifier}" title="#{bundle.ViewNodeTableTitle_NTIdentifier}"/>
+                    <h:outputText value="#{bundle.ViewNodeTableLabel_NId}"/>
+                    <h:outputText value="#{nodeTableController.selected.NId}" title="#{bundle.ViewNodeTableTitle_NId}"/>
+                </h:panelGrid>
+                <br />
+                <h:commandLink action="#{nodeTableController.destroyAndView}" value="#{bundle.ViewNodeTableDestroyLink}"/>
+                <br />
+                <br />
+                <h:link outcome="Edit" value="#{bundle.ViewNodeTableEditLink}"/>
+                <br />
+                <h:commandLink action="#{nodeTableController.prepareCreate}" value="#{bundle.ViewNodeTableCreateLink}" />
+                <br />
+                <h:commandLink action="#{nodeTableController.prepareList}" value="#{bundle.ViewNodeTableShowAllLink}"/>
+                <br />
+                <br />
+                <h:link outcome="/index" value="#{bundle.ViewNodeTableIndexLink}"/>
+
+            </h:form>
+        </ui:define>
+    </ui:composition>
+
+</html>

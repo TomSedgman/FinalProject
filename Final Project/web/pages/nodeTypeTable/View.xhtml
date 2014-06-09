@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <ui:composition template="/template.xhtml">
+        <ui:define name="title">
+            <h:outputText value="#{bundle.ViewNodeTypeTableTitle}"></h:outputText>
+        </ui:define>
+        <ui:define name="body">
+            <h:panelGroup id="messagePanel" layout="block">
+                <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
+            </h:panelGroup>
+            <h:form>
+                <h:panelGrid columns="2">
+                    <h:outputText value="#{bundle.ViewNodeTypeTableLabel_project}"/>
+                    <h:outputText value="#{nodeTypeTableController.selected.project}" title="#{bundle.ViewNodeTypeTableTitle_project}"/>
+                    <h:outputText value="#{bundle.ViewNodeTypeTableLabel_nodeVariables}"/>
+                    <h:outputText value="#{nodeTypeTableController.selected.nodeVariables}" title="#{bundle.ViewNodeTypeTableTitle_nodeVariables}"/>
+                    <h:outputText value="#{bundle.ViewNodeTypeTableLabel_dataDefinitions}"/>
+                    <h:outputText value="#{nodeTypeTableController.selected.dataDefinitions}" title="#{bundle.ViewNodeTypeTableTitle_dataDefinitions}"/>
+                    <h:outputText value="#{bundle.ViewNodeTypeTableLabel_nodeType}"/>
+                    <h:outputText value="#{nodeTypeTableController.selected.nodeType}" title="#{bundle.ViewNodeTypeTableTitle_nodeType}"/>
+                    <h:outputText value="#{bundle.ViewNodeTypeTableLabel_NTName}"/>
+                    <h:outputText value="#{nodeTypeTableController.selected.NTName}" title="#{bundle.ViewNodeTypeTableTitle_NTName}"/>
+                    <h:outputText value="#{bundle.ViewNodeTypeTableLabel_NTCreationDate}"/>
+                    <h:outputText value="#{nodeTypeTableController.selected.NTCreationDate}" title="#{bundle.ViewNodeTypeTableTitle_NTCreationDate}"/>
+                    <h:outputText value="#{bundle.ViewNodeTypeTableLabel_NTId}"/>
+                    <h:outputText value="#{nodeTypeTableController.selected.NTId}" title="#{bundle.ViewNodeTypeTableTitle_NTId}"/>
+                </h:panelGrid>
+                <br />
+                <h:commandLink action="#{nodeTypeTableController.destroyAndView}" value="#{bundle.ViewNodeTypeTableDestroyLink}"/>
+                <br />
+                <br />
+                <h:link outcome="Edit" value="#{bundle.ViewNodeTypeTableEditLink}"/>
+                <br />
+                <h:commandLink action="#{nodeTypeTableController.prepareCreate}" value="#{bundle.ViewNodeTypeTableCreateLink}" />
+                <br />
+                <h:commandLink action="#{nodeTypeTableController.prepareList}" value="#{bundle.ViewNodeTypeTableShowAllLink}"/>
+                <br />
+                <br />
+                <h:link outcome="/index" value="#{bundle.ViewNodeTypeTableIndexLink}"/>
+
+            </h:form>
+        </ui:define>
+    </ui:composition>
+
+</html>

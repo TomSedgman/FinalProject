@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <ui:composition template="/template.xhtml">
+        <ui:define name="title">
+            <h:outputText value="#{bundle.CreateUserTableTitle}"></h:outputText>
+        </ui:define>
+        <ui:define name="body">
+            <h:panelGroup id="messagePanel" layout="block">
+                <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
+            </h:panelGroup>
+            <h:form>
+                <h:panelGrid columns="2">
+                    <h:outputLabel value="#{bundle.CreateUserTableLabel_projects}" for="projects" />
+                    <h:inputText id="projects" value="#{userTableController.selected.projects}" title="#{bundle.CreateUserTableTitle_projects}" />
+                    <h:outputLabel value="#{bundle.CreateUserTableLabel_username}" for="username" />
+                    <h:inputText id="username" value="#{userTableController.selected.username}" title="#{bundle.CreateUserTableTitle_username}" />
+                    <h:outputLabel value="#{bundle.CreateUserTableLabel_password}" for="password" />
+                    <h:inputText id="password" value="#{userTableController.selected.password}" title="#{bundle.CreateUserTableTitle_password}" />
+                    <h:outputLabel value="#{bundle.CreateUserTableLabel_passwordHint}" for="passwordHint" />
+                    <h:inputText id="passwordHint" value="#{userTableController.selected.passwordHint}" title="#{bundle.CreateUserTableTitle_passwordHint}" />
+                    <h:outputLabel value="#{bundle.CreateUserTableLabel_email}" for="email" />
+                    <h:inputText id="email" value="#{userTableController.selected.email}" title="#{bundle.CreateUserTableTitle_email}" />
+                    <h:outputLabel value="#{bundle.CreateUserTableLabel_forename}" for="forename" />
+                    <h:inputText id="forename" value="#{userTableController.selected.forename}" title="#{bundle.CreateUserTableTitle_forename}" />
+                    <h:outputLabel value="#{bundle.CreateUserTableLabel_surname}" for="surname" />
+                    <h:inputText id="surname" value="#{userTableController.selected.surname}" title="#{bundle.CreateUserTableTitle_surname}" />
+                    <h:outputLabel value="#{bundle.CreateUserTableLabel_UId}" for="UId" />
+                    <h:inputText id="UId" value="#{userTableController.selected.UId}" title="#{bundle.CreateUserTableTitle_UId}" />
+                </h:panelGrid>
+                <br />
+                <h:commandLink action="#{userTableController.create}" value="#{bundle.CreateUserTableSaveLink}" />
+                <br />
+                <br />
+                <h:commandLink action="#{userTableController.prepareList}" value="#{bundle.CreateUserTableShowAllLink}" immediate="true"/>
+                <br />
+                <br />
+                <h:link outcome="/index" value="#{bundle.CreateUserTableIndexLink}"/>
+            </h:form>
+        </ui:define>
+    </ui:composition>
+
+</html>
