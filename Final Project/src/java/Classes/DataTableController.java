@@ -3,7 +3,7 @@ package Classes;
 import Entity.DataTable;
 import Classes.util.JsfUtil;
 import Classes.util.PaginationHelper;
-import Sesion.DataTableFacade;
+import Session.DataTableFacade;
 
 import java.io.Serializable;
 import java.util.ResourceBundle;
@@ -25,7 +25,7 @@ public class DataTableController implements Serializable {
     private DataTable current;
     private DataModel items = null;
     @EJB
-    private Sesion.DataTableFacade ejbFacade;
+    private Session.DataTableFacade ejbFacade;
     private PaginationHelper pagination;
     private int selectedItemIndex;
 

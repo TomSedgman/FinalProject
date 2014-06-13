@@ -3,7 +3,7 @@ package Classes;
 import Entity.ProjectTable;
 import Classes.util.JsfUtil;
 import Classes.util.PaginationHelper;
-import Sesion.ProjectTableFacade;
+import Session.ProjectTableFacade;
 
 import java.io.Serializable;
 import java.util.ResourceBundle;
@@ -25,7 +25,7 @@ public class ProjectTableController implements Serializable {
     private ProjectTable current;
     private DataModel items = null;
     @EJB
-    private Sesion.ProjectTableFacade ejbFacade;
+    private Session.ProjectTableFacade ejbFacade;
     private PaginationHelper pagination;
     private int selectedItemIndex;
 

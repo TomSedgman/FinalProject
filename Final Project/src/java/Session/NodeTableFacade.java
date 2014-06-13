@@ -2,7 +2,7 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package Sesion;
+package Session;
 
 import Entity.NodeTable;
 import javax.ejb.Stateless;

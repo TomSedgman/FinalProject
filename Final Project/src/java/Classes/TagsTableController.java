@@ -3,7 +3,7 @@ package Classes;
 import Entity.TagsTable;
 import Classes.util.JsfUtil;
 import Classes.util.PaginationHelper;
-import Sesion.TagsTableFacade;
+import Session.TagsTableFacade;
 
 import java.io.Serializable;
 import java.util.ResourceBundle;
@@ -25,7 +25,7 @@ public class TagsTableController implements Serializable {
     private TagsTable current;
     private DataModel items = null;
     @EJB
-    private Sesion.TagsTableFacade ejbFacade;
+    private Session.TagsTableFacade ejbFacade;
     private PaginationHelper pagination;
     private int selectedItemIndex;
 

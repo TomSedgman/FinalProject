@@ -3,7 +3,7 @@ package Classes;
 import Entity.NodeTypeTable;
 import Classes.util.JsfUtil;
 import Classes.util.PaginationHelper;
-import Sesion.NodeTypeTableFacade;
+import Session.NodeTypeTableFacade;
 
 import java.io.Serializable;
 import java.util.ResourceBundle;
@@ -25,7 +25,7 @@ public class NodeTypeTableController implements Serializable {
     private NodeTypeTable current;
     private DataModel items = null;
     @EJB
-    private Sesion.NodeTypeTableFacade ejbFacade;
+    private Session.NodeTypeTableFacade ejbFacade;
     private PaginationHelper pagination;
     private int selectedItemIndex;
 

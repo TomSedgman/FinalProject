@@ -2,9 +2,9 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package Sesion;
+package Session;
 
-import Entity.NodeVariableTable;
+import Entity.TagsTable;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -14,7 +14,7 @@ import javax.persistence.PersistenceContext;
  * @author t_sedgman
  */
 @Stateless
-public class NodeVariableTableFacade extends AbstractFacade<NodeVariableTable> {
+public class TagsTableFacade extends AbstractFacade<TagsTable> {
     @PersistenceContext(unitName = "MetMonitoring")
     private EntityManager em;
 
@@ -23,8 +23,8 @@ public class NodeVariableTableFacade extends AbstractFacade<NodeVariableTable> {
         return em;
     }
 
-    public NodeVariableTableFacade() {
-        super(NodeVariableTable.class);
+    public TagsTableFacade() {
+        super(TagsTable.class);
     }
     
 }

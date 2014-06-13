@@ -3,7 +3,7 @@ package Classes;
 import Entity.DuplicateTable;
 import Classes.util.JsfUtil;
 import Classes.util.PaginationHelper;
-import Sesion.DuplicateTableFacade;
+import Session.DuplicateTableFacade;
 
 import java.io.Serializable;
 import java.util.ResourceBundle;
@@ -25,7 +25,7 @@ public class DuplicateTableController implements Serializable {
     private DuplicateTable current;
     private DataModel items = null;
     @EJB
-    private Sesion.DuplicateTableFacade ejbFacade;
+    private Session.DuplicateTableFacade ejbFacade;
     private PaginationHelper pagination;
     private int selectedItemIndex;
 

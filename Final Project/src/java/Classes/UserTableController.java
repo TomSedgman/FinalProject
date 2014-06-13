@@ -3,7 +3,7 @@ package Classes;
 import Entity.UserTable;
 import Classes.util.JsfUtil;
 import Classes.util.PaginationHelper;
-import Sesion.UserTableFacade;
+import Session.UserTableFacade;
 
 import java.io.Serializable;
 import java.util.ResourceBundle;
@@ -25,7 +25,7 @@ public class UserTableController implements Serializable {
     private UserTable current;
     private DataModel items = null;
     @EJB
-    private Sesion.UserTableFacade ejbFacade;
+    private Session.UserTableFacade ejbFacade;
     private PaginationHelper pagination;
     private int selectedItemIndex;
 

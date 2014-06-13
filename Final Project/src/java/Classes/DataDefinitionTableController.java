@@ -3,7 +3,7 @@ package Classes;
 import Entity.DataDefinitionTable;
 import Classes.util.JsfUtil;
 import Classes.util.PaginationHelper;
-import Sesion.DataDefinitionTableFacade;
+import Session.DataDefinitionTableFacade;
 
 import java.io.Serializable;
 import java.util.ResourceBundle;
@@ -25,7 +25,7 @@ public class DataDefinitionTableController implements Serializable {
     private DataDefinitionTable current;
     private DataModel items = null;
     @EJB
-    private Sesion.DataDefinitionTableFacade ejbFacade;
+    private Session.DataDefinitionTableFacade ejbFacade;
     private PaginationHelper pagination;
     private int selectedItemIndex;
 
