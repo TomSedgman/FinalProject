@@ -26,7 +26,7 @@ public class NodeTable implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long NId;
-    @OneToMany (targetEntity = DataTable.class, mappedBy = "Node")
+    @OneToMany (targetEntity = DataTable.class, mappedBy = "NId")
     private Collection Data;
     @ManyToOne
     @JoinColumn (name = "NTId")

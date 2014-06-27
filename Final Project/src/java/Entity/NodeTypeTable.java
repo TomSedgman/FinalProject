@@ -28,11 +28,11 @@ public class NodeTypeTable implements Serializable {
     @ManyToOne
     @JoinColumn (name = "PId")
     private ProjectTable Project;
-    @OneToMany (targetEntity = NodeVariableTable.class, mappedBy = "NodeType")
+    @OneToMany (targetEntity = NodeVariableTable.class, mappedBy = "NTId")
     private Collection NodeVariables;
-    @OneToMany (targetEntity = DataDefinitionTable.class, mappedBy = "NodeType")
+    @OneToMany (targetEntity = DataDefinitionTable.class, mappedBy = "NTId")
     private Collection DataDefinitions;
-    @OneToMany (targetEntity = NodeTable.class, mappedBy = "NodeType")
+    @OneToMany (targetEntity = NodeTable.class, mappedBy = "NTId")
     private Collection NodeType;
     private String NTName;
     private Date NTCreationDate;

@@ -27,9 +27,9 @@ public class ProjectTable implements Serializable {
     @ManyToOne
     @JoinColumn (name = "UId")
     private UserTable User;
-    @OneToMany (targetEntity = TagsTable.class, mappedBy = "Project")
+    @OneToMany (targetEntity = TagsTable.class, mappedBy = "PId")
     private Collection Tags;
-    @OneToMany (targetEntity = NodeTypeTable.class, mappedBy = "Project")
+    @OneToMany (targetEntity = NodeTypeTable.class, mappedBy = "PId")
     private Collection NodeType;
     private boolean Privacy;
     private String ProjectName;

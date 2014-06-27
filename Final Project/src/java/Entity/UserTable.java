@@ -22,7 +22,7 @@ public class UserTable implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long UId;
-    @OneToMany (targetEntity = ProjectTable.class, mappedBy = "User")
+    @OneToMany (targetEntity = ProjectTable.class, mappedBy = "UId")
     private Collection Projects;
     private String Username;
     private String Password;

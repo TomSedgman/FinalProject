@@ -13,6 +13,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 
 /**
@@ -21,6 +22,7 @@ import javax.persistence.OneToMany;
  */
 @Entity
 public class DataDefinitionTable implements Serializable {
+
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -28,7 +30,7 @@ public class DataDefinitionTable implements Serializable {
     @ManyToOne
     @JoinColumn (name = "NTId")
     private NodeTypeTable NodeType;
-    @OneToMany (targetEntity = DuplicateTable.class, mappedBy = "DataDefinition")
+    @OneToMany (targetEntity = DuplicateTable.class, mappedBy = "DDId")
     private Collection Duplicates;
     private String DDName;
     private String DDUnit;
