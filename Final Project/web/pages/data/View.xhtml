@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <ui:composition template="/template.xhtml">
+        <ui:define name="title">
+            <h:outputText value="#{bundle.ViewDataTitle}"></h:outputText>
+        </ui:define>
+        <ui:define name="body">
+            <h:panelGroup id="messagePanel" layout="block">
+                <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
+            </h:panelGroup>
+            <h:form>
+                <h:panelGrid columns="2">
+                    <h:outputText value="#{bundle.ViewDataLabel_node}"/>
+                    <h:outputText value="#{dataController.selected.node}" title="#{bundle.ViewDataTitle_node}"/>
+                    <h:outputText value="#{bundle.ViewDataLabel_DVariable}"/>
+                    <h:outputText value="#{dataController.selected.DVariable}" title="#{bundle.ViewDataTitle_DVariable}"/>
+                    <h:outputText value="#{bundle.ViewDataLabel_DTimeStamp}"/>
+                    <h:outputText value="#{dataController.selected.DTimeStamp}" title="#{bundle.ViewDataTitle_DTimeStamp}"/>
+                    <h:outputText value="#{bundle.ViewDataLabel_variablePositionId}"/>
+                    <h:outputText value="#{dataController.selected.variablePositionId}" title="#{bundle.ViewDataTitle_variablePositionId}"/>
+                    <h:outputText value="#{bundle.ViewDataLabel_dataId}"/>
+                    <h:outputText value="#{dataController.selected.dataId}" title="#{bundle.ViewDataTitle_dataId}"/>
+                </h:panelGrid>
+                <br />
+                <h:commandLink action="#{dataController.destroyAndView}" value="#{bundle.ViewDataDestroyLink}"/>
+                <br />
+                <br />
+                <h:link outcome="Edit" value="#{bundle.ViewDataEditLink}"/>
+                <br />
+                <h:commandLink action="#{dataController.prepareCreate}" value="#{bundle.ViewDataCreateLink}" />
+                <br />
+                <h:commandLink action="#{dataController.prepareList}" value="#{bundle.ViewDataShowAllLink}"/>
+                <br />
+                <br />
+                <h:link outcome="/index" value="#{bundle.ViewDataIndexLink}"/>
+
+            </h:form>
+        </ui:define>
+    </ui:composition>
+
+</html>

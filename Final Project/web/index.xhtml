@@ -6,72 +6,246 @@
     <h:head>
         <title>Facelet Title</title>
         <h:outputStylesheet name="css/jsfcrud.css"/>
-        
+
         <meta name="viewport" content="initial-scale=1.0, user-scalable=no" />
-   <style type="text/css">
-      html { height: 100%; width: 100%; }
-      body { height: 100%; width: 100%; margin: 0; padding: 0; background-color: #e0e2d1}
-        #head {height: 10%; width: 100%;}
-        #main {height: 80%; width: 100%; background-color: #e9ffd1}
-          #side {height: 100%; width: 10%; float:left; background-color: #e0e2d1}
-          #map {height: 60%; width: 60%; float: left; }
-          #control {height: 60%; width: 30%; float: right; }
-          #graph-canvas {height: 40%; width: 90%; float: left; }
-        #foot {height: 10%; width: 100%;}
-      
-                        
-    </style>
-    <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBn3ekiVRTR-gme-EH5bqcn3dNxuiUxzRg">
-    </script>
+        <style type="text/css">
+            html { height: 100%; width: 100%; }
+            body { height: 100%; width: 100%; margin: 0; padding: 0; background-color: #e0e2d1}
+            #head {height: 10%; width: 100%;}
+            #main {height: 80%; width: 100%; background-color: #e9ffd1}
+            #side {height: 100%; width: 10%; float:left; background-color: #e0e2d1}
+            #map {height: 60%; width: 60%; float: left; }
+            #control {height: 60%; width: 30%; float: right; }
+            #graph-canvas {height: 40%; width: 90%; float: left; }
+            #foot {height: 10%; width: 100%;}
+
+
+        </style>
+        <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBn3ekiVRTR-gme-EH5bqcn3dNxuiUxzRg">
+        </script>
         <script type =" "></script>
-    <script type="text/javascript">
-      function initialize() 
-      {
-        var mapOptions = {center: new google.maps.LatLng(-34.397, 150.644),zoom: 8};
-        var map = new google.maps.Map(document.getElementById("map"),mapOptions);
-      }
-      google.maps.event.addDomListener(window, 'load', initialize);
+        <script type="text/javascript">
+            function initialize()
+            {
+                var mapOptions = {center: new google.maps.LatLng(-34.397, 150.644), zoom: 8};
+                var map = new google.maps.Map(document.getElementById("map"), mapOptions);
+            }
+            google.maps.event.addDomListener(window, 'load', initialize);
 
 
-    </script>
-    
-    <script src="http://ajax.aspnetcdn.com/ajax/jQuery/jquery-1.6.1.min.js"></script>
-    <script src="resources/JavaScript/Graph.js"></script>
-    
-      
+        </script>
+
+        <script src="http://ajax.aspnetcdn.com/ajax/jQuery/jquery-1.6.1.min.js"></script>
+        <script src="resources/JavaScript/Graph.js"></script>
+
+
     </h:head>
     <h:body>
-    <div id="head">
-    head
-    </div>     
-    <div id="main" >
-        <div id="side" >
-            Sidebar
+        <div id="head">
+            head
+        </div>     
+        <div id="main" >
+            <div id="side" >
+                Sidebar
+            </div>
+            <div id="map" />
+            <div id="control" >
+                <h:form id="form" enctype="multipart/form-data">
+                    <h:commandButton value="Upload"
+                                     action="#{bean.upload}">
+                    </h:commandButton>
+                    <h:commandButton value="Next"
+                                     action="#{bean.next()}">
+                    </h:commandButton>
+                    <h:inputTextarea value="#{bean.fileContent}"
+                                     readonly="true"/>
+                    <h:inputTextarea value="#{bean.fileContent2}"
+                                     readonly="true"/>
+                </h:form>
+            </div>
+            <div id ="graph-canvas">
+                <canvas id="graph"></canvas> 
+            </div>
+
+        </div> 
+        <div id="foot" >
+            foot
         </div>
-        <div id="map" />
-        <div id="control" >
-            <h:form id="form" enctype="multipart/form-data">
-                <h:commandButton value="Upload"
-                                 action="#{bean.upload}">
-                </h:commandButton>
-                <h:commandButton value="Next"
-                                 action="#{bean.next()}">
-                </h:commandButton>
-                <h:inputTextarea value="#{bean.fileContent}"
-                                 readonly="true"/>
-                <h:inputTextarea value="#{bean.fileContent2}"
-                                 readonly="true"/>
-            </h:form>
-        </div>
-        <div id ="graph-canvas">
-            <canvas id="graph"></canvas> 
-        </div>
-        
-    </div> 
-    <div id="foot" >
-        foot
-    </div>
+        <br />
+        <h:link outcome="/Pageas/dataDefinitionTable/List" value="Show All DataDefinitionTable Items"/>
+        <br />
+        <h:link outcome="/Pageas/dataTable/List" value="Show All DataTable Items"/>
+        <br />
+        <h:link outcome="/Pageas/duplicateTable/List" value="Show All DuplicateTable Items"/>
+        <br />
+        <h:link outcome="/Pageas/nodeTable/List" value="Show All NodeTable Items"/>
+        <br />
+        <h:link outcome="/Pageas/nodeTypeTable/List" value="Show All NodeTypeTable Items"/>
+        <br />
+        <h:link outcome="/Pageas/nodeVariableTable/List" value="Show All NodeVariableTable Items"/>
+        <br />
+        <h:link outcome="/Pageas/projectTable/List" value="Show All ProjectTable Items"/>
+        <br />
+        <h:link outcome="/Pageas/tagsTable/List" value="Show All TagsTable Items"/>
+        <br />
+        <h:link outcome="/Pageas/userTable/List" value="Show All UserTable Items"/>
+        <br />
+        <h:link outcome="/Pages/project/List" value="Show All Project Items"/>
+        <br />
+        <h:link outcome="/Pages/users/List" value="Show All Users Items"/>
+        <br />
+        <h:link outcome="/Pages/project/List" value="Show All Project Items"/>
+        <br />
+        <h:link outcome="/Pages/users/List" value="Show All Users Items"/>
+        <br />
+        <h:link outcome="/pages/project/List" value="Show All Project Items"/>
+        <br />
+        <h:link outcome="/pages/users/List" value="Show All Users Items"/>
+        <br />
+        <h:link outcome="/Pages/project/List" value="Show All Project Items"/>
+        <br />
+        <h:link outcome="/Pages/users/List" value="Show All Users Items"/>
+        <br />
+        <h:link outcome="/Pages/project/List" value="Show All Project Items"/>
+        <br />
+        <h:link outcome="/Pages/users/List" value="Show All Users Items"/>
+        <br />
+        <h:link outcome="/Pages/projects/List" value="Show All Projects Items"/>
+        <br />
+        <h:link outcome="/Pages/users/List" value="Show All Users Items"/>
+        <br />
+        <h:link outcome="/Pages/projects/List" value="Show All Projects Items"/>
+        <br />
+        <h:link outcome="/Pages/users/List" value="Show All Users Items"/>
+        <br />
+        <h:link outcome="/Pages/projects/List" value="Show All Projects Items"/>
+        <br />
+        <h:link outcome="/Pages/users/List" value="Show All Users Items"/>
+        <br />
+        <h:link outcome="/Pages/projects/List" value="Show All Projects Items"/>
+        <br />
+        <h:link outcome="/Pages/users/List" value="Show All Users Items"/>
+        <br />
+        <h:link outcome="/Pages/projects/List" value="Show All Projects Items"/>
+        <br />
+        <h:link outcome="/Pages/users/List" value="Show All Users Items"/>
+        <br />
+        <h:link outcome="/Pages/projects/List" value="Show All Projects Items"/>
+        <br />
+        <h:link outcome="/Pages/users/List" value="Show All Users Items"/>
+        <br />
+        <h:link outcome="/Pages/data/List" value="Show All Data Items"/>
+        <br />
+        <h:link outcome="/Pages/dataDefinitions/List" value="Show All DataDefinitions Items"/>
+        <br />
+        <h:link outcome="/Pages/duplicates/List" value="Show All Duplicates Items"/>
+        <br />
+        <h:link outcome="/Pages/nodeTypes/List" value="Show All NodeTypes Items"/>
+        <br />
+        <h:link outcome="/Pages/nodeVariables/List" value="Show All NodeVariables Items"/>
+        <br />
+        <h:link outcome="/Pages/nodes/List" value="Show All Nodes Items"/>
+        <br />
+        <h:link outcome="/Pages/projects/List" value="Show All Projects Items"/>
+        <br />
+        <h:link outcome="/Pages/tags/List" value="Show All Tags Items"/>
+        <br />
+        <h:link outcome="/Pages/users/List" value="Show All Users Items"/>
+        <br />
+        <h:link outcome="/Pages/data/List" value="Show All Data Items"/>
+        <br />
+        <h:link outcome="/Pages/dataDefinitions/List" value="Show All DataDefinitions Items"/>
+        <br />
+        <h:link outcome="/Pages/duplicates/List" value="Show All Duplicates Items"/>
+        <br />
+        <h:link outcome="/Pages/nodeTypes/List" value="Show All NodeTypes Items"/>
+        <br />
+        <h:link outcome="/Pages/nodeVariables/List" value="Show All NodeVariables Items"/>
+        <br />
+        <h:link outcome="/Pages/nodes/List" value="Show All Nodes Items"/>
+        <br />
+        <h:link outcome="/Pages/projects/List" value="Show All Projects Items"/>
+        <br />
+        <h:link outcome="/Pages/tags/List" value="Show All Tags Items"/>
+        <br />
+        <h:link outcome="/Pages/users/List" value="Show All Users Items"/>
+        <br />
+        <h:link outcome="/pages/data/List" value="Show All Data Items"/>
+        <br />
+        <h:link outcome="/pages/dataDefinitions/List" value="Show All DataDefinitions Items"/>
+        <br />
+        <h:link outcome="/pages/duplicates/List" value="Show All Duplicates Items"/>
+        <br />
+        <h:link outcome="/pages/nodeTypes/List" value="Show All NodeTypes Items"/>
+        <br />
+        <h:link outcome="/pages/nodeVariables/List" value="Show All NodeVariables Items"/>
+        <br />
+        <h:link outcome="/pages/nodes/List" value="Show All Nodes Items"/>
+        <br />
+        <h:link outcome="/pages/projects/List" value="Show All Projects Items"/>
+        <br />
+        <h:link outcome="/pages/tags/List" value="Show All Tags Items"/>
+        <br />
+        <h:link outcome="/pages/users/List" value="Show All Users Items"/>
     </h:body>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 </html>
 

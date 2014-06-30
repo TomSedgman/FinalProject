@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <ui:composition template="/template.xhtml">
+        <ui:define name="title">
+            <h:outputText value="#{bundle.ListDataTitle}"></h:outputText>
+        </ui:define>
+        <ui:define name="body">
+            <h:form styleClass="jsfcrud_list_form">
+                <h:panelGroup id="messagePanel" layout="block">
+                    <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
+                </h:panelGroup>
+                <h:outputText escape="false" value="#{bundle.ListDataEmpty}" rendered="#{dataController.items.rowCount == 0}"/>
+                <h:panelGroup rendered="#{dataController.items.rowCount > 0}">
+                    <h:outputText value="#{dataController.pagination.pageFirstItem + 1}..#{dataController.pagination.pageLastItem + 1}/#{dataController.pagination.itemsCount}"/>&nbsp;
+                    <h:commandLink action="#{dataController.previous}" value="#{bundle.Previous} #{dataController.pagination.pageSize}" rendered="#{dataController.pagination.hasPreviousPage}"/>&nbsp;
+                    <h:commandLink action="#{dataController.next}" value="#{bundle.Next} #{dataController.pagination.pageSize}" rendered="#{dataController.pagination.hasNextPage}"/>&nbsp;
+                    <h:dataTable value="#{dataController.items}" var="item" border="0" cellpadding="2" cellspacing="0" rowClasses="jsfcrud_odd_row,jsfcrud_even_row" rules="all" style="border:solid 1px">
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListDataTitle_node}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.node}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListDataTitle_DVariable}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.DVariable}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListDataTitle_DTimeStamp}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.DTimeStamp}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListDataTitle_variablePositionId}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.variablePositionId}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListDataTitle_dataId}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.dataId}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="&nbsp;"/>
+                            </f:facet>
+                            <h:commandLink action="#{dataController.prepareView}" value="#{bundle.ListDataViewLink}"/>
+                            <h:outputText value=" "/>
+                            <h:commandLink action="#{dataController.prepareEdit}" value="#{bundle.ListDataEditLink}"/>
+                            <h:outputText value=" "/>
+                            <h:commandLink action="#{dataController.destroy}" value="#{bundle.ListDataDestroyLink}"/>
+                        </h:column>
+                    </h:dataTable>
+                </h:panelGroup>
+                <br />
+                <h:commandLink action="#{dataController.prepareCreate}" value="#{bundle.ListDataCreateLink}"/>
+                <br />
+                <br />
+                <h:link outcome="/index" value="#{bundle.ListDataIndexLink}"/>
+            </h:form>
+        </ui:define>
+    </ui:composition>
+
+</html>

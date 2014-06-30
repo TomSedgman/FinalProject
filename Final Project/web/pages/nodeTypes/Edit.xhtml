@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <ui:composition template="/template.xhtml">
+        <ui:define name="title">
+            <h:outputText value="#{bundle.EditNodeTypesTitle}"></h:outputText>
+        </ui:define>
+        <ui:define name="body">
+            <h:panelGroup id="messagePanel" layout="block">
+                <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
+            </h:panelGroup>
+            <h:form>
+                <h:panelGrid columns="2">
+                    <h:outputLabel value="#{bundle.EditNodeTypesLabel_project}" for="project" />
+                    <h:inputText id="project" value="#{nodeTypesController.selected.project}" title="#{bundle.EditNodeTypesTitle_project}" />
+                    <h:outputLabel value="#{bundle.EditNodeTypesLabel_nodeVariables}" for="nodeVariables" />
+                    <h:inputText id="nodeVariables" value="#{nodeTypesController.selected.nodeVariables}" title="#{bundle.EditNodeTypesTitle_nodeVariables}" />
+                    <h:outputLabel value="#{bundle.EditNodeTypesLabel_dataDefinitions}" for="dataDefinitions" />
+                    <h:inputText id="dataDefinitions" value="#{nodeTypesController.selected.dataDefinitions}" title="#{bundle.EditNodeTypesTitle_dataDefinitions}" />
+                    <h:outputLabel value="#{bundle.EditNodeTypesLabel_nodeTypes}" for="nodeTypes" />
+                    <h:inputText id="nodeTypes" value="#{nodeTypesController.selected.nodeTypes}" title="#{bundle.EditNodeTypesTitle_nodeTypes}" />
+                    <h:outputLabel value="#{bundle.EditNodeTypesLabel_NTName}" for="NTName" />
+                    <h:inputText id="NTName" value="#{nodeTypesController.selected.NTName}" title="#{bundle.EditNodeTypesTitle_NTName}" />
+                    <h:outputLabel value="#{bundle.EditNodeTypesLabel_NTCreationDate}" for="NTCreationDate" />
+                    <h:inputText id="NTCreationDate" value="#{nodeTypesController.selected.NTCreationDate}" title="#{bundle.EditNodeTypesTitle_NTCreationDate}" />
+                    <h:outputLabel value="#{bundle.EditNodeTypesLabel_nodeTypeId}" for="nodeTypeId" />
+                    <h:inputText id="nodeTypeId" value="#{nodeTypesController.selected.nodeTypeId}" title="#{bundle.EditNodeTypesTitle_nodeTypeId}" />
+                </h:panelGrid>
+                <h:commandLink action="#{nodeTypesController.update}" value="#{bundle.EditNodeTypesSaveLink}"/>
+                <br />
+                <br />
+                <h:link outcome="View" value="#{bundle.EditNodeTypesViewLink}"/>
+                <br />
+                <h:commandLink action="#{nodeTypesController.prepareList}" value="#{bundle.EditNodeTypesShowAllLink}" immediate="true"/>
+                <br />
+                <br />
+                <h:link outcome="/index" value="#{bundle.EditNodeTypesIndexLink}" />
+            </h:form>
+        </ui:define>
+    </ui:composition>
+
+</html>

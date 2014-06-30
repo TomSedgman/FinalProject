@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <ui:composition template="/template.xhtml">
+        <ui:define name="title">
+            <h:outputText value="#{bundle.EditProjectsTitle}"></h:outputText>
+        </ui:define>
+        <ui:define name="body">
+            <h:panelGroup id="messagePanel" layout="block">
+                <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
+            </h:panelGroup>
+            <h:form>
+                <h:panelGrid columns="2">
+                    <h:outputLabel value="#{bundle.EditProjectsLabel_tags}" for="tags" />
+                    <h:inputText id="tags" value="#{projectsController.selected.tags}" title="#{bundle.EditProjectsTitle_tags}" />
+                    <h:outputLabel value="#{bundle.EditProjectsLabel_nodeType}" for="nodeType" />
+                    <h:inputText id="nodeType" value="#{projectsController.selected.nodeType}" title="#{bundle.EditProjectsTitle_nodeType}" />
+                    <h:outputLabel value="#{bundle.EditProjectsLabel_projectName}" for="projectName" />
+                    <h:inputText id="projectName" value="#{projectsController.selected.projectName}" title="#{bundle.EditProjectsTitle_projectName}" />
+                    <h:outputLabel value="#{bundle.EditProjectsLabel_projectNotes}" for="projectNotes" />
+                    <h:inputText id="projectNotes" value="#{projectsController.selected.projectNotes}" title="#{bundle.EditProjectsTitle_projectNotes}" />
+                    <h:outputLabel value="#{bundle.EditProjectsLabel_projectId}" for="projectId" />
+                    <h:inputText id="projectId" value="#{projectsController.selected.projectId}" title="#{bundle.EditProjectsTitle_projectId}" />
+                    <h:outputLabel value="#{bundle.EditProjectsLabel_user}" for="user" />
+                    <h:selectOneMenu id="user" value="#{projectsController.selected.user}" title="#{bundle.EditProjectsTitle_user}" >
+                        <f:selectItems value="#{usersController.itemsAvailableSelectOne}"/>
+                    </h:selectOneMenu>
+                </h:panelGrid>
+                <h:commandLink action="#{projectsController.update}" value="#{bundle.EditProjectsSaveLink}"/>
+                <br />
+                <br />
+                <h:link outcome="View" value="#{bundle.EditProjectsViewLink}"/>
+                <br />
+                <h:commandLink action="#{projectsController.prepareList}" value="#{bundle.EditProjectsShowAllLink}" immediate="true"/>
+                <br />
+                <br />
+                <h:link outcome="/index" value="#{bundle.EditProjectsIndexLink}" />
+            </h:form>
+        </ui:define>
+    </ui:composition>
+
+</html>
