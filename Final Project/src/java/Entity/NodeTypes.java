@@ -5,8 +5,8 @@
 package Entity;
 
 import java.io.Serializable;
-import java.sql.Date;
 import java.util.Collection;
+import java.util.Date;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -14,6 +14,8 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 
 /**
  *
@@ -24,86 +26,95 @@ public class NodeTypes implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long NodeTypeId;
+    private Long nodeTypeId;
     
     @ManyToOne
-    @JoinColumn (name = "ProjectsId")
-    private Projects Project;
+    @JoinColumn(name = "projectId")
+    private Projects project;
     
-    @OneToMany (targetEntity = NodeVariables.class, mappedBy = "NodeType")
-    private Collection NodeVariables;
+    @OneToMany(targetEntity = NodeVariables.class, mappedBy = "nodeType")
+    private Collection nodeVariables;
     
-    @OneToMany (targetEntity = DataDefinitions.class, mappedBy = "NodeType")
-    private Collection DataDefinitions;
+    @OneToMany(targetEntity = DataDefinitions.class, mappedBy = "nodeType")
+    private Collection dataDefinitions;
     
-    @OneToMany (targetEntity = Nodes.class, mappedBy = "NodeType")
-    private Collection NodeTypes;
+    @OneToMany(targetEntity = Nodes.class, mappedBy = "nodeType")
+    private Collection nodes;
     
-    private String NTName;
-    private Date NTCreationDate;
+    private String nTName;
+    @Temporal(TemporalType.DATE)
+    private Date nTCreationDate;
 
-    public Projects getProject() {
-        return Project;
+    public Long getNodeTypeId() {
+        return nodeTypeId;
     }
 
-    public void setProject(Projects Project) {
-        this.Project = Project;
+    public void setNodeTypeId(Long nodeTypeId) {
+        this.nodeTypeId = nodeTypeId;
+    }
+
+    public Projects getProject() {
+        return project;
+    }
+
+    public void setProject(Projects project) {
+        this.project = project;
     }
 
     public Collection getNodeVariables() {
-        return NodeVariables;
+        return nodeVariables;
     }
 
-    public void setNodeVariables(Collection NodeVariables) {
-        this.NodeVariables = NodeVariables;
+    public void setNodeVariables(Collection nodeVariables) {
+        this.nodeVariables = nodeVariables;
     }
 
     public Collection getDataDefinitions() {
-        return DataDefinitions;
+        return dataDefinitions;
     }
 
-    public void setDataDefinitions(Collection DataDefinitions) {
-        this.DataDefinitions = DataDefinitions;
+    public void setDataDefinitions(Collection dataDefinitions) {
+        this.dataDefinitions = dataDefinitions;
     }
 
-    public Collection getNodeTypes() {
-        return NodeTypes;
+    public Collection getNodes() {
+        return nodes;
     }
 
-    public void setNodeTypes(Collection NodeTypes) {
-        this.NodeTypes = NodeTypes;
+    public void setNodes(Collection nodes) {
+        this.nodes = nodes;
     }
 
-    public String getNTName() {
-        return NTName;
+    public String getnTName() {
+        return nTName;
     }
 
-    public void setNTName(String NTName) {
-        this.NTName = NTName;
+    public void setnTName(String nTName) {
+        this.nTName = nTName;
     }
 
-    public Date getNTCreationDate() {
-        return NTCreationDate;
+    public Date getnTCreationDate() {
+        return nTCreationDate;
     }
 
-    public void setNTCreationDate(Date NTCreationDate) {
-        this.NTCreationDate = NTCreationDate;
+    public void setnTCreationDate(Date nTCreationDate) {
+        this.nTCreationDate = nTCreationDate;
     }
-
     
     
-    public Long getNodeTypeId() {
-        return NodeTypeId;
+    
+    public Long getId() {
+        return nodeTypeId;
     }
 
-    public void setNodeTypeId(Long NodeTypeId) {
-        this.NodeTypeId = NodeTypeId;
+    public void setId(Long id) {
+        this.nodeTypeId = id;
     }
 
     @Override
     public int hashCode() {
         int hash = 0;
-        hash += (NodeTypeId != null ? NodeTypeId.hashCode() : 0);
+        hash += (nodeTypeId != null ? nodeTypeId.hashCode() : 0);
         return hash;
     }
 
@@ -114,7 +125,7 @@ public class NodeTypes implements Serializable {
             return false;
         }
         NodeTypes other = (NodeTypes) object;
-        if ((this.NodeTypeId == null && other.NodeTypeId != null) || (this.NodeTypeId != null && !this.NodeTypeId.equals(other.NodeTypeId))) {
+        if ((this.nodeTypeId == null && other.nodeTypeId != null) || (this.nodeTypeId != null && !this.nodeTypeId.equals(other.nodeTypeId))) {
             return false;
         }
         return true;
@@ -122,7 +133,7 @@ public class NodeTypes implements Serializable {
 
     @Override
     public String toString() {
-        return "Entity.NodeTypes[ id=" + NodeTypeId + " ]";
+        return "Entity.NodeTypes[ id=" + nodeTypeId + " ]";
     }
     
 }

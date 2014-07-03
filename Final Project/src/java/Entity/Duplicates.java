@@ -21,34 +21,42 @@ public class Duplicates implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long DuplicateId;
+    private Long duplicateId;
 
     @ManyToOne
-    @JoinColumn (name = "DataDefinitionId")
-    private DataDefinitions DataDefinition;
+    @JoinColumn(name = "dataDefinitionId")
+    private DataDefinitions dataDefinition;
+
+    public Long getDuplicateId() {
+        return duplicateId;
+    }
+
+    public void setDuplicateId(Long duplicateId) {
+        this.duplicateId = duplicateId;
+    }
 
     public DataDefinitions getDataDefinition() {
-        return DataDefinition;
+        return dataDefinition;
     }
 
-    public void setDataDefinition(DataDefinitions DataDefinition) {
-        this.DataDefinition = DataDefinition;
+    public void setDataDefinition(DataDefinitions dataDefinition) {
+        this.dataDefinition = dataDefinition;
     }
     
     
     
-    public Long getDuplicateId() {
-        return DuplicateId;
+    public Long getId() {
+        return duplicateId;
     }
 
-    public void setDuplicateId(Long DuplicateId) {
-        this.DuplicateId = DuplicateId;
+    public void setId(Long id) {
+        this.duplicateId = id;
     }
 
     @Override
     public int hashCode() {
         int hash = 0;
-        hash += (DuplicateId != null ? DuplicateId.hashCode() : 0);
+        hash += (duplicateId != null ? duplicateId.hashCode() : 0);
         return hash;
     }
 
@@ -59,7 +67,7 @@ public class Duplicates implements Serializable {
             return false;
         }
         Duplicates other = (Duplicates) object;
-        if ((this.DuplicateId == null && other.DuplicateId != null) || (this.DuplicateId != null && !this.DuplicateId.equals(other.DuplicateId))) {
+        if ((this.duplicateId == null && other.duplicateId != null) || (this.duplicateId != null && !this.duplicateId.equals(other.duplicateId))) {
             return false;
         }
         return true;
@@ -67,7 +75,7 @@ public class Duplicates implements Serializable {
 
     @Override
     public String toString() {
-        return "Entity.Duplicates[ id=" + DuplicateId + " ]";
+        return "Entity.Duplicates[ id=" + duplicateId + " ]";
     }
     
 }

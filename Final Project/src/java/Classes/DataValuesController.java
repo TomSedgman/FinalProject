@@ -1,9 +1,9 @@
 package Classes;
 
-import Entity.Data;
+import Entity.DataValues;
 import Classes.util.JsfUtil;
 import Classes.util.PaginationHelper;
-import Session.DataFacade;
+import Session.DataValuesFacade;
 
 import java.io.Serializable;
 import java.util.ResourceBundle;
@@ -18,29 +18,29 @@ import javax.faces.model.DataModel;
 import javax.faces.model.ListDataModel;
 import javax.faces.model.SelectItem;
 
-@Named("dataController")
+@Named("dataValuesController")
 @SessionScoped
-public class DataController implements Serializable {
+public class DataValuesController implements Serializable {
 
-    private Data current;
+    private DataValues current;
     private DataModel items = null;
     @EJB
-    private Session.DataFacade ejbFacade;
+    private Session.DataValuesFacade ejbFacade;
     private PaginationHelper pagination;
     private int selectedItemIndex;
 
-    public DataController() {
+    public DataValuesController() {
     }
 
-    public Data getSelected() {
+    public DataValues getSelected() {
         if (current == null) {
-            current = new Data();
+            current = new DataValues();
             selectedItemIndex = -1;
         }
         return current;
     }
 
-    private DataFacade getFacade() {
+    private DataValuesFacade getFacade() {
         return ejbFacade;
     }
 
@@ -67,13 +67,13 @@ public class DataController implements Serializable {
     }
 
     public String prepareView() {
-        current = (Data) getItems().getRowData();
+        current = (DataValues) getItems().getRowData();
         selectedItemIndex = pagination.getPageFirstItem() + getItems().getRowIndex();
         return "View";
     }
 
     public String prepareCreate() {
-        current = new Data();
+        current = new DataValues();
         selectedItemIndex = -1;
         return "Create";
     }
@@ -81,7 +81,7 @@ public class DataController implements Serializable {
     public String create() {
         try {
             getFacade().create(current);
-            JsfUtil.addSuccessMessage(ResourceBundle.getBundle("/Bundle").getString("DataCreated"));
+            JsfUtil.addSuccessMessage(ResourceBundle.getBundle("/Bundle").getString("DataValuesCreated"));
             return prepareCreate();
         } catch (Exception e) {
             JsfUtil.addErrorMessage(e, ResourceBundle.getBundle("/Bundle").getString("PersistenceErrorOccured"));
@@ -90,7 +90,7 @@ public class DataController implements Serializable {
     }
 
     public String prepareEdit() {
-        current = (Data) getItems().getRowData();
+        current = (DataValues) getItems().getRowData();
         selectedItemIndex = pagination.getPageFirstItem() + getItems().getRowIndex();
         return "Edit";
     }
@@ -98,7 +98,7 @@ public class DataController implements Serializable {
     public String update() {
         try {
             getFacade().edit(current);
-            JsfUtil.addSuccessMessage(ResourceBundle.getBundle("/Bundle").getString("DataUpdated"));
+            JsfUtil.addSuccessMessage(ResourceBundle.getBundle("/Bundle").getString("DataValuesUpdated"));
             return "View";
         } catch (Exception e) {
             JsfUtil.addErrorMessage(e, ResourceBundle.getBundle("/Bundle").getString("PersistenceErrorOccured"));
@@ -107,7 +107,7 @@ public class DataController implements Serializable {
     }
 
     public String destroy() {
-        current = (Data) getItems().getRowData();
+        current = (DataValues) getItems().getRowData();
         selectedItemIndex = pagination.getPageFirstItem() + getItems().getRowIndex();
         performDestroy();
         recreatePagination();
@@ -131,7 +131,7 @@ public class DataController implements Serializable {
     private void performDestroy() {
         try {
             getFacade().remove(current);
-            JsfUtil.addSuccessMessage(ResourceBundle.getBundle("/Bundle").getString("DataDeleted"));
+            JsfUtil.addSuccessMessage(ResourceBundle.getBundle("/Bundle").getString("DataValuesDeleted"));
         } catch (Exception e) {
             JsfUtil.addErrorMessage(e, ResourceBundle.getBundle("/Bundle").getString("PersistenceErrorOccured"));
         }
@@ -187,21 +187,21 @@ public class DataController implements Serializable {
         return JsfUtil.getSelectItems(ejbFacade.findAll(), true);
     }
 
-    public Data getData(java.lang.Long id) {
+    public DataValues getDataValues(java.lang.Long id) {
         return ejbFacade.find(id);
     }
 
-    @FacesConverter(forClass = Data.class)
-    public static class DataControllerConverter implements Converter {
+    @FacesConverter(forClass = DataValues.class)
+    public static class DataValuesControllerConverter implements Converter {
 
         @Override
         public Object getAsObject(FacesContext facesContext, UIComponent component, String value) {
             if (value == null || value.length() == 0) {
                 return null;
             }
-            DataController controller = (DataController) facesContext.getApplication().getELResolver().
-                    getValue(facesContext.getELContext(), null, "dataController");
-            return controller.getData(getKey(value));
+            DataValuesController controller = (DataValuesController) facesContext.getApplication().getELResolver().
+                    getValue(facesContext.getELContext(), null, "dataValuesController");
+            return controller.getDataValues(getKey(value));
         }
 
         java.lang.Long getKey(String value) {
@@ -221,11 +221,11 @@ public class DataController implements Serializable {
             if (object == null) {
                 return null;
             }
-            if (object instanceof Data) {
-                Data o = (Data) object;
-                return getStringKey(o.getDataId());
+            if (object instanceof DataValues) {
+                DataValues o = (DataValues) object;
+                return getStringKey(o.getDataValueId());
             } else {
-                throw new IllegalArgumentException("object " + object + " is of type " + object.getClass().getName() + "; expected type: " + Data.class.getName());
+                throw new IllegalArgumentException("object " + object + " is of type " + object.getClass().getName() + "; expected type: " + DataValues.class.getName());
             }
         }
     }

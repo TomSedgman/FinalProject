@@ -5,13 +5,15 @@
 package Entity;
 
 import java.io.Serializable;
-import java.sql.Date;
+import java.util.Date;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 
 /**
  *
@@ -22,62 +24,71 @@ public class NodeVariables implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long NodeVariableId;
+    private Long nodeVariableId;
 
     @ManyToOne
-    @JoinColumn (name = "NodeTypeId")
-    private NodeTypes NodeType;
+    @JoinColumn(name = "nodeTypeId")
+    private NodeTypes nodeType;
     
-    private String NVName;
-    private Date NVDate;
-    private String NVValue;
+    private String nVName;
+    @Temporal(TemporalType.DATE)    
+    private Date nVDate;
+    private String nVValue;
+
+    public Long getNodeVariableId() {
+        return nodeVariableId;
+    }
+
+    public void setNodeVariableId(Long nodeVariableId) {
+        this.nodeVariableId = nodeVariableId;
+    }
 
     public NodeTypes getNodeType() {
-        return NodeType;
+        return nodeType;
     }
 
-    public void setNodeType(NodeTypes NodeType) {
-        this.NodeType = NodeType;
+    public void setNodeType(NodeTypes nodeType) {
+        this.nodeType = nodeType;
     }
 
-    public String getNVName() {
-        return NVName;
+    public String getnVName() {
+        return nVName;
     }
 
-    public void setNVName(String NVName) {
-        this.NVName = NVName;
+    public void setnVName(String nVName) {
+        this.nVName = nVName;
     }
 
-    public Date getNVDate() {
-        return NVDate;
+    public Date getnVDate() {
+        return nVDate;
     }
 
-    public void setNVDate(Date NVDate) {
-        this.NVDate = NVDate;
+    public void setnVDate(Date nVDate) {
+        this.nVDate = nVDate;
     }
 
-    public String getNVValue() {
-        return NVValue;
+    public String getnVValue() {
+        return nVValue;
     }
 
-    public void setNVValue(String NVValue) {
-        this.NVValue = NVValue;
+    public void setnVValue(String nVValue) {
+        this.nVValue = nVValue;
     }
     
     
     
-    public Long getNodeVariableId() {
-        return NodeVariableId;
+    public Long getId() {
+        return nodeVariableId;
     }
 
-    public void setNodeVariableId(Long NodeVariableId) {
-        this.NodeVariableId = NodeVariableId;
+    public void setId(Long id) {
+        this.nodeVariableId = id;
     }
 
     @Override
     public int hashCode() {
         int hash = 0;
-        hash += (NodeVariableId != null ? NodeVariableId.hashCode() : 0);
+        hash += (nodeVariableId != null ? nodeVariableId.hashCode() : 0);
         return hash;
     }
 
@@ -88,7 +99,7 @@ public class NodeVariables implements Serializable {
             return false;
         }
         NodeVariables other = (NodeVariables) object;
-        if ((this.NodeVariableId == null && other.NodeVariableId != null) || (this.NodeVariableId != null && !this.NodeVariableId.equals(other.NodeVariableId))) {
+        if ((this.nodeVariableId == null && other.nodeVariableId != null) || (this.nodeVariableId != null && !this.nodeVariableId.equals(other.nodeVariableId))) {
             return false;
         }
         return true;
@@ -96,7 +107,7 @@ public class NodeVariables implements Serializable {
 
     @Override
     public String toString() {
-        return "Entity.NodeVariables[ id=" + NodeVariableId + " ]";
+        return "Entity.NodeVariables[ id=" + nodeVariableId + " ]";
     }
     
 }

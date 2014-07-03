@@ -4,7 +4,7 @@
  */
 package Session;
 
-import Entity.Data;
+import Entity.DataValues;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -14,7 +14,7 @@ import javax.persistence.PersistenceContext;
  * @author t_sedgman
  */
 @Stateless
-public class DataFacade extends AbstractFacade<Data> {
+public class DataValuesFacade extends AbstractFacade<DataValues> {
     @PersistenceContext(unitName = "MetMonitoring")
     private EntityManager em;
 
@@ -23,8 +23,8 @@ public class DataFacade extends AbstractFacade<Data> {
         return em;
     }
 
-    public DataFacade() {
-        super(Data.class);
+    public DataValuesFacade() {
+        super(DataValues.class);
     }
     
 }

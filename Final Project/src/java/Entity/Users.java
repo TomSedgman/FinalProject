@@ -10,9 +10,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
-import javax.persistence.OneToOne;
 
 /**
  *
@@ -24,14 +22,16 @@ public class Users implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long userId;
-    @OneToMany (targetEntity = Projects.class, mappedBy = "user")
+    
+    @OneToMany(targetEntity = Projects.class, mappedBy = "user")
     private Collection project;
-    private String Username;
-    private String Password;
-    private String PasswordHint;
-    private String Email;
-    private String Forename;
-    private String Surname;
+    
+    private String username;
+    private String password;
+    private String passwordHint;
+    private String email;
+    private String forename;
+    private String surname;
 
     public Long getUserId() {
         return userId;
@@ -50,51 +50,60 @@ public class Users implements Serializable {
     }
 
     public String getUsername() {
-        return Username;
+        return username;
     }
 
-    public void setUsername(String Username) {
-        this.Username = Username;
+    public void setUsername(String username) {
+        this.username = username;
     }
 
     public String getPassword() {
-        return Password;
+        return password;
     }
 
-    public void setPassword(String Password) {
-        this.Password = Password;
+    public void setPassword(String password) {
+        this.password = password;
     }
 
     public String getPasswordHint() {
-        return PasswordHint;
+        return passwordHint;
     }
 
-    public void setPasswordHint(String PasswordHint) {
-        this.PasswordHint = PasswordHint;
+    public void setPasswordHint(String passwordHint) {
+        this.passwordHint = passwordHint;
     }
 
     public String getEmail() {
-        return Email;
+        return email;
     }
 
-    public void setEmail(String Email) {
-        this.Email = Email;
+    public void setEmail(String email) {
+        this.email = email;
     }
 
     public String getForename() {
-        return Forename;
+        return forename;
     }
 
-    public void setForename(String Forename) {
-        this.Forename = Forename;
+    public void setForename(String forename) {
+        this.forename = forename;
     }
 
     public String getSurname() {
-        return Surname;
+        return surname;
     }
 
-    public void setSurname(String Surname) {
-        this.Surname = Surname;
+    public void setSurname(String surname) {
+        this.surname = surname;
+    }
+    
+    
+    public Long getId() {
+        return userId;
+    }
+
+    public void setId(Long id) {
+        this.userId = id;
     }
 
     @Override

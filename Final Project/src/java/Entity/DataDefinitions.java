@@ -23,126 +23,135 @@ public class DataDefinitions implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long DataDefinitionId;
-    
-    @ManyToOne
-    @JoinColumn (name = "NodeTypeId")
-    private NodeTypes NodeType;
-    
-    @OneToMany (targetEntity = Duplicates.class, mappedBy = "DataDefinition")
-    private Collection Duplicates;
-    
-    private String DDName;
-    private String DDUnit;
-    private String DDMaxValue;
-    private String DDMinValue;
-    private boolean DDNullsAllowed;
-    private boolean DDZeroStringsAllowed;
-    private String DDNotes;
-    private String DDType; // replace with enum later
-    private int VariablePositionId;
+    private Long dataDefinitionId;
 
-    public NodeTypes getNodeType() {
-        return NodeType;
+    @ManyToOne
+    @JoinColumn(name = "nodeTypeId")
+    private NodeTypes nodeType;
+
+    @OneToMany(targetEntity = Duplicates.class, mappedBy = "dataDefinition")
+    private Collection duplicates;
+    
+    private String dDName;
+    private String dDUnit;
+    private String dDMaxValue;
+    private String dDMinValue;
+    private boolean dDNullsAllowed;
+    private boolean dDZeroStringsAllowed;
+    private String dDNotes;
+    private String dDType; // replace with enum later
+    private int variablePositionId;
+
+    public Long getDataDefinitionId() {
+        return dataDefinitionId;
     }
 
-    public void setNodeType(NodeTypes NodeType) {
-        this.NodeType = NodeType;
+    public void setDataDefinitionId(Long dataDefinitionId) {
+        this.dataDefinitionId = dataDefinitionId;
+    }
+
+    public NodeTypes getNodeType() {
+        return nodeType;
+    }
+
+    public void setNodeType(NodeTypes nodeType) {
+        this.nodeType = nodeType;
     }
 
     public Collection getDuplicates() {
-        return Duplicates;
+        return duplicates;
     }
 
-    public void setDuplicates(Collection Duplicates) {
-        this.Duplicates = Duplicates;
+    public void setDuplicates(Collection duplicates) {
+        this.duplicates = duplicates;
     }
 
-    public String getDDName() {
-        return DDName;
+    public String getdDName() {
+        return dDName;
     }
 
-    public void setDDName(String DDName) {
-        this.DDName = DDName;
+    public void setdDName(String dDName) {
+        this.dDName = dDName;
     }
 
-    public String getDDUnit() {
-        return DDUnit;
+    public String getdDUnit() {
+        return dDUnit;
     }
 
-    public void setDDUnit(String DDUnit) {
-        this.DDUnit = DDUnit;
+    public void setdDUnit(String dDUnit) {
+        this.dDUnit = dDUnit;
     }
 
-    public String getDDMaxValue() {
-        return DDMaxValue;
+    public String getdDMaxValue() {
+        return dDMaxValue;
     }
 
-    public void setDDMaxValue(String DDMaxValue) {
-        this.DDMaxValue = DDMaxValue;
+    public void setdDMaxValue(String dDMaxValue) {
+        this.dDMaxValue = dDMaxValue;
     }
 
-    public String getDDMinValue() {
-        return DDMinValue;
+    public String getdDMinValue() {
+        return dDMinValue;
     }
 
-    public void setDDMinValue(String DDMinValue) {
-        this.DDMinValue = DDMinValue;
+    public void setdDMinValue(String dDMinValue) {
+        this.dDMinValue = dDMinValue;
     }
 
-    public boolean isDDNullsAllowed() {
-        return DDNullsAllowed;
+    public boolean isdDNullsAllowed() {
+        return dDNullsAllowed;
     }
 
-    public void setDDNullsAllowed(boolean DDNullsAllowed) {
-        this.DDNullsAllowed = DDNullsAllowed;
+    public void setdDNullsAllowed(boolean dDNullsAllowed) {
+        this.dDNullsAllowed = dDNullsAllowed;
     }
 
-    public boolean isDDZeroStringsAllowed() {
-        return DDZeroStringsAllowed;
+    public boolean isdDZeroStringsAllowed() {
+        return dDZeroStringsAllowed;
     }
 
-    public void setDDZeroStringsAllowed(boolean DDZeroStringsAllowed) {
-        this.DDZeroStringsAllowed = DDZeroStringsAllowed;
+    public void setdDZeroStringsAllowed(boolean dDZeroStringsAllowed) {
+        this.dDZeroStringsAllowed = dDZeroStringsAllowed;
     }
 
-    public String getDDNotes() {
-        return DDNotes;
+    public String getdDNotes() {
+        return dDNotes;
     }
 
-    public void setDDNotes(String DDNotes) {
-        this.DDNotes = DDNotes;
+    public void setdDNotes(String dDNotes) {
+        this.dDNotes = dDNotes;
     }
 
-    public String getDDType() {
-        return DDType;
+    public String getdDType() {
+        return dDType;
     }
 
-    public void setDDType(String DDType) {
-        this.DDType = DDType;
+    public void setdDType(String dDType) {
+        this.dDType = dDType;
     }
 
     public int getVariablePositionId() {
-        return VariablePositionId;
+        return variablePositionId;
     }
 
-    public void setVariablePositionId(int VariablePositionId) {
-        this.VariablePositionId = VariablePositionId;
+    public void setVariablePositionId(int variablePositionId) {
+        this.variablePositionId = variablePositionId;
     }
-
     
-    public Long getDataDefinitionId() {
-        return DataDefinitionId;
+    
+    
+    public Long getId() {
+        return dataDefinitionId;
     }
 
-    public void setDataDefinitionId(Long DataDefinitionId) {
-        this.DataDefinitionId = DataDefinitionId;
+    public void setId(Long id) {
+        this.dataDefinitionId = id;
     }
 
     @Override
     public int hashCode() {
         int hash = 0;
-        hash += (DataDefinitionId != null ? DataDefinitionId.hashCode() : 0);
+        hash += (dataDefinitionId != null ? dataDefinitionId.hashCode() : 0);
         return hash;
     }
 
@@ -153,7 +162,7 @@ public class DataDefinitions implements Serializable {
             return false;
         }
         DataDefinitions other = (DataDefinitions) object;
-        if ((this.DataDefinitionId == null && other.DataDefinitionId != null) || (this.DataDefinitionId != null && !this.DataDefinitionId.equals(other.DataDefinitionId))) {
+        if ((this.dataDefinitionId == null && other.dataDefinitionId != null) || (this.dataDefinitionId != null && !this.dataDefinitionId.equals(other.dataDefinitionId))) {
             return false;
         }
         return true;
@@ -161,7 +170,7 @@ public class DataDefinitions implements Serializable {
 
     @Override
     public String toString() {
-        return "Entity.DataDefinitions[ id=" + DataDefinitionId + " ]";
+        return "Entity.DataDefinitions[ id=" + dataDefinitionId + " ]";
     }
     
 }

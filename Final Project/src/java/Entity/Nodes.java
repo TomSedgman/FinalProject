@@ -23,55 +23,63 @@ public class Nodes implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long NodeId;
+    private Long nodeId;
 
-    @OneToMany (targetEntity = Data.class, mappedBy = "Node")
-    private Collection Data;
+    @OneToMany(targetEntity = DataValues.class, mappedBy = "node")
+    private Collection dataValues;
     
     @ManyToOne
-    @JoinColumn (name = "NodeTypeId")
-    private NodeTypes NodeType;
+    @JoinColumn(name = "nodeTypeId")
+    private NodeTypes nodeType;
     
-    private String NTIdentifier;
+    private String nTIdentifier;
 
-    public Collection getData() {
-        return Data;
+    public Long getNodeId() {
+        return nodeId;
     }
 
-    public void setData(Collection Data) {
-        this.Data = Data;
+    public void setNodeId(Long nodeId) {
+        this.nodeId = nodeId;
+    }
+
+    public Collection getDataValues() {
+        return dataValues;
+    }
+
+    public void setDataValues(Collection dataValues) {
+        this.dataValues = dataValues;
     }
 
     public NodeTypes getNodeType() {
-        return NodeType;
+        return nodeType;
     }
 
-    public void setNodeType(NodeTypes NodeType) {
-        this.NodeType = NodeType;
+    public void setNodeType(NodeTypes nodeType) {
+        this.nodeType = nodeType;
     }
 
-    public String getNTIdentifier() {
-        return NTIdentifier;
+    public String getnTIdentifier() {
+        return nTIdentifier;
     }
 
-    public void setNTIdentifier(String NTIdentifier) {
-        this.NTIdentifier = NTIdentifier;
+    public void setnTIdentifier(String nTIdentifier) {
+        this.nTIdentifier = nTIdentifier;
     }
     
     
     
-    public Long getNodeId() {
-        return NodeId;
+    public Long getId() {
+        return nodeId;
     }
 
-    public void setNodeId(Long NodeId) {
-        this.NodeId = NodeId;
+    public void setId(Long id) {
+        this.nodeId = id;
     }
 
     @Override
     public int hashCode() {
         int hash = 0;
-        hash += (NodeId != null ? NodeId.hashCode() : 0);
+        hash += (nodeId != null ? nodeId.hashCode() : 0);
         return hash;
     }
 
@@ -82,7 +90,7 @@ public class Nodes implements Serializable {
             return false;
         }
         Nodes other = (Nodes) object;
-        if ((this.NodeId == null && other.NodeId != null) || (this.NodeId != null && !this.NodeId.equals(other.NodeId))) {
+        if ((this.nodeId == null && other.nodeId != null) || (this.nodeId != null && !this.nodeId.equals(other.nodeId))) {
             return false;
         }
         return true;
@@ -90,7 +98,7 @@ public class Nodes implements Serializable {
 
     @Override
     public String toString() {
-        return "Entity.Nodes[ id=" + NodeId + " ]";
+        return "Entity.Nodes[ id=" + nodeId + " ]";
     }
     
 }
