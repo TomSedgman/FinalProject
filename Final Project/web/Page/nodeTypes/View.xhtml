@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <ui:composition template="/template.xhtml">
+        <ui:define name="title">
+            <h:outputText value="#{bundle.ViewNodeTypesTitle}"></h:outputText>
+        </ui:define>
+        <ui:define name="body">
+            <h:panelGroup id="messagePanel" layout="block">
+                <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
+            </h:panelGroup>
+            <h:form>
+                <h:panelGrid columns="2">
+                    <h:outputText value="#{bundle.ViewNodeTypesLabel_nodeTypeId}"/>
+                    <h:outputText value="#{nodeTypesController.selected.nodeTypeId}" title="#{bundle.ViewNodeTypesTitle_nodeTypeId}"/>
+                    <h:outputText value="#{bundle.ViewNodeTypesLabel_project}"/>
+                    <h:outputText value="#{nodeTypesController.selected.project}" title="#{bundle.ViewNodeTypesTitle_project}"/>
+                    <h:outputText value="#{bundle.ViewNodeTypesLabel_nTName}"/>
+                    <h:outputText value="#{nodeTypesController.selected.nTName}" title="#{bundle.ViewNodeTypesTitle_nTName}"/>
+                    <h:outputText value="#{bundle.ViewNodeTypesLabel_nTCreationDate}"/>
+                    <h:outputText value="#{nodeTypesController.selected.nTCreationDate}" title="#{bundle.ViewNodeTypesTitle_nTCreationDate}">
+                        <f:convertDateTime pattern="MM/dd/yyyy" />
+                    </h:outputText>
+                    <h:outputText value="#{bundle.ViewNodeTypesLabel_id}"/>
+                    <h:outputText value="#{nodeTypesController.selected.id}" title="#{bundle.ViewNodeTypesTitle_id}"/>
+                </h:panelGrid>
+                <br />
+                <h:commandLink action="#{nodeTypesController.destroyAndView}" value="#{bundle.ViewNodeTypesDestroyLink}"/>
+                <br />
+                <br />
+                <h:link outcome="Edit" value="#{bundle.ViewNodeTypesEditLink}"/>
+                <br />
+                <h:commandLink action="#{nodeTypesController.prepareCreate}" value="#{bundle.ViewNodeTypesCreateLink}" />
+                <br />
+                <h:commandLink action="#{nodeTypesController.prepareList}" value="#{bundle.ViewNodeTypesShowAllLink}"/>
+                <br />
+                <br />
+                <h:link outcome="/index" value="#{bundle.ViewNodeTypesIndexLink}"/>
+
+            </h:form>
+        </ui:define>
+    </ui:composition>
+
+</html>

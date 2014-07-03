@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <ui:composition template="/template.xhtml">
+        <ui:define name="title">
+            <h:outputText value="#{bundle.CreateNodesTitle}"></h:outputText>
+        </ui:define>
+        <ui:define name="body">
+            <h:panelGroup id="messagePanel" layout="block">
+                <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
+            </h:panelGroup>
+            <h:form>
+                <h:panelGrid columns="2">
+                    <h:outputLabel value="#{bundle.CreateNodesLabel_nodeId}" for="nodeId" />
+                    <h:inputText id="nodeId" value="#{nodesController.selected.nodeId}" title="#{bundle.CreateNodesTitle_nodeId}" />
+                    <h:outputLabel value="#{bundle.CreateNodesLabel_nodeType}" for="nodeType" />
+                    <h:selectOneMenu id="nodeType" value="#{nodesController.selected.nodeType}" title="#{bundle.CreateNodesTitle_nodeType}" >
+                        <f:selectItems value="#{nodeTypesController.itemsAvailableSelectOne}"/>
+                    </h:selectOneMenu>
+                    <h:outputLabel value="#{bundle.CreateNodesLabel_nTIdentifier}" for="nTIdentifier" />
+                    <h:inputText id="nTIdentifier" value="#{nodesController.selected.nTIdentifier}" title="#{bundle.CreateNodesTitle_nTIdentifier}" />
+                    <h:outputLabel value="#{bundle.CreateNodesLabel_id}" for="id" />
+                    <h:inputText id="id" value="#{nodesController.selected.id}" title="#{bundle.CreateNodesTitle_id}" />
+                </h:panelGrid>
+                <br />
+                <h:commandLink action="#{nodesController.create}" value="#{bundle.CreateNodesSaveLink}" />
+                <br />
+                <br />
+                <h:commandLink action="#{nodesController.prepareList}" value="#{bundle.CreateNodesShowAllLink}" immediate="true"/>
+                <br />
+                <br />
+                <h:link outcome="/index" value="#{bundle.CreateNodesIndexLink}"/>
+            </h:form>
+        </ui:define>
+    </ui:composition>
+
+</html>
