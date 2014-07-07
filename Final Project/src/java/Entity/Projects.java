@@ -12,12 +12,14 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 
 /**
  *
  * @author t_sedgman
  */
+@NamedQuery (name = "findProjectsbyUser", query =   "SELECT e FROM Projects e WHERE e.user.username = :username")
 @Entity
 public class Projects implements Serializable {
     private static final long serialVersionUID = 1L;

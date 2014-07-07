@@ -5,6 +5,7 @@
 package Session;
 
 import Entity.Projects;
+import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -25,6 +26,11 @@ public class ProjectsFacade extends AbstractFacade<Projects> {
 
     public ProjectsFacade() {
         super(Projects.class);
+    }
+    public List<Projects> findProjectsByUser(String username)
+    {
+         List projects = em.createNamedQuery("findProjectsbyUser", Projects.class).setParameter("username", username).getResultList();
+         return projects;
     }
     
 }

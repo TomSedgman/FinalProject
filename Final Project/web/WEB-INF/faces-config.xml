@@ -108,6 +108,14 @@
             <base-name>/Bundle</base-name>
             <var>bundle</var>
         </resource-bundle>
+        <resource-bundle>
+            <base-name>/Bundle</base-name>
+            <var>bundle</var>
+        </resource-bundle>
+        <resource-bundle>
+            <base-name>/Bundle</base-name>
+            <var>bundle</var>
+        </resource-bundle>
     </application>
     <managed-bean>
         <managed-bean-name>bean</managed-bean-name>
@@ -117,6 +125,11 @@
     <managed-bean>
         <managed-bean-name>testSocket</managed-bean-name>
         <managed-bean-class>TestInput.TestSocket</managed-bean-class>
+        <managed-bean-scope>request</managed-bean-scope>
+    </managed-bean>
+    <managed-bean>
+        <managed-bean-name>dataReturn</managed-bean-name>
+        <managed-bean-class>TestInput.DataReturn</managed-bean-class>
         <managed-bean-scope>request</managed-bean-scope>
     </managed-bean>
 </faces-config>

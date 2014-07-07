@@ -40,6 +40,18 @@
                         </h:column>
                         <h:column>
                             <f:facet name="header">
+                                <h:outputText value="#{bundle.ListNodesTitle_gPSLat}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.gPSLat}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListNodesTitle_gPSLong}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.gPSLong}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
                                 <h:outputText value="#{bundle.ListNodesTitle_id}"/>
                             </f:facet>
                             <h:outputText value="#{item.id}"/>

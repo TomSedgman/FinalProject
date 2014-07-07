@@ -12,12 +12,14 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 
 /**
  *
  * @author t_sedgman
  */
+@NamedQuery (name = "findNodesByProject", query =   "SELECT e FROM Nodes e WHERE e.nodeType.project = :project")
 @Entity
 public class Nodes implements Serializable {
     private static final long serialVersionUID = 1L;
@@ -33,7 +35,11 @@ public class Nodes implements Serializable {
     private NodeTypes nodeType;
     
     private String nTIdentifier;
+    private Float gPSLat;
+    private Float gPSLong;
+    private boolean isStatic;
 
+    
     public Long getNodeId() {
         return nodeId;
     }
@@ -64,6 +70,30 @@ public class Nodes implements Serializable {
 
     public void setnTIdentifier(String nTIdentifier) {
         this.nTIdentifier = nTIdentifier;
+    }
+
+    public Float getgPSLat() {
+        return gPSLat;
+    }
+
+    public void setgPSLat(Float gPSLat) {
+        this.gPSLat = gPSLat;
+    }
+
+    public Float getgPSLong() {
+        return gPSLong;
+    }
+
+    public void setgPSLong(Float gPSLong) {
+        this.gPSLong = gPSLong;
+    }
+
+    public boolean isIsStatic() {
+        return isStatic;
+    }
+
+    public void setIsStatic(boolean isStatic) {
+        this.isStatic = isStatic;
     }
     
     

@@ -4,6 +4,10 @@
  */
 package TestInput;
 
+import Classes.NodesController;
+import Entity.DataValues;
+import Entity.Nodes;
+import Session.DataValuesFacade;
 import java.io.BufferedInputStream;
 import java.io.DataInputStream;
 import java.io.File;
@@ -11,7 +15,15 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Calendar;
+import java.util.Collection;
+import java.util.Date;
+import java.util.Iterator;
+import java.util.List;
+import javax.ejb.EJB;
 import javax.faces.bean.SessionScoped;
+import javax.faces.model.DataModel;
 
 /**
  *
@@ -19,7 +31,10 @@ import javax.faces.bean.SessionScoped;
  */
 @SessionScoped
 public class Bean {
-  
+    @EJB
+    private DataValuesFacade dataValuesFacade;
+
+    
   private String fileContent;
   private String fileContent2;
   private ArrayList<String> fileContentArray = new ArrayList<>();;
@@ -85,7 +100,14 @@ public class Bean {
       fis.close();
       bis.close();
       dis.close();
-      fileContent = tempArray.get((tempArray.size()-1));
+      setFileContentArray(tempArray);
+      String tempString = tempArray.get(tempArray.size()-3);
+      List<String> Record = Arrays.asList(tempString.split(","));  
+      dataValuesFacade.RecordData(Record);
+      for (int i = 8; i < tempArray.size();i++) //FIXME hack because of input headders;
+      {
+        fileContent = tempArray.get(i);
+      }
 
     } catch (FileNotFoundException e) 
     {
@@ -95,10 +117,7 @@ public class Bean {
     {
       e.printStackTrace();
     }
-    finally
-    {
-        setFileContentArray(tempArray);
-    }
+
   }
 
   public void next()

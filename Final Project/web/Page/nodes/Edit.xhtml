@@ -23,6 +23,10 @@
                     </h:selectOneMenu>
                     <h:outputLabel value="#{bundle.EditNodesLabel_nTIdentifier}" for="nTIdentifier" />
                     <h:inputText id="nTIdentifier" value="#{nodesController.selected.nTIdentifier}" title="#{bundle.EditNodesTitle_nTIdentifier}" />
+                    <h:outputLabel value="#{bundle.EditNodesLabel_gPSLat}" for="gPSLat" />
+                    <h:inputText id="gPSLat" value="#{nodesController.selected.gPSLat}" title="#{bundle.EditNodesTitle_gPSLat}" />
+                    <h:outputLabel value="#{bundle.EditNodesLabel_gPSLong}" for="gPSLong" />
+                    <h:inputText id="gPSLong" value="#{nodesController.selected.gPSLong}" title="#{bundle.EditNodesTitle_gPSLong}" />
                     <h:outputLabel value="#{bundle.EditNodesLabel_id}" for="id" />
                     <h:inputText id="id" value="#{nodesController.selected.id}" title="#{bundle.EditNodesTitle_id}" />
                 </h:panelGrid>
