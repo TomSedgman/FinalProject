@@ -1,0 +1,116 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    
+    <h:head>
+        <title>Facelet Title</title>
+        <h:outputStylesheet name="css/jsfcrud.css"/>
+
+        <meta name="viewport" content="initial-scale=1.0, user-scalable=no" />
+        <style type="text/css">
+            html { height: 100%; width: 100%; }
+            body { height: 100%; width: 100%; margin: 0; padding: 0; background-color: #e0e2d1}
+            #head {height: 10%; width: 100%;}
+            #main {height: 80%; width: 100%; background-color: #e9ffd1}
+            #side {height: 100%; width: 10%; float:left; background-color: #e0e2d1}
+            #map {height: 60%; width: 60%; float: left; }
+            #control {height: 60%; width: 30%; float: right; }
+            #graph-canvas {height: 40%; width: 90%; float: left; }
+            #foot {height: 10%; width: 100%;}
+
+
+        </style>
+        <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBn3ekiVRTR-gme-EH5bqcn3dNxuiUxzRg">
+        </script>
+        <script type="text/javascript">
+                //<![CDATA[
+                  var projects = "#{bean.loadProject("ths28")}";
+                  var nodes = "#{bean.loadNodes(0)}"; 
+                  var GPSLat = "#{bean.GPSLat()}";
+                  var GPSLong = "#{bean.GPSLong()}";
+                  var centrepoint = "#{bean.CentrePoint()}";
+                  var values = centrepoint.split(",");
+                  var Lat = parseFloat(values[0]);
+                  var Long = parseFloat(values[1]);
+                  
+                  function initialize() 
+                    {
+                        var mapOptions = 
+                        {
+                            center: new google.maps.LatLng(Lat, Long),
+                            zoom: 8
+                        };
+                        var map = new google.maps.Map(document.getElementById("map"),
+                        mapOptions);
+                    }
+                    google.maps.event.addDomListener(window, 'load', initialize);
+                 
+                //]]>
+            </script>
+
+        <script src="http://ajax.aspnetcdn.com/ajax/jQuery/jquery-1.6.1.min.js"></script>
+        <script type="text/javascript" src="resources/JavaScript/Graph.js"></script>
+
+
+    </h:head>
+    <h:body>
+        <div id="head">
+            head
+        </div>     
+        <div id="main" >
+            
+            <div id="side" >
+                Sidebar
+            </div>
+            <div id="map" />
+            <div id="control" >
+                <h:form id="form" enctype="multipart/form-data">
+                    <h:commandButton value="Upload"
+                                     action="#{bean.upload}">
+                    </h:commandButton>
+                    <h:commandButton value="Next"
+                                     action="#{bean.next()}">
+                    </h:commandButton>
+                    <h:inputTextarea value="#{bean.fileContent}"
+                                     readonly="true"/>
+                    <h:inputTextarea value="#{bean.fileContent2}"
+                                     readonly="true"/>
+                    
+
+                </h:form>
+
+                <h:link outcome="/Page/dataDefinitions/List" value="Show All DataDefinitions Items"/>
+                <br />
+                <h:link outcome="/Page/dataValues/List" value="Show All DataValues Items"/>
+                <br />
+                <h:link outcome="/Page/duplicates/List" value="Show All Duplicates Items"/>
+                <br />
+                <h:link outcome="/Page/nodeTypes/List" value="Show All NodeTypes Items"/>
+                <br />
+                <h:link outcome="/Page/nodeVariables/List" value="Show All NodeVariables Items"/>
+                <br />
+                <h:link outcome="/Page/nodes/List" value="Show All Nodes Items"/>
+                <br />
+                <h:link outcome="/Page/projects/List" value="Show All Projects Items"/>
+                <br />
+                <h:link outcome="/Page/tags/List" value="Show All Tags Items"/>
+                <br />
+                <h:link outcome="/Page/users/List" value="Show All Users Items"/>
+            </div>
+           <div id ="graph-canvas">
+                <canvas id="graph"></canvas> 
+           </div>
+
+        </div> 
+        <div id="foot" >
+            foot
+        </div>
+        <br />
+    </h:body>
+
+</html>
+
