@@ -4,8 +4,8 @@
  */
 package Session;
 
-import Entity.Nodes;
-import Entity.Projects;
+import Entities.Nodes;
+import Entities.Projects;
 import java.util.List;
 import javax.ejb.EJB;
 import javax.ejb.Stateless;

@@ -1,6 +1,6 @@
 package Classes;
 
-import Entity.DataDefinitions;
+import Entities.DataDefinitions;
 import Classes.util.JsfUtil;
 import Classes.util.PaginationHelper;
 import Session.DataDefinitionsFacade;

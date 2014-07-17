@@ -1,6 +1,6 @@
 package Classes;
 
-import Entity.Duplicates;
+import Entities.Duplicates;
 import Classes.util.JsfUtil;
 import Classes.util.PaginationHelper;
 import Session.DuplicatesFacade;

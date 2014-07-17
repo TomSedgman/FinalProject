@@ -1,6 +1,6 @@
 package Classes;
 
-import Entity.NodeVariables;
+import Entities.NodeVariables;
 import Classes.util.JsfUtil;
 import Classes.util.PaginationHelper;
 import Session.NodeVariablesFacade;

@@ -1,6 +1,6 @@
 package Classes;
 
-import Entity.Projects;
+import Entities.Projects;
 import Classes.util.JsfUtil;
 import Classes.util.PaginationHelper;
 import Session.ProjectsFacade;

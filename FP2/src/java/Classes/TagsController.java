@@ -1,6 +1,6 @@
 package Classes;
 
-import Entity.Tags;
+import Entities.Tags;
 import Classes.util.JsfUtil;
 import Classes.util.PaginationHelper;
 import Session.TagsFacade;

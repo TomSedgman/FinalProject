@@ -4,10 +4,8 @@
  */
 package TestInput;
 
-import Entity.Nodes;
-import Entity.Projects;
-import PersistedVariables.PCoordinates;
-import PersistedVariables.PProject;
+import Entities.Nodes;
+import Entities.Projects;
 import Session.DataValuesFacade;
 import Session.NodesFacade;
 import Session.ProjectsFacade;
@@ -20,12 +18,10 @@ import java.io.IOException;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Collection;
-import java.util.Iterator;
 import java.util.List;
-import java.util.ListIterator;
 import javax.ejb.EJB;
 import javax.faces.bean.SessionScoped;
+import javax.inject.Named;
 /**
  *
  * @author t_sedgman
@@ -151,7 +147,7 @@ public class Bean {
       Projects project = (Projects) projects.get(i);
       currProject.setCurrentProject(project);
       List<Nodes> nodes = nodesFacade.nodesList(project);
-      currentNodes.setCurrentNodes(nodes);   
+      currentNodes.setCurrentNodes(nodes);    
   }
   public void GPSLat()
   {

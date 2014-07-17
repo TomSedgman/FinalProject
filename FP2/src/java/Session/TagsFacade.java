@@ -4,7 +4,7 @@
  */
 package Session;
 
-import Entity.Tags;
+import Entities.Tags;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;

@@ -4,7 +4,7 @@
  */
 package PersistedVariables;
 
-import Entity.Projects;
+import Entities.Projects;
 import javax.ejb.Stateless;
 import javax.faces.bean.SessionScoped;
 import javax.inject.Named;

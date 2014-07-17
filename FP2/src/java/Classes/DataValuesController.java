@@ -1,6 +1,6 @@
 package Classes;
 
-import Entity.DataValues;
+import Entities.DataValues;
 import Classes.util.JsfUtil;
 import Classes.util.PaginationHelper;
 import Session.DataValuesFacade;

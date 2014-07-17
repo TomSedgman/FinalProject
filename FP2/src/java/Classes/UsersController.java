@@ -1,6 +1,6 @@
 package Classes;
 
-import Entity.Users;
+import Entities.Users;
 import Classes.util.JsfUtil;
 import Classes.util.PaginationHelper;
 import Session.UsersFacade;

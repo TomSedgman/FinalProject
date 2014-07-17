@@ -4,9 +4,9 @@
  */
 package Session;
 
-import Entity.DataValues;
-import Entity.Nodes;
-import Entity.Projects;
+import Entities.DataValues;
+import Entities.Nodes;
+import Entities.Projects;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;

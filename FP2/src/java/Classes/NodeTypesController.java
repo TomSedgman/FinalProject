@@ -1,6 +1,6 @@
 package Classes;
 
-import Entity.NodeTypes;
+import Entities.NodeTypes;
 import Classes.util.JsfUtil;
 import Classes.util.PaginationHelper;
 import Session.NodeTypesFacade;

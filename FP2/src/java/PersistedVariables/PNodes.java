@@ -4,7 +4,7 @@
  */
 package PersistedVariables;
 
-import Entity.Projects;
+import Entities.Projects;
 import java.util.List;
 import javax.ejb.Stateless;
 import javax.faces.bean.SessionScoped;
@@ -24,13 +24,13 @@ public class PNodes {
     public PNodes() 
     {
     }
-    List<Entity.Nodes> currentNodes;
+    List<Entities.Nodes> currentNodes;
 
-    public List<Entity.Nodes> getCurrentNodes() {
+    public List<Entities.Nodes> getCurrentNodes() {
         return currentNodes;
     }
 
-    public void setCurrentNodes(List<Entity.Nodes> currentNodes) {
+    public void setCurrentNodes(List<Entities.Nodes> currentNodes) {
         this.currentNodes = currentNodes;
     }
 
