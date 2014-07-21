@@ -149,26 +149,66 @@ public class Bean {
       List<Nodes> nodes = nodesFacade.nodesList(project);
       currentNodes.setCurrentNodes(nodes);    
   }
-  public void GPSLat()
+  public String GPSLat()
   {
     ArrayList gPSLat = new ArrayList();
     List<Nodes> nodes = currentNodes.getCurrentNodes();
+    String returnArray = "";
+
     for (int i = 0; i < nodes.size();i++)
     {
-        gPSLat.add(nodes.get(i).getgPSLat());
+        BigDecimal temp = nodes.get(i).getgPSLat();
+        gPSLat.add(temp);
+        returnArray = returnArray.concat(temp.toPlainString());
+        if (i != (nodes.size()-1))
+        {    
+        returnArray = returnArray.concat(",");
+        }
     }
      coordinates.setGPSLat(gPSLat);
+     return returnArray;
   }
-   public void GPSLong()
+   public String GPSLong()
   {
     ArrayList gPSLong = new ArrayList();
     List<Nodes> nodes = currentNodes.getCurrentNodes();
+    String returnArray = "";
     for (int i = 0; i < nodes.size();i++)
     {
-        gPSLong.add(nodes.get(i).getgPSLong());
+        BigDecimal temp = nodes.get(i).getgPSLong();
+        gPSLong.add(temp);
+        returnArray = returnArray.concat(temp.toPlainString());
+        if (i != (nodes.size()-1))
+        { 
+        returnArray = returnArray.concat(","); 
+        }
     }
      coordinates.setGPSLong(gPSLong);
+     return returnArray;
   }
+   
+   public String NodeName()
+  {
+    List<Nodes> nodes = currentNodes.getCurrentNodes();
+    String returnArray = "";
+    for (int i = 0; i < nodes.size();i++)
+    {
+        String temp = nodes.get(i).getnTIdentifier();
+        returnArray = returnArray.concat(temp);
+        if (i != (nodes.size()-1))
+        { 
+        returnArray = returnArray.concat(","); 
+        }
+    }
+     return returnArray;
+  }
+   
+   public String getVariables(String Identifier)
+   {
+       String returnString = "";
+       
+       return returnString;
+   }
   
     public String CentrePoint()
     {

@@ -12,12 +12,14 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 
 /**
  *
  * @author t_sedgman
  */
+@NamedQuery (name = "findFieldsByName", query =   "SELECT e.nodeType.dataDefinitions FROM Nodes e WHERE e.nTIdentifier = :nTIdentifier")
 @Entity
 public class DataDefinitions implements Serializable {
     private static final long serialVersionUID = 1L;
