@@ -4,8 +4,10 @@
  */
 package TestInput;
 
+import Entities.DataDefinitions;
 import Entities.Nodes;
 import Entities.Projects;
+import Session.DataDefinitionsFacade;
 import Session.DataValuesFacade;
 import Session.NodesFacade;
 import Session.ProjectsFacade;
@@ -34,6 +36,8 @@ public class Bean {
     private NodesFacade nodesFacade;
     @EJB
     private ProjectsFacade projectsFacade;
+    @EJB
+    private DataDefinitionsFacade dataDefinitionsFacade;
     @EJB
     private PersistedVariables.PProjects projectList;
     @EJB
@@ -203,9 +207,30 @@ public class Bean {
      return returnArray;
   }
    
-   public String getVariables(String Identifier)
+   public String getVariables()
    {
+       
        String returnString = "";
+       
+       for (int i = 0; i < currentNodes.getCurrentNodes().size();i++)
+    {
+        String tempString = "";
+        List<DataDefinitions> definitions = (List<DataDefinitions>) currentNodes.getCurrentNodes().get(i).getNodeType().getDataDefinitions();
+        for (int j = 0; j<definitions.size();j++)
+        {
+            String temp = definitions.get(j).getdDName();
+            tempString = tempString.concat(temp);
+            if (j != (definitions.size()-1))
+            { 
+                tempString = tempString.concat(","); 
+            }
+        }
+            returnString = returnString.concat(tempString);
+            if (i != (definitions.size()-1))
+            { 
+                returnString = returnString.concat("//"); 
+            }
+    }
        
        return returnString;
    }
