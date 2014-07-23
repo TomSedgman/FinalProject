@@ -5,6 +5,7 @@
 package TestInput;
 
 import Entities.DataDefinitions;
+import Entities.DataValues;
 import Entities.Nodes;
 import Entities.Projects;
 import Session.DataDefinitionsFacade;
@@ -87,7 +88,7 @@ public class Bean {
   
   public void upload() {
 
-    File file = new File("/Users/t_sedgman/Desktop/FinalProject/test_output_data_small.rtf");
+    File file = new File("/Users/t_sedgman/Desktop/FinalProject/test_output_data.rtf");
     FileInputStream fis = null;
     BufferedInputStream bis = null;
     DataInputStream dis = null;
@@ -234,7 +235,28 @@ public class Bean {
        
        return returnString;
    }
-  
+  public String getData(int positionId, String nodeIdentifier)
+  {
+      String data = "";
+      int i = 0;
+      Nodes selectedNode;
+      do
+      {
+          selectedNode = currentNodes.getCurrentNodes().get(i);
+      }
+      while (selectedNode.getnTIdentifier() == null ? (nodeIdentifier) != null : !selectedNode.getnTIdentifier().equals(nodeIdentifier));   
+      List<DataValues> dataList = dataValuesFacade.findVariable(selectedNode, positionId);
+      for (int j = 0; j < dataList.size();j++)
+        {
+            String temp = dataList.get(j).getdVariable();
+            data = data.concat(temp);
+            if (j != (dataList.size()-1))
+            { 
+                data = data.concat(","); 
+            }
+        }
+      return data;
+  }
     public String CentrePoint()
     {
         List gpsLat = coordinates.getGPSLat();
