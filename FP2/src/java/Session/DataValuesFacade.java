@@ -41,7 +41,8 @@ public class DataValuesFacade extends AbstractFacade<DataValues> {
                     i = projects.size();
                 }
             }
-            currentNode = findProjectNodes(currentProject, Record.get(5));
+            String id = Record.get(5);
+            currentNode = findProjectNode(currentProject, id);
            
             
 
@@ -65,9 +66,14 @@ public class DataValuesFacade extends AbstractFacade<DataValues> {
         super(DataValues.class);
     }
     
-     public Nodes findProjectNodes(Projects project, String nTIdentifier)
+     public Nodes findProjectNode(Projects project, String nTIdentifier)
     {
-         Nodes node = em.createNamedQuery("findNodesByProject", Nodes.class).setParameter("project", project).setParameter("nTIdentifier", nTIdentifier).getSingleResult();
+         Nodes node = em.createNamedQuery("findNodeByProject", Nodes.class).setParameter("project", project).setParameter("nTIdentifier", nTIdentifier).getSingleResult();
+         return node;
+    }
+      public List<Nodes> findProjectNodes(Projects project)
+    {
+         List<Nodes> node = em.createNamedQuery("findNodesByProject", Nodes.class).setParameter("project", project).getResultList();
          return node;
     }
       public List findVariables(Nodes node, int variable1, int variable2)

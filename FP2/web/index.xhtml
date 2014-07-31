@@ -21,129 +21,148 @@
             #control {height: 60%; width: 30%; float: right; }
             #graph {height: 40%; width: 90%; float: left; }
             #foot {height: 10%; width: 100%;}
-            .variable {background-color: #ccc; padding-right: 10px; border: white outset}
+            /*.variable {background-color: #ccc; padding-right: 10px; border: white outset}*/
 
 
         </style>
         <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBn3ekiVRTR-gme-EH5bqcn3dNxuiUxzRg">
         </script>
+        <script type="text/javascript" src="resources/JavaScript/mootools-core-1.5.0-full-compat"></script>
+        <script type="text/javascript" src="resources/JavaScript/jquery-2.1.1.min.js"></script>
         <script type="text/javascript">
-                //<![CDATA[
-                  var projects = "#{bean.loadProject("ths28")}";
-                  var nodes = "#{bean.loadNodes(0)}"; 
-                  var GPSLat = "#{bean.GPSLat()}";
-                  var GPSLatArray = GPSLat.split(",");
-                  var GPSLong = "#{bean.GPSLong()}";
-                  var GPSLongArray = GPSLong.split(",");
-                  var NodeName = "#{bean.NodeName()}";
-                  var NodeNameArray = NodeName.split(",");
-                  var centrepoint = "#{bean.CentrePoint()}";
-                  var values = centrepoint.split(",");
-                  var Lat = parseFloat(values[0]);
-                  var Long = parseFloat(values[1]);
-                  var bounds = new google.maps.LatLngBounds();
-                  var infowindow = new google.maps.InfoWindow();    
-                  var variables = "#{bean.getVariables()}";
-                  var variableArray = variables.split("//")
-                  
-                  function initialize() 
+            //<![CDATA[
+                var projects = "#{bean.loadProject("ths28")}";
+                var nodes = "#{bean.loadNodes(0)}"; 
+                var GPSLat = "#{bean.GPSLat()}";
+                var GPSLatArray = GPSLat.split(",");
+                var GPSLong = "#{bean.GPSLong()}";
+                var GPSLongArray = GPSLong.split(",");
+                var NodeName = "#{bean.NodeName()}";
+                var NodeNameArray = NodeName.split(",");
+                var centrepoint = "#{bean.CentrePoint()}";
+                var values = centrepoint.split(",");
+                var Lat = parseFloat(values[0]);
+                var Long = parseFloat(values[1]);
+                var bounds = new google.maps.LatLngBounds();
+                var infowindow = new google.maps.InfoWindow();    
+                var variables = "#{bean.getVariables()}";
+                var variableArray = variables.split("//")
+                var json = "#{bean.makeJson()}"
+
+
+                function initialize() 
+                {
+                    var mapOptions = 
                     {
-                        var mapOptions = 
+                        center: new google.maps.LatLng(Lat, Long),
+                        zoom: 15
+
+                    };
+                    var map = new google.maps.Map(document.getElementById("map"),
+                    mapOptions);
+
+                    for (i = 0; i < variableArray.length; i++)
+                    {  
+
+                        marker = new google.maps.Marker(
                         {
-                            center: new google.maps.LatLng(Lat, Long),
-                            zoom: 15
-                            
-                        };
-                        var map = new google.maps.Map(document.getElementById("map"),
-                        mapOptions);
-                        
-                        for (i = 0; i < variableArray.length; i++)
-                        {  
-                            
-                            marker = new google.maps.Marker(
-                            {
-                                position: new google.maps.LatLng(parseFloat(GPSLatArray[i]), parseFloat(GPSLongArray[i])),
-                                map: map,
-                                title: NodeNameArray[i],
-                                id: i
-                                
-                                
-                            });
-                            google.maps.event.addListener(marker, 'click', (function(marker, i) 
-                            {
-                                return function() 
-                                {
-                                  var content = buildContent(i);
-                                  infowindow.setContent(content);
-                                  infowindow.open(map, marker);
-                                  
-                                }
-                              }
-                              )(marker, i));
-                        }
-                        
-                        google.maps.event.addListener(marker, "click", function() {
-                        infowindow.open(map, marker);
+                            position: new google.maps.LatLng(parseFloat(GPSLatArray[i]), parseFloat(GPSLongArray[i])),
+                            map: map,
+                            title: NodeNameArray[i],
+                            id: i
+
+
                         });
-                    }
-                    
-                    function buildContent(i)
-                    {
-                        var Array = variableArray[i].split(",");
-                        var returnString = "<div id='marker "+i+"'>"+ NodeNameArray[i].toString()+"<br/> <br/>";
-                        for (j=0;j<Array.length;j++)
+                        google.maps.event.addListener(marker, 'click', (function(marker, i) 
+                        {
+                            return function() 
                             {
-                                returnString = returnString.concat("<div class='variable "+j+"' onclick='"+ makeGraph(j, NodeNameArray[i])+";'>"+Array[j].toString()+"</div>");
+                                var Array = variableArray[i].split(",");
+                                var returnString = "<div id='marker "+i+"'>"+ NodeNameArray[i].toString()+"<br/> <br/>";
+                                for (j=0;j<Array.length;j++)
+                                {
+                                    returnString = returnString.concat("<button id='"+j+"' class='"+i+"'>"+Array[j].toString()+"</button><br/>");
+
+                                }
+                                returnString = returnString.concat("</div>");
+                              infowindow.setContent(returnString);
+                              infowindow.open(map, marker);
+
                             }
-                            returnString = returnString.concat("</div>");
-                        return returnString;
+                          }
+                          )(marker, i));
                     }
-                    function makeGraph(positionId, nodeId)
-                    {
-                        graphTitle = nodeId.toString();
-                        printGraph(graphTitle)
-                    }
-                    google.maps.event.addDomListener(window, 'load', initialize);
+
+                    google.maps.event.addListener(marker, "click", function() {
+                    infowindow.open(map, marker);
+                    });
+                }
+                    
+                var clickedVariableId;
+
+                function clickListener(e) 
+                {   
+                    var clickedElement=(window.event)
+                                        ? window.event.srcElement 
+                                       : event.target;
+                        
+                        clickedVariableId = document.getElementById(clickedElement.id).getAttribute(id).toString();
+                        
+                }
+
+                document.onclick = clickListener;
+                    
+                function makeGraph(nodeId)
+                {
+                    graphTitle = nodeId;
+                    var c = document.getElementById("graph");
+                    var ctx = c.getContext("2d");
+                    ctx.font = "30px Arial";
+                    ctx.fillText(nodeId,10,50);
+                    //graphTitle = nodeId.toString();
+                    //printGraph(graphTitle)
+                }
+                google.maps.event.addDomListener(window, 'load', initialize);
                     
                     
                     
                     
-                //]]>
-            </script>
+                    
+            //]]>
+        </script>
 
         <script src="http://ajax.aspnetcdn.com/ajax/jQuery/jquery-1.6.1.min.js"></script>
         <script type="text/javascript" src="https://www.google.com/jsapi"></script>
         <script type="text/javascript">
             //<![CDATA[
-            
-            function printGraph(title)
+            var graphTitle="";        
+            google.load("visualization", "1", {packages:["corechart"]});
+            google.setOnLoadCallback(drawChart);
+            function drawChart() 
             {
-var graphTitle;
-var graphData = [];
- google.load("visualization", "1", {packages:["corechart"]});
-      google.setOnLoadCallback(drawChart);
-      function drawChart() {
-        var data = google.visualization.arrayToDataTable([
-          ['Age', 'Weight'],
-          [ 8,      12],
-          [ 4,      5.5],
-          [ 11,     14],
-          [ 4,      5],
-          [ 3,      3.5],
-          [ 6.5,    7]
-        ]);
+                var data = google.visualization.arrayToDataTable([
+                ['Age', 'Weight'],
+                [ 8,      12],
+                [ 4,      5.5],
+                [ 11,     14],
+                [ 4,      5],
+                [ 3,      3.5],
+                [ 6.5,    7]
+                ]);
 
-        var options = {
-          title: graphTitle,
-          hAxis: {title: 'Age', minValue: 0, maxValue: 15},
-          vAxis: {title: 'Weight', minValue: 0, maxValue: 15},
-          legend: 'none'
-        };
+                var options = 
+                {
+                    title: graphTitle,
+                    hAxis: {title: 'Age', minValue: 0, maxValue: 15},
+                    vAxis: {title: 'Weight', minValue: 0, maxValue: 15},
+                    legend: 'none'
+                };
 
-        var chart = new google.visualization.ScatterChart(document.getElementById('graph'));
-        chart.draw(data, options);
-      }
+                var chart = new google.visualization.ScatterChart(document.getElementById('graph'));
+                chart.draw(data, options);
+        
             }
+         
 
              //]]>
         </script>
@@ -157,7 +176,6 @@ var graphData = [];
         <div id="main" >
             <div id="side" >
                 Sidebar
-                
             </div>
             <div id="map" />
             <div id="control" >
@@ -174,7 +192,8 @@ var graphData = [];
                     <h:inputTextarea id="fileContent2"
                                      value="#{bean.fileContent2}"
                                      readonly="true"/>
-                    
+                    <h:outputText id="actionListenerTest" value="unchanged"></h:outputText>
+
 
                 </h:form>
 

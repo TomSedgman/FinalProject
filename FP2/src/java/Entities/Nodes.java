@@ -14,6 +14,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 
@@ -21,7 +22,11 @@ import javax.persistence.OneToMany;
  *
  * @author t_sedgman
  */
-@NamedQuery (name = "findNodesByProject", query =   "SELECT e FROM Nodes e WHERE e.nodeType.project = :project")
+@NamedQueries(
+{
+    @NamedQuery (name = "findNodeByProject", query =   "SELECT e FROM Nodes e WHERE (e.nodeType.project = :project) AND(e.nTIdentifier = :nTIdentifier)"),
+    @NamedQuery (name = "findNodesByProject", query =   "SELECT e FROM Nodes e WHERE e.nodeType.project = :project")
+})
 @Entity
 public class Nodes implements Serializable {
     private static final long serialVersionUID = 1L;

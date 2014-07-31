@@ -52,6 +52,12 @@
                         </h:column>
                         <h:column>
                             <f:facet name="header">
+                                <h:outputText value="#{bundle.ListNodesTitle_isStatic}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.isStatic}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
                                 <h:outputText value="#{bundle.ListNodesTitle_id}"/>
                             </f:facet>
                             <h:outputText value="#{item.id}"/>
