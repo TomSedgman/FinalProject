@@ -28,9 +28,12 @@ import javax.ejb.EJB;
 import javax.faces.bean.SessionScoped;
 import javax.inject.Named;
 import TestInput.MarkerCode;
-import TestInput.MarkerCode.DataPairs;
+
+import TestInput.DataPairs;
+import TestInput.MarkerCode.DataPair;
 import TestInput.MarkerCode.Marker;
 import TestInput.MarkerCode.Variable;
+import com.google.gson.GsonBuilder;
 import java.util.Collection;
 /**
  *
@@ -121,15 +124,17 @@ public class Bean {
       bis.close();
       dis.close();
       setFileContentArray(tempArray);
-      String tempString = tempArray.get(tempArray.size()-3);
-      List<String> Record = Arrays.asList(tempString.split(","));  
-      dataValuesFacade.RecordData(Record);
-      for (int i = 8; i < tempArray.size();i++) //FIXME hack because of input headders;
+      for (int i = 8;i<tempArray.size()-1;i++)
       {
-        fileContent = tempArray.get(i);
+        String tempString = tempArray.get(i);
+        List<String> Record = Arrays.asList(tempString.split(","));  
+        dataValuesFacade.RecordData(Record);
       }
+      
+      
 
-    } catch (FileNotFoundException e) 
+    } 
+    catch (FileNotFoundException e) 
     {
         e.printStackTrace();
     } 
@@ -242,6 +247,56 @@ public class Bean {
        
        return returnString;
    }
+   public ArrayList graphData(int variable, int nodeNumber)
+   {
+        Collection dataValues =  dataValuesFacade.findVariable(currentNodes.getCurrentNodes().get(nodeNumber), variable);
+        ArrayList <DataValues> dataValuesArray = new ArrayList();
+        dataValuesArray.addAll(dataValues);
+        dataValues =  dataValuesFacade.findVariable(currentNodes.getCurrentNodes().get(nodeNumber), 0);
+        ArrayList<DataValues> timeValuesArray = new ArrayList();
+        timeValuesArray.addAll(dataValues);
+        ArrayList <DataPairs> dataPairs = new ArrayList();
+        boolean endLoop = false;
+        for (int i=0;i<dataValuesArray.size();i++)
+        {
+            if (dataPairs.isEmpty())
+            {
+                dataPairs.add(new DataPairs());
+            }
+            else
+            {
+                int j = 0;
+                do
+                {
+                    Date varTimestamp = dataValuesArray.get(i).getdTimeStamp();
+                    Date dateTimestamp = timeValuesArray.get(i).getdTimeStamp();
+                    String tempVariable = dataValuesArray.get(i).getdVariable();
+                    String tempDate = timeValuesArray.get(i).getdVariable();
+                    
+                    if ((varTimestamp.equals(dateTimestamp))&
+                            (dataPairs.get(j).getXdateStamp()==null)&
+                            (dataPairs.get(j).getYvariable()==null)&
+                            (dataPairs.get(j).getTimeStamp()==null))
+                    {
+                        dataPairs.get(j).setTimeStamp(dateTimestamp);
+                        dataPairs.get(j).setYvariable(tempVariable);
+                        dataPairs.get(j).setXdateStamp(tempDate);
+                        j++;
+                        endLoop=true;
+                        
+                    }
+                    else
+                    {
+                        dataPairs.add(new DataPairs());
+                        endLoop=true;
+                    }
+                }
+                while((j<dataPairs.size())&(endLoop==false));
+            }
+       }
+       return dataPairs;
+   }
+      
   public String getData(int positionId, String nodeIdentifier)
   {
       String data = "";
@@ -296,7 +351,7 @@ public class Bean {
     
     public String makeJson()
     {
-        Gson gson = new Gson();
+        Gson gson = new GsonBuilder().setDateFormat("dd/mm/yy-hh:mm:ss").create();
         ArrayList markers = new ArrayList();
         
         for (int i =0;i<currentNodes.getCurrentNodes().size();i++)
@@ -334,11 +389,21 @@ public class Bean {
         variable.setVariableName(data.getdDName());
         variable.setVariableUnit(data.getdDUnit());
         
-        DataPairs dataPairs = new DataPairs();
+        DataPair dataPairs = new DataPair();
         ArrayList timestamp = new ArrayList();
-        timestamp.addAll(dataValuesFacade.findVariable(node, 0));
-        dataPairs.setTimestamp(timestamp);
-        dataPairs.setVariable((ArrayList<Float>) dataValuesFacade.findVariable(node,i).get(counter));
+        ArrayList tempVariable = new ArrayList();
+        if(node.getDataValues().isEmpty())
+        {
+            dataPairs.setTimestamp(null);
+            dataPairs.setVariable(null);
+        }
+        else
+        {
+            timestamp.addAll(dataValuesFacade.findVariable(node, 0));
+            dataPairs.setTimestamp(timestamp);
+            tempVariable.addAll(dataValuesFacade.findVariable(node,i));
+            dataPairs.setVariable (tempVariable);
+        }
         dataPairs.setVariableOffset(null);// need to fill with data from website
         
         variable.setData(dataPairs);

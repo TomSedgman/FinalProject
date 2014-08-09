@@ -21,7 +21,6 @@
             #control {height: 60%; width: 30%; float: right; }
             #graph {height: 40%; width: 90%; float: left; }
             #foot {height: 10%; width: 100%;}
-            /*.variable {background-color: #ccc; padding-right: 10px; border: white outset}*/
 
 
         </style>
@@ -44,22 +43,27 @@
                 var Lat = parseFloat(values[0]);
                 var Long = parseFloat(values[1]);
                 var bounds = new google.maps.LatLngBounds();
-                var infowindow = new google.maps.InfoWindow();    
+                var infowindow = new google.maps.InfoWindow();  
+                var markerVariable = new Array();
                 var variables = "#{bean.getVariables()}";
                 var variableArray = variables.split("//")
-                var json = "#{bean.makeJson()}"
-
+                //var json = "#/{bean.makeJson()}"
+                var graphTitle=""; 
+                var graphData = "#{bean.graphData(6, 3)}"
+                
 
                 function initialize() 
+                {   
+                var mapOptions = 
                 {
-                    var mapOptions = 
-                    {
-                        center: new google.maps.LatLng(Lat, Long),
-                        zoom: 15
+                    center: new google.maps.LatLng(Lat, Long),
+                    zoom: 15
 
-                    };
-                    var map = new google.maps.Map(document.getElementById("map"),
-                    mapOptions);
+                };
+                var map = new google.maps.Map(document.getElementById("map"),
+                mapOptions);
+                
+               
 
                     for (i = 0; i < variableArray.length; i++)
                     {  
@@ -73,20 +77,31 @@
 
 
                         });
+                        
+    
                         google.maps.event.addListener(marker, 'click', (function(marker, i) 
                         {
                             return function() 
                             {
                                 var Array = variableArray[i].split(",");
-                                var returnString = "<div id='marker "+i+"'>"+ NodeNameArray[i].toString()+"<br/> <br/>";
+                                var returnString = "<div id='marker "+i+"'>"+ NodeNameArray[i].toString()+"<br/> <br/><select name='menu'>";
+                                
                                 for (j=0;j<Array.length;j++)
                                 {
-                                    returnString = returnString.concat("<button id='"+j+"' class='"+i+"'>"+Array[j].toString()+"</button><br/>");
+                                    var tempString = NodeNameArray[i].toString()+j.toString();
+                                    markerVariable[j] = "<option id='"+tempString+"' class='variable' style='width: 150px'>"+Array[j].toString()+"</option>";
+                                    returnString = returnString.concat(markerVariable[j]);
+                                    
 
                                 }
-                                returnString = returnString.concat("</div>");
+                                
+                                returnString = returnString.concat("</select></div>");//add select box to confirm
+                               
+                               
                               infowindow.setContent(returnString);
+                              
                               infowindow.open(map, marker);
+                              
 
                             }
                           }
@@ -97,34 +112,22 @@
                     infowindow.open(map, marker);
                     });
                 }
-                    
-                var clickedVariableId;
-
-                function clickListener(e) 
-                {   
-                    var clickedElement=(window.event)
-                                        ? window.event.srcElement 
-                                       : event.target;
-                        
-                        clickedVariableId = document.getElementById(clickedElement.id).getAttribute(id).toString();
-                        
-                }
-
-                document.onclick = clickListener;
-                    
-                function makeGraph(nodeId)
+                
+                function testAlert(name)
                 {
-                    graphTitle = nodeId;
-                    var c = document.getElementById("graph");
-                    var ctx = c.getContext("2d");
-                    ctx.font = "30px Arial";
-                    ctx.fillText(nodeId,10,50);
-                    //graphTitle = nodeId.toString();
-                    //printGraph(graphTitle)
+                    alert("alert:"+name);
                 }
+                    
                 google.maps.event.addDomListener(window, 'load', initialize);
                     
-                    
+                function graphName()
+                {
+                    alert("alert");
+                    graphTitle = "test";
+
+                }
+                
+               
                     
                     
                     
@@ -135,12 +138,12 @@
         <script type="text/javascript" src="https://www.google.com/jsapi"></script>
         <script type="text/javascript">
             //<![CDATA[
-            var graphTitle="";        
             google.load("visualization", "1", {packages:["corechart"]});
             google.setOnLoadCallback(drawChart);
+            //window.setInterval(drawChart(),100)
             function drawChart() 
             {
-                var data = google.visualization.arrayToDataTable([
+                var graphData = google.visualization.arrayToDataTable([
                 ['Age', 'Weight'],
                 [ 8,      12],
                 [ 4,      5.5],
@@ -159,9 +162,10 @@
                 };
 
                 var chart = new google.visualization.ScatterChart(document.getElementById('graph'));
-                chart.draw(data, options);
-        
+                chart.draw(graphData, options);
+
             }
+            
          
 
              //]]>
@@ -192,9 +196,6 @@
                     <h:inputTextarea id="fileContent2"
                                      value="#{bean.fileContent2}"
                                      readonly="true"/>
-                    <h:outputText id="actionListenerTest" value="unchanged"></h:outputText>
-
-
                 </h:form>
 
                 <h:link outcome="/Page/dataDefinitions/List" value="Show All DataDefinitions Items"/>
@@ -217,13 +218,13 @@
             </div>
            <div id ="graph">
            </div>
-
         </div> 
         <div id="foot" >
             foot
+            <h:commandButton id="graphBuilder" value="click" onclick="graphName()"/>
         </div>
         <br />
     </h:body>
-
+  
 </html>
 

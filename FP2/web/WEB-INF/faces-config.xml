@@ -21,9 +21,9 @@
     </managed-bean>
     <managed-bean>
         <managed-bean-name>dataReturn</managed-bean-name>
-        <managed-bean-class>TestInput.DataReturn</managed-bean-class>
-        <managed-bean-scope>request</managed-bean-scope>
-    </managed-bean>
+        <managed-bean-class>TestInput.TwoDimentionalArrayList</managed-bean-class>
+    
+        <managed-bean-scope>request</managed-bean-scope></managed-bean>
     <managed-bean>
         <managed-bean-name>project</managed-bean-name>
         <managed-bean-class>PersistedVariables.PProject</managed-bean-class>

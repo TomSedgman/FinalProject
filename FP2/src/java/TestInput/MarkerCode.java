@@ -69,7 +69,7 @@ public static class Marker
     {
         private String variableName;
         private String variableUnit;
-        private DataPairs data;
+        private DataPair data;
 
         public String getVariableName() {
             return variableName;
@@ -87,11 +87,11 @@ public static class Marker
             this.variableUnit = variableUnit;
         }
 
-        public DataPairs getData() {
+        public DataPair getData() {
             return data;
         }
 
-        public void setData(DataPairs data) {
+        public void setData(DataPair data) {
             this.data = data;
         }
 
@@ -101,7 +101,7 @@ public static class Marker
     }
     
     
-    public static class DataPairs 
+    public static class DataPair 
     {
         private ArrayList<Date> timestamp;
         private ArrayList<Float> variable;
