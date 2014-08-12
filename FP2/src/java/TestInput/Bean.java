@@ -34,6 +34,7 @@ import TestInput.MarkerCode.DataPair;
 import TestInput.MarkerCode.Marker;
 import TestInput.MarkerCode.Variable;
 import com.google.gson.GsonBuilder;
+import java.util.Calendar;
 import java.util.Collection;
 /**
  *
@@ -256,45 +257,50 @@ public class Bean {
         ArrayList<DataValues> timeValuesArray = new ArrayList();
         timeValuesArray.addAll(dataValues);
         ArrayList <DataPairs> dataPairs = new ArrayList();
-        boolean endLoop = false;
+        dataPairs.add(new DataPairs());
+        ArrayList<ArrayList<String>> returnData = new ArrayList<>();
+        ArrayList<String> newAL = new ArrayList();
+        newAL.add("Date");
+        newAL.add("Variable");
+        //returnData.add(newAL);
+        Gson gson = new Gson();
+        
         for (int i=0;i<dataValuesArray.size();i++)
         {
-            if (dataPairs.isEmpty())
+            
+            String varTimestamp = dataValuesArray.get(i).getdTimeStamp().toString();
+            String dateTimestamp = timeValuesArray.get(i).getdTimeStamp().toString();
+            String tempVariable = dataValuesArray.get(i).getdVariable().toString();
+            String tempDate = timeValuesArray.get(i).getdVariable();
+            
+
+            if ((varTimestamp.equals(dateTimestamp))&
+                    (dataPairs.get(i).getXdateStamp()==null)&
+                    (dataPairs.get(i).getYvariable()==null)&
+                    (dataPairs.get(i).getTimeStamp()==null))
             {
+                dataPairs.get(i).setTimeStamp(dateTimestamp);
+                dataPairs.get(i).setYvariable(tempVariable);
+                dataPairs.get(i).setXdateStamp(tempDate);
+                ArrayList<String> tempAL = new ArrayList();
+                tempAL.add(i+"");
+                tempAL.add(tempVariable);
+                returnData.add(tempAL);
                 dataPairs.add(new DataPairs());
+
             }
-            else
+//            else if ((i == dataPairs.size()) & (dataPairs.get(i).getTimeStamp()==null))
+//            {
+//                dataPairs.add(new DataPairs());
+//
+//            }
+            else 
             {
-                int j = 0;
-                do
-                {
-                    Date varTimestamp = dataValuesArray.get(i).getdTimeStamp();
-                    Date dateTimestamp = timeValuesArray.get(i).getdTimeStamp();
-                    String tempVariable = dataValuesArray.get(i).getdVariable();
-                    String tempDate = timeValuesArray.get(i).getdVariable();
-                    
-                    if ((varTimestamp.equals(dateTimestamp))&
-                            (dataPairs.get(j).getXdateStamp()==null)&
-                            (dataPairs.get(j).getYvariable()==null)&
-                            (dataPairs.get(j).getTimeStamp()==null))
-                    {
-                        dataPairs.get(j).setTimeStamp(dateTimestamp);
-                        dataPairs.get(j).setYvariable(tempVariable);
-                        dataPairs.get(j).setXdateStamp(tempDate);
-                        j++;
-                        endLoop=true;
-                        
-                    }
-                    else
-                    {
-                        dataPairs.add(new DataPairs());
-                        endLoop=true;
-                    }
-                }
-                while((j<dataPairs.size())&(endLoop==false));
+
             }
        }
-       return dataPairs;
+        String rt = gson.toJson(returnData);
+       return returnData;
    }
       
   public String getData(int positionId, String nodeIdentifier)

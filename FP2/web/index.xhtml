@@ -21,155 +21,44 @@
             #control {height: 60%; width: 30%; float: right; }
             #graph {height: 40%; width: 90%; float: left; }
             #foot {height: 10%; width: 100%;}
+            #selects {visibility: collapse}
 
 
         </style>
         <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBn3ekiVRTR-gme-EH5bqcn3dNxuiUxzRg">
         </script>
-        <script type="text/javascript" src="resources/JavaScript/mootools-core-1.5.0-full-compat"></script>
-        <script type="text/javascript" src="resources/JavaScript/jquery-2.1.1.min.js"></script>
+        <script type="text/javascript" src="resources/JavaScript/Map.js"></script>
+        <!--<script type="text/javascript" src="resources/JavaScript/mootools-core-1.5.0-full-compat"></script>-->
+        <!--<script type="text/javascript" src="resources/JavaScript/jquery-2.1.1.min.js"></script>-->
+        <!--<script src="http://ajax.aspnetcdn.com/ajax/jQuery/jquery-1.6.1.min.js"></script>-->
+        <script type="text/javascript" src="https://www.google.com/jsapi"></script>
+        <script type="text/javascript" src="resources/JavaScript/Graph.js"></script>
         <script type="text/javascript">
             //<![CDATA[
-                var projects = "#{bean.loadProject("ths28")}";
-                var nodes = "#{bean.loadNodes(0)}"; 
-                var GPSLat = "#{bean.GPSLat()}";
-                var GPSLatArray = GPSLat.split(",");
-                var GPSLong = "#{bean.GPSLong()}";
-                var GPSLongArray = GPSLong.split(",");
-                var NodeName = "#{bean.NodeName()}";
-                var NodeNameArray = NodeName.split(",");
-                var centrepoint = "#{bean.CentrePoint()}";
-                var values = centrepoint.split(",");
-                var Lat = parseFloat(values[0]);
-                var Long = parseFloat(values[1]);
-                var bounds = new google.maps.LatLngBounds();
-                var infowindow = new google.maps.InfoWindow();  
-                var markerVariable = new Array();
-                var variables = "#{bean.getVariables()}";
-                var variableArray = variables.split("//")
-                //var json = "#/{bean.makeJson()}"
-                var graphTitle=""; 
-                var graphData = "#{bean.graphData(6, 3)}"
-                
+            var projects = "#{bean.loadProject("ths28")}";
+            var nodes = "#{bean.loadNodes(0)}"; 
+            var GPSLat = "#{bean.GPSLat()}";
+            var GPSLatArray = GPSLat.split(",");
+            var GPSLong = "#{bean.GPSLong()}";
+            var GPSLongArray = GPSLong.split(",");
+            var NodeName = "#{bean.NodeName()}";
+            var NodeNameArray = NodeName.split(",");
+            var centrepoint = "#{bean.CentrePoint()}";
+            var values = centrepoint.split(",");
+            var Lat = parseFloat(values[0]);
+            var Long = parseFloat(values[1]);
+            var variables = "#{bean.getVariables()}";
+            var variableArray = variables.split("//")
+            
+            var map;
+            google.maps.event.addDomListener(window, 'load', initialize);
 
-                function initialize() 
-                {   
-                var mapOptions = 
-                {
-                    center: new google.maps.LatLng(Lat, Long),
-                    zoom: 15
-
-                };
-                var map = new google.maps.Map(document.getElementById("map"),
-                mapOptions);
-                
-               
-
-                    for (i = 0; i < variableArray.length; i++)
-                    {  
-
-                        marker = new google.maps.Marker(
-                        {
-                            position: new google.maps.LatLng(parseFloat(GPSLatArray[i]), parseFloat(GPSLongArray[i])),
-                            map: map,
-                            title: NodeNameArray[i],
-                            id: i
-
-
-                        });
-                        
-    
-                        google.maps.event.addListener(marker, 'click', (function(marker, i) 
-                        {
-                            return function() 
-                            {
-                                var Array = variableArray[i].split(",");
-                                var returnString = "<div id='marker "+i+"'>"+ NodeNameArray[i].toString()+"<br/> <br/><select name='menu'>";
-                                
-                                for (j=0;j<Array.length;j++)
-                                {
-                                    var tempString = NodeNameArray[i].toString()+j.toString();
-                                    markerVariable[j] = "<option id='"+tempString+"' class='variable' style='width: 150px'>"+Array[j].toString()+"</option>";
-                                    returnString = returnString.concat(markerVariable[j]);
-                                    
-
-                                }
-                                
-                                returnString = returnString.concat("</select></div>");//add select box to confirm
-                               
-                               
-                              infowindow.setContent(returnString);
-                              
-                              infowindow.open(map, marker);
-                              
-
-                            }
-                          }
-                          )(marker, i));
-                    }
-
-                    google.maps.event.addListener(marker, "click", function() {
-                    infowindow.open(map, marker);
-                    });
-                }
-                
-                function testAlert(name)
-                {
-                    alert("alert:"+name);
-                }
-                    
-                google.maps.event.addDomListener(window, 'load', initialize);
-                    
-                function graphName()
-                {
-                    alert("alert");
-                    graphTitle = "test";
-
-                }
-                
-               
-                    
-                    
-                    
+            
+            
             //]]>
         </script>
-
-        <script src="http://ajax.aspnetcdn.com/ajax/jQuery/jquery-1.6.1.min.js"></script>
-        <script type="text/javascript" src="https://www.google.com/jsapi"></script>
-        <script type="text/javascript">
-            //<![CDATA[
-            google.load("visualization", "1", {packages:["corechart"]});
-            google.setOnLoadCallback(drawChart);
-            //window.setInterval(drawChart(),100)
-            function drawChart() 
-            {
-                var graphData = google.visualization.arrayToDataTable([
-                ['Age', 'Weight'],
-                [ 8,      12],
-                [ 4,      5.5],
-                [ 11,     14],
-                [ 4,      5],
-                [ 3,      3.5],
-                [ 6.5,    7]
-                ]);
-
-                var options = 
-                {
-                    title: graphTitle,
-                    hAxis: {title: 'Age', minValue: 0, maxValue: 15},
-                    vAxis: {title: 'Weight', minValue: 0, maxValue: 15},
-                    legend: 'none'
-                };
-
-                var chart = new google.visualization.ScatterChart(document.getElementById('graph'));
-                chart.draw(graphData, options);
-
-            }
-            
-         
-
-             //]]>
-        </script>
+                
+       
 
 
     </h:head>
@@ -215,13 +104,14 @@
                 <h:link outcome="/Page/tags/List" value="Show All Tags Items"/>
                 <br />
                 <h:link outcome="/Page/users/List" value="Show All Users Items"/>
+                <div id="selects"></div>
+
             </div>
            <div id ="graph">
            </div>
         </div> 
         <div id="foot" >
             foot
-            <h:commandButton id="graphBuilder" value="click" onclick="graphName()"/>
         </div>
         <br />
     </h:body>

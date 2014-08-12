@@ -15,7 +15,7 @@ public class DataPairs
 {
     private String XdateStamp;
     private String Yvariable;
-    private Date timeStamp;
+    private String timeStamp;
 
     public String getXdateStamp() {
         return XdateStamp;
@@ -33,11 +33,11 @@ public class DataPairs
         this.Yvariable = Yvariable;
     }
 
-    public Date getTimeStamp() {
+    public String getTimeStamp() {
         return timeStamp;
     }
 
-    public void setTimeStamp(Date timeStamp) {
+    public void setTimeStamp(String timeStamp) {
         this.timeStamp = timeStamp;
     }
 
