@@ -1,11 +1,10 @@
-var map;
 function initialize() 
 {
     
     var mapOptions = 
     {
         center: new google.maps.LatLng(Lat, Long),
-        zoom: 15,
+        zoom: 15
     };
     var root = document.getElementById('selects');
     var df = document.createDocumentFragment(); 
@@ -22,6 +21,8 @@ function initialize()
         var mymarker = new google.maps.Marker(
         {
             map: map,
+            title: NodeNameArray[i],
+            id: i,
             position: new google.maps.LatLng(parseFloat(GPSLatArray[i]), parseFloat(GPSLongArray[i]))
         });
         var Array = variableArray[i].split(",");
@@ -32,17 +33,20 @@ function initialize()
     } 
 }
 
-function setDropDownList(mapMarker, mapInfoWindow, names, variable,id) 
+function setDropDownList(mapMarker, mapInfoWindow, names, node,id) 
 {
     // event listener for dropdown list in the map markers' infowindow
     
     var articles = document.getElementById(id);
+    currentNode = node;
     articles.onchange = function() 
     {
-        alert("Node: " +NodeNameArray[variable]+" Variable: "+ names[this.options.selectedIndex]);
+        titles = names;
+        currentNode = node;
+        currentVariable = [this.options.selectedIndex];
+        ajaxCall();
     };
     var nextArticle, nextOption;
-
     for (var i = 0; i < names.length; i++) 
     {
         nextArticle = names[i];

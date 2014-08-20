@@ -24,7 +24,8 @@ import javax.persistence.TemporalType;
 @NamedQueries(
 {
     @NamedQuery (name = "findVariablesByTypeAndNode", query = "SELECT e FROM DataValues e WHERE ( e.node = :node and e.variablePositionId = :variable1) or ( e.node = :node and e.variablePositionId = :variable2)"),
-    @NamedQuery (name = "findVariableByTypeAndNode", query = "SELECT e FROM DataValues e WHERE  e.node = :node and e.variablePositionId = :variable1")
+    @NamedQuery (name = "findVariableByTypeAndNode", query = "SELECT e FROM DataValues e WHERE  e.node = :node and e.variablePositionId = :variable1"),
+    @NamedQuery (name="findRecords",query = "SELECT e FROM DataValues e WHERE e.dTimeStamp = :time ORDER BY e.variablePositionId")
 })
 @Entity
 //e.dVariable, e.dTimeStamp, e.variablePositionId

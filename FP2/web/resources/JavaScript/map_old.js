@@ -5,26 +5,26 @@
 
 
 //<![CDATA[
-                var projects = "#{bean.loadProject("ths28")}";
-                var nodes = "#{bean.loadNodes(0)}"; 
-                var GPSLat = "#{bean.GPSLat()}";
-                var GPSLatArray = GPSLat.split(",");
-                var GPSLong = "#{bean.GPSLong()}";
-                var GPSLongArray = GPSLong.split(",");
-                var NodeName = "#{bean.NodeName()}";
-                var NodeNameArray = NodeName.split(",");
-                var centrepoint = "#{bean.CentrePoint()}";
-                var values = centrepoint.split(",");
-                var Lat = parseFloat(values[0]);
-                var Long = parseFloat(values[1]);
-                var bounds = new google.maps.LatLngBounds();
-                var infowindow = new google.maps.InfoWindow();  
-                var markerVariable = new Array();
-                var variables = "#{bean.getVariables()}";
-                var variableArray = variables.split("//")
-                //var json = "#/{bean.makeJson()}"
-                var graphTitle=""; 
-                var loadGraphData = "#{bean.graphData(6, 3)}";
+//                var projects = "#{bean.loadProject("ths28")}";
+//                var nodes = "#{bean.loadNodes(0)}"; 
+//                var GPSLat = "#{bean.GPSLat()}";
+//                var GPSLatArray = GPSLat.split(",");
+//                var GPSLong = "#{bean.GPSLong()}";
+//                var GPSLongArray = GPSLong.split(",");
+//                var NodeName = "#{bean.NodeName()}";
+//                var NodeNameArray = NodeName.split(",");
+//                var centrepoint = "#{bean.CentrePoint()}";
+//                var values = centrepoint.split(",");
+//                var Lat = parseFloat(values[0]);
+//                var Long = parseFloat(values[1]);
+//                var bounds = new google.maps.LatLngBounds();
+//                var infowindow = new google.maps.InfoWindow();  
+//                var markerVariable = new Array();
+//                var variables = "#{bean.getVariables()}";
+//                var variableArray = variables.split("//")
+//                //var json = "#/{bean.makeJson()}"
+//                var graphTitle=""; 
+//                var loadGraphData = "#{bean.graphData(6, 3)}";
               
 //                var sortedData = new Array();
                 

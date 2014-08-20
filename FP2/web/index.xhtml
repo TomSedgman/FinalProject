@@ -4,10 +4,11 @@
 
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
-      xmlns:f="http://xmlns.jcp.org/jsf/core">
-    
-    <h:head>
-        <title>Facelet Title</title>
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+     
+   <h:head>
+        <title>MADSEDGE - Management and Display System for Environmental Data Gathering Equipment </title>
         <h:outputStylesheet name="css/jsfcrud.css"/>
 
         <meta name="viewport" content="initial-scale=1.0, user-scalable=no" />
@@ -22,6 +23,8 @@
             #graph {height: 40%; width: 90%; float: left; }
             #foot {height: 10%; width: 100%;}
             #selects {visibility: collapse}
+            .hidden {visibility: hidden}
+            
 
 
         </style>
@@ -32,7 +35,7 @@
         <!--<script type="text/javascript" src="resources/JavaScript/jquery-2.1.1.min.js"></script>-->
         <!--<script src="http://ajax.aspnetcdn.com/ajax/jQuery/jquery-1.6.1.min.js"></script>-->
         <script type="text/javascript" src="https://www.google.com/jsapi"></script>
-        <script type="text/javascript" src="resources/JavaScript/Graph.js"></script>
+        <script type="text/javascript" src="resources/JavaScript/Graph.js" ></script>
         <script type="text/javascript">
             //<![CDATA[
             var projects = "#{bean.loadProject("ths28")}";
@@ -48,21 +51,71 @@
             var Lat = parseFloat(values[0]);
             var Long = parseFloat(values[1]);
             var variables = "#{bean.getVariables()}";
-            var variableArray = variables.split("//")
-            
+            var variableArray = variables.split("//");
             var map;
-            google.maps.event.addDomListener(window, 'load', initialize);
+            var returnValue;
+            var dataIn;
+            var currentNode;
+            var currentVariable;
+            var titles;
+            
+            var docNode;
+            var docVariable;
+            var docUpdate;
+            var docArray;
 
+            
+            google.maps.event.addDomListener(window, 'load', initialize);
+            
+            
+            function retrieveData(node, variable)
+            {
+                var returnData = document.getElementById('output').getAttribute('value');
+                getData(returnData);
+            }
+            function ajaxTest(t)
+            {
+                if (t.status ==='success')
+                {
+                    returnValue =  t.responseText;  
+                    var StrippedString = returnValue.replace(/(<([^>]+)>)/ig,"");
+                    StrippedString = StrippedString.replace("|]","");
+                    StrippedString = StrippedString.replace("]>","");
+                    dataIn = StrippedString;
+//                    titles= variableArray[0].split(",");
+//                    currentVariable = 9;
+                    drawChart();    
+                }
+            }
+            
+            function ajaxCall()
+            {
+                //dataIn =  "685,87.81|686,87.79|687,87.77|688,87.82|689,87.92|690,87.88|691,87.90|692,88.13|693,88.13|694,88.08|"; 
+                
+                docArray = document.getElementsByClassName("ajax")
+                
+                for (i=0;i<docArray.length;i++)
+                {
+                    if (docArray[i].id === "ajaxForm:node")
+                        docNode = docArray[i];
+                    if (docArray[i].id === "ajaxForm:variable")
+                        docVariable = docArray[i];
+                    if (docArray[i].id === "ajaxForm:update")
+                        docUpdate = docArray[i];
+                    
+                }                
+                docNode.setAttribute("value", currentNode);
+                docVariable.setAttribute("value", currentVariable);
+                docUpdate.click();
+                
+            }
             
             
             //]]>
         </script>
-                
-       
-
-
     </h:head>
     <h:body>
+    	
         <div id="head" >
             head
         </div>     
@@ -72,6 +125,9 @@
             </div>
             <div id="map" />
             <div id="control" >
+                <h:panelGroup id="messagePanel" layout="block">
+                    <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
+                </h:panelGroup>
                 <h:form id="form" enctype="multipart/form-data">
                     <h:commandButton value="Upload"
                                      action="#{bean.upload}">
@@ -85,8 +141,20 @@
                     <h:inputTextarea id="fileContent2"
                                      value="#{bean.fileContent2}"
                                      readonly="true"/>
+                
                 </h:form>
+                <h:form class="hidden" id="ajaxForm">
+                    <h:inputText id="node" class="ajax" value="#{bean.node}" ></h:inputText>
+                    <h:inputText id="variable" class="ajax" value="#{bean.variable}"></h:inputText>
+                   <h:commandButton id="update" value="update" class="ajax">
+                       <f:ajax execute="node variable" render="output" onevent="ajaxTest" />
+                         
+                   </h:commandButton>
 
+                   <h:outputText id="output" value="#{bean.graphData}" />
+                   
+                 	
+                </h:form>
                 <h:link outcome="/Page/dataDefinitions/List" value="Show All DataDefinitions Items"/>
                 <br />
                 <h:link outcome="/Page/dataValues/List" value="Show All DataValues Items"/>
@@ -105,15 +173,15 @@
                 <br />
                 <h:link outcome="/Page/users/List" value="Show All Users Items"/>
                 <div id="selects"></div>
-
-            </div>
-           <div id ="graph">
+                
+ 
+            </div> 
+          <div id ="graph">
            </div>
         </div> 
         <div id="foot" >
             foot
         </div>
-        <br />
     </h:body>
   
 </html>

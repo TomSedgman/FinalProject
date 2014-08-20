@@ -248,59 +248,44 @@ public class Bean {
        
        return returnString;
    }
-   public ArrayList graphData(int variable, int nodeNumber)
+   private int node;
+   private int variable;
+
+    public int getNode() {
+        return node;
+    }
+
+    public void setNode(int node) {
+        this.node = node;
+    }
+
+    public int getVariable() {
+        return variable;
+    }
+
+    public void setVariable(int variable) {
+        this.variable = variable;
+    }
+   
+   
+   public String getGraphData()
    {
-        Collection dataValues =  dataValuesFacade.findVariable(currentNodes.getCurrentNodes().get(nodeNumber), variable);
+        String records = "";
         ArrayList <DataValues> dataValuesArray = new ArrayList();
+        Collection dataValues =  dataValuesFacade.findVariable(currentNodes.getCurrentNodes().get(node), 0); // get all records for a node at index 0
         dataValuesArray.addAll(dataValues);
-        dataValues =  dataValuesFacade.findVariable(currentNodes.getCurrentNodes().get(nodeNumber), 0);
-        ArrayList<DataValues> timeValuesArray = new ArrayList();
-        timeValuesArray.addAll(dataValues);
-        ArrayList <DataPairs> dataPairs = new ArrayList();
-        dataPairs.add(new DataPairs());
-        ArrayList<ArrayList<String>> returnData = new ArrayList<>();
-        ArrayList<String> newAL = new ArrayList();
-        newAL.add("Date");
-        newAL.add("Variable");
-        //returnData.add(newAL);
-        Gson gson = new Gson();
-        
-        for (int i=0;i<dataValuesArray.size();i++)
+        for (int j = dataValuesArray.size()-10;j< dataValuesArray.size();j++) // loop over array dataValuesArray.size()-10
         {
-            
-            String varTimestamp = dataValuesArray.get(i).getdTimeStamp().toString();
-            String dateTimestamp = timeValuesArray.get(i).getdTimeStamp().toString();
-            String tempVariable = dataValuesArray.get(i).getdVariable().toString();
-            String tempDate = timeValuesArray.get(i).getdVariable();
-            
-
-            if ((varTimestamp.equals(dateTimestamp))&
-                    (dataPairs.get(i).getXdateStamp()==null)&
-                    (dataPairs.get(i).getYvariable()==null)&
-                    (dataPairs.get(i).getTimeStamp()==null))
-            {
-                dataPairs.get(i).setTimeStamp(dateTimestamp);
-                dataPairs.get(i).setYvariable(tempVariable);
-                dataPairs.get(i).setXdateStamp(tempDate);
-                ArrayList<String> tempAL = new ArrayList();
-                tempAL.add(i+"");
-                tempAL.add(tempVariable);
-                returnData.add(tempAL);
-                dataPairs.add(new DataPairs());
-
-            }
-//            else if ((i == dataPairs.size()) & (dataPairs.get(i).getTimeStamp()==null))
-//            {
-//                dataPairs.add(new DataPairs());
-//
-//            }
-            else 
-            {
-
-            }
-       }
-        String rt = gson.toJson(returnData);
-       return returnData;
+            Date d = dataValuesArray.get(j).getdTimeStamp(); // get timestamp of each item
+            Collection record = dataValuesFacade.findRecord(d);// get list of records where timestamp is as above
+            ArrayList<DataValues> recordArray = new ArrayList<>();
+            recordArray.addAll(record);
+            records = records.concat(j+"");//recordArray.get(0).getdVariable().toString()); // get timestamp, may need to later adapt to accept 
+            records = records.concat(","); 
+            records = records.concat(recordArray.get(variable).getdVariable().toString()); // get variable of interest
+            records = records.concat("|");
+        }
+        return records;
    }
       
   public String getData(int positionId, String nodeIdentifier)
@@ -416,5 +401,12 @@ public class Bean {
         
         return variable;
     }
+    public String title()
+    {
+        String title = currProject.getCurrentProject().getProjectName();
+        return title;
+    }
+    
+    
 }
 
