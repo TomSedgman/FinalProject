@@ -10,24 +10,31 @@ function drawChart()
     {
         //var dataArray = dataIn.split("|");
         var data = new google.visualization.DataTable();
-        data.addColumn('number', 'Date');
+        data.addColumn('date', 'Date');
         data.addColumn('number', titles[currentVariable]);
         var num = (dataIn.length);//dataArray.length;
         data.addRows(num/2);
+//        var dateFormatter = new google.visualization.DateFormat
+//            ({
+//                pattern: "dd/MM/yy-hh:mm:ss"
+//            });
+//            dateFormatter.format(dataIn,0);
         var i = 0;
         var j = 0;
         while (i<num)
         {
+            
+            var d = (dataIn[i]);
             if (i%2===0)
             {
-                var p0 = j;
-                data.setCell(j,0,p0);
+                d = new Date(d);
+                data.setCell(j,0,d);
                 i++;
             }
             else
             {
-                var p1 = parseFloat(dataIn[i]);
-                data.setCell(j,1,p1);                
+                
+                data.setCell(j,1,parseFloat(d));                
                 i++;
                 j++;
             }

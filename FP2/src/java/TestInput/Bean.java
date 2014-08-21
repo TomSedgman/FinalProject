@@ -30,7 +30,10 @@ import TestInput.MarkerCode.DataPair;
 import TestInput.MarkerCode.Marker;
 import TestInput.MarkerCode.Variable;
 import com.google.gson.GsonBuilder;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Collection;
+import java.util.Locale;
 /**
  *
  * @author t_sedgman
@@ -258,11 +261,23 @@ public class Bean {
     }
    
    
-   public List getGraphData()
+   public List getGraphData() throws ParseException
    {
 //        String records = "";
         List dataReturn = dataValuesFacade.findOrderedData(currentNodes.getCurrentNodes().get(node), 0, variable);
         
+        for (int i = 0;i<dataReturn.size();i++)
+        {
+            if (i%2==0)
+            {
+               String string = dataReturn.get(i).toString();
+               Date date = new SimpleDateFormat("DD/MM/yy-HH:mm:ss", Locale.ENGLISH).parse(string); 
+               dataReturn.set(i, date);
+            }
+            
+        }
+                
+                
 //        ArrayList <DataValues> dataValuesArray = new ArrayList();
 //        Collection dataValues =  dataValuesFacade.findVariable(currentNodes.getCurrentNodes().get(node), 0); // get all records for a node at index 0
 //        dataValuesArray.addAll(dataValues);
