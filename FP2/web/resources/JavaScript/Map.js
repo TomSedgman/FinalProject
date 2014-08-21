@@ -22,7 +22,7 @@ function initialize()
         {
             map: map,
             title: NodeNameArray[i],
-            id: i,
+            id: NodeNameArray[i],
             position: new google.maps.LatLng(parseFloat(GPSLatArray[i]), parseFloat(GPSLongArray[i]))
         });
         var Array = variableArray[i].split(",");
@@ -38,7 +38,6 @@ function setDropDownList(mapMarker, mapInfoWindow, names, node,id)
     // event listener for dropdown list in the map markers' infowindow
     
     var articles = document.getElementById(id);
-    currentNode = node;
     articles.onchange = function() 
     {
         titles = names;

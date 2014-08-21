@@ -8,17 +8,29 @@ function drawChart()
       
     function buildData()
     {
-        var dataArray = dataIn.split("|");
+        //var dataArray = dataIn.split("|");
         var data = new google.visualization.DataTable();
         data.addColumn('number', 'Date');
         data.addColumn('number', titles[currentVariable]);
-        var num = dataArray.length;
-        data.addRows(num);
-        for (var i=0;i<num;i++)
+        var num = (dataIn.length);//dataArray.length;
+        data.addRows(num/2);
+        var i = 0;
+        var j = 0;
+        while (i<num)
         {
-            var record = dataArray[i].split(",");
-            data.setCell(i, 0, record[0]);
-            data.setCell(i, 1, record[1]);
+            if (i%2===0)
+            {
+                var p0 = j;
+                data.setCell(j,0,p0);
+                i++;
+            }
+            else
+            {
+                var p1 = parseFloat(dataIn[i]);
+                data.setCell(j,1,p1);                
+                i++;
+                j++;
+            }
         }
         return data;
     }

@@ -26,15 +26,10 @@ import java.util.Date;
 import java.util.List;
 import javax.ejb.EJB;
 import javax.faces.bean.SessionScoped;
-import javax.inject.Named;
-import TestInput.MarkerCode;
-
-import TestInput.DataPairs;
 import TestInput.MarkerCode.DataPair;
 import TestInput.MarkerCode.Marker;
 import TestInput.MarkerCode.Variable;
 import com.google.gson.GsonBuilder;
-import java.util.Calendar;
 import java.util.Collection;
 /**
  *
@@ -146,12 +141,7 @@ public class Bean {
 
   }
 
-  public void next()
-  {
-     List returnedData = dataValuesFacade.findVariables(null, 0, 8);
-     fileContent2 = returnedData.get(counter).toString();
-     counter++;
-  }
+  
     public void loadProject(String username)
   {
       List projects = projectsFacade.findProjectsByUser(username);
@@ -268,48 +258,50 @@ public class Bean {
     }
    
    
-   public String getGraphData()
+   public List getGraphData()
    {
-        String records = "";
-        ArrayList <DataValues> dataValuesArray = new ArrayList();
-        Collection dataValues =  dataValuesFacade.findVariable(currentNodes.getCurrentNodes().get(node), 0); // get all records for a node at index 0
-        dataValuesArray.addAll(dataValues);
-        for (int j = dataValuesArray.size()-10;j< dataValuesArray.size();j++) // loop over array dataValuesArray.size()-10
-        {
-            Date d = dataValuesArray.get(j).getdTimeStamp(); // get timestamp of each item
-            Collection record = dataValuesFacade.findRecord(d);// get list of records where timestamp is as above
-            ArrayList<DataValues> recordArray = new ArrayList<>();
-            recordArray.addAll(record);
-            records = records.concat(j+"");//recordArray.get(0).getdVariable().toString()); // get timestamp, may need to later adapt to accept 
-            records = records.concat(","); 
-            records = records.concat(recordArray.get(variable).getdVariable().toString()); // get variable of interest
-            records = records.concat("|");
-        }
-        return records;
+//        String records = "";
+        List dataReturn = dataValuesFacade.findOrderedData(currentNodes.getCurrentNodes().get(node), 0, variable);
+        
+//        ArrayList <DataValues> dataValuesArray = new ArrayList();
+//        Collection dataValues =  dataValuesFacade.findVariable(currentNodes.getCurrentNodes().get(node), 0); // get all records for a node at index 0
+//        dataValuesArray.addAll(dataValues);
+//        for (int j = dataValuesArray.size()-10;j< dataValuesArray.size();j++) // loop over array dataValuesArray.size()-10
+//        {
+//            Date d = dataValuesArray.get(j).getdTimeStamp(); // get timestamp of each item
+//            Collection record = dataValuesFacade.findRecord(d);// get list of records where timestamp is as above
+//            ArrayList<DataValues> recordArray = new ArrayList<>();
+//            recordArray.addAll(record);
+//            records = records.concat(j+"");//recordArray.get(0).getdVariable().toString()); // get timestamp, may need to later adapt to accept 
+//            records = records.concat(","); 
+//            records = records.concat(recordArray.get(variable).getdVariable().toString()); // get variable of interest
+//            records = records.concat("|");
+//        }
+        return dataReturn;
    }
       
-  public String getData(int positionId, String nodeIdentifier)
-  {
-      String data = "";
-      int i = 0;
-      Nodes selectedNode;
-      do
-      {
-          selectedNode = currentNodes.getCurrentNodes().get(i);
-      }
-      while (selectedNode.getnTIdentifier() == null ? (nodeIdentifier) != null : !selectedNode.getnTIdentifier().equals(nodeIdentifier));   
-      List<DataValues> dataList = dataValuesFacade.findVariable(selectedNode, positionId);
-      for (int j = 0; j < dataList.size();j++)
-        {
-            String temp = dataList.get(j).getdVariable();
-            data = data.concat(temp);
-            if (j != (dataList.size()-1))
-            { 
-                data = data.concat(","); 
-            }
-        }
-      return data;
-  }
+//  public String getData(int positionId, String nodeIdentifier)
+//  {
+//      String data = "";
+//      int i = 0;
+//      Nodes selectedNode;
+//      do
+//      {
+//          selectedNode = currentNodes.getCurrentNodes().get(i);
+//      }
+//      while (selectedNode.getnTIdentifier() == null ? (nodeIdentifier) != null : !selectedNode.getnTIdentifier().equals(nodeIdentifier));   
+//      List<DataValues> dataList = dataValuesFacade.findVariable(selectedNode, positionId);
+//      for (int j = 0; j < dataList.size();j++)
+//        {
+//            String temp = dataList.get(j).getdVariable();
+//            data = data.concat(temp);
+//            if (j != (dataList.size()-1))
+//            { 
+//                data = data.concat(","); 
+//            }
+//        }
+//      return data;
+//  }
     public String CentrePoint()
     {
         List gpsLat = coordinates.getGPSLat();
@@ -340,72 +332,72 @@ public class Bean {
         return ((Double) sum) / n;
     }
     
-    public String makeJson()
-    {
-        Gson gson = new GsonBuilder().setDateFormat("dd/mm/yy-hh:mm:ss").create();
-        ArrayList markers = new ArrayList();
-        
-        for (int i =0;i<currentNodes.getCurrentNodes().size();i++)
-        {
-            markers.add(jsonNode(i));
-        }
-        String json = gson.toJson(markers);
-        
-        return json;
-    }
-    public Marker jsonNode(int i)
-    {
-        Nodes currentNode = currentNodes.getCurrentNodes().get(i);
-        Marker marker = new Marker();
-        marker.setName(currentNode.getnTIdentifier().toString());
-        marker.setgPSLat(currentNode.getgPSLat().floatValue());
-        marker.setgPSLong(currentNode.getgPSLong().floatValue());
-        marker.setStatic(currentNode.isIsStatic());
-        ArrayList<Variable> variables = new ArrayList();
-        for (int j = 0 ; j < currentNode.getNodeType().getDataDefinitions().size() ; j++)   
-        {
-            Variable variable = variables(currentNode, j);
-            variables.add(variable);
-        }
-        marker.setVariable(variables);
-        return marker;
-    }
-    public Variable variables(Nodes node, int i)
-    {
-        Variable variable = new Variable();
-        Collection currentDataDefinitions =  node.getNodeType().getDataDefinitions();
-        ArrayList cDD = new ArrayList();
-        cDD.addAll(currentDataDefinitions);
-        DataDefinitions data = (DataDefinitions) cDD.get(i);
-        variable.setVariableName(data.getdDName());
-        variable.setVariableUnit(data.getdDUnit());
-        
-        DataPair dataPairs = new DataPair();
-        ArrayList timestamp = new ArrayList();
-        ArrayList tempVariable = new ArrayList();
-        if(node.getDataValues().isEmpty())
-        {
-            dataPairs.setTimestamp(null);
-            dataPairs.setVariable(null);
-        }
-        else
-        {
-            timestamp.addAll(dataValuesFacade.findVariable(node, 0));
-            dataPairs.setTimestamp(timestamp);
-            tempVariable.addAll(dataValuesFacade.findVariable(node,i));
-            dataPairs.setVariable (tempVariable);
-        }
-        dataPairs.setVariableOffset(null);// need to fill with data from website
-        
-        variable.setData(dataPairs);
-        
-        return variable;
-    }
-    public String title()
-    {
-        String title = currProject.getCurrentProject().getProjectName();
-        return title;
-    }
+//    public String makeJson()
+//    {
+//        Gson gson = new GsonBuilder().setDateFormat("dd/mm/yy-hh:mm:ss").create();
+//        ArrayList markers = new ArrayList();
+//        
+//        for (int i =0;i<currentNodes.getCurrentNodes().size();i++)
+//        {
+//            markers.add(jsonNode(i));
+//        }
+//        String json = gson.toJson(markers);
+//        
+//        return json;
+//    }
+//    public Marker jsonNode(int i)
+//    {
+//        Nodes currentNode = currentNodes.getCurrentNodes().get(i);
+//        Marker marker = new Marker();
+//        marker.setName(currentNode.getnTIdentifier().toString());
+//        marker.setgPSLat(currentNode.getgPSLat().floatValue());
+//        marker.setgPSLong(currentNode.getgPSLong().floatValue());
+//        marker.setStatic(currentNode.isIsStatic());
+//        ArrayList<Variable> variables = new ArrayList();
+//        for (int j = 0 ; j < currentNode.getNodeType().getDataDefinitions().size() ; j++)   
+//        {
+//            Variable variable = variables(currentNode, j);
+//            variables.add(variable);
+//        }
+//        marker.setVariable(variables);
+//        return marker;
+//    }
+//    public Variable variables(Nodes node, int i)
+//    {
+//        Variable variable = new Variable();
+//        Collection currentDataDefinitions =  node.getNodeType().getDataDefinitions();
+//        ArrayList cDD = new ArrayList();
+//        cDD.addAll(currentDataDefinitions);
+//        DataDefinitions data = (DataDefinitions) cDD.get(i);
+//        variable.setVariableName(data.getdDName());
+//        variable.setVariableUnit(data.getdDUnit());
+//        
+//        DataPair dataPairs = new DataPair();
+//        ArrayList timestamp = new ArrayList();
+//        ArrayList tempVariable = new ArrayList();
+//        if(node.getDataValues().isEmpty())
+//        {
+//            dataPairs.setTimestamp(null);
+//            dataPairs.setVariable(null);
+//        }
+//        else
+//        {
+//            timestamp.addAll(dataValuesFacade.findVariable(node, 0));
+//            dataPairs.setTimestamp(timestamp);
+//            tempVariable.addAll(dataValuesFacade.findVariable(node,i));
+//            dataPairs.setVariable (tempVariable);
+//        }
+//        dataPairs.setVariableOffset(null);// need to fill with data from website
+//        
+//        variable.setData(dataPairs);
+//        
+//        return variable;
+//    }
+//    public String title()
+//    {
+//        String title = currProject.getCurrentProject().getProjectName();
+//        return title;
+//    }
     
     
 }

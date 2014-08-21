@@ -79,11 +79,11 @@
                 {
                     returnValue =  t.responseText;  
                     var StrippedString = returnValue.replace(/(<([^>]+)>)/ig,"");
-                    StrippedString = StrippedString.replace("|]","");
-                    StrippedString = StrippedString.replace("]>","");
-                    dataIn = StrippedString;
-//                    titles= variableArray[0].split(",");
-//                    currentVariable = 9;
+                    StrippedString = StrippedString.replace("]","");
+                    StrippedString = StrippedString.replace("]]","");
+                    StrippedString = StrippedString.replace("[","");
+                    StrippedString = StrippedString.replace(">","");
+                    dataIn = StrippedString.split(",");
                     drawChart();    
                 }
             }
@@ -143,18 +143,7 @@
                                      readonly="true"/>
                 
                 </h:form>
-                <h:form class="hidden" id="ajaxForm">
-                    <h:inputText id="node" class="ajax" value="#{bean.node}" ></h:inputText>
-                    <h:inputText id="variable" class="ajax" value="#{bean.variable}"></h:inputText>
-                   <h:commandButton id="update" value="update" class="ajax">
-                       <f:ajax execute="node variable" render="output" onevent="ajaxTest" />
-                         
-                   </h:commandButton>
-
-                   <h:outputText id="output" value="#{bean.graphData}" />
-                   
-                 	
-                </h:form>
+                
                 <h:link outcome="/Page/dataDefinitions/List" value="Show All DataDefinitions Items"/>
                 <br />
                 <h:link outcome="/Page/dataValues/List" value="Show All DataValues Items"/>
@@ -172,6 +161,18 @@
                 <h:link outcome="/Page/tags/List" value="Show All Tags Items"/>
                 <br />
                 <h:link outcome="/Page/users/List" value="Show All Users Items"/>
+                <h:form class="hidden" id="ajaxForm">
+                    <h:inputText id="node" class="ajax" value="#{bean.node}" ></h:inputText>
+                    <h:inputText id="variable" class="ajax" value="#{bean.variable}"></h:inputText>
+                   <h:commandButton id="update" value="update" class="ajax">
+                       <f:ajax execute="node variable" render="output" onevent="ajaxTest" />
+                         
+                   </h:commandButton>
+
+                   <h:outputText id="output" value="#{bean.graphData}" />
+                   
+                 	
+                </h:form>
                 <div id="selects"></div>
                 
  

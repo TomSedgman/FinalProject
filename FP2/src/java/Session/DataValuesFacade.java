@@ -86,9 +86,14 @@ public class DataValuesFacade extends AbstractFacade<DataValues> {
          List<DataValues> returnData = em.createNamedQuery("findVariableByTypeAndNode", DataValues.class).setParameter("node", node).setParameter("variable1", variable1).getResultList();
          return returnData;
     }
-        public List findRecord(Date time)
-        {
-            List<DataValues> returnData = em.createNamedQuery("findRecords",DataValues.class).setParameter("time", time).getResultList();
-            return returnData;
-        }
+    public List findRecord(Date time)
+    {
+        List<DataValues> returnData = em.createNamedQuery("findRecords",DataValues.class).setParameter("time", time).getResultList();
+        return returnData;
+    }
+    public List findOrderedData(Nodes node, int var1, int var2)
+    {
+        List returnData = em.createNamedQuery("findVariablesByTypeAndNodeOrdered",DataValues.class).setParameter("node", node).setParameter("variable1", var1).setParameter("variable2", var2).getResultList();
+        return returnData;
+    }
 }
