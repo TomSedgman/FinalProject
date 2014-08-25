@@ -38,8 +38,8 @@
         <script type="text/javascript" src="resources/JavaScript/Graph.js" ></script>
         <script type="text/javascript">
             //<![CDATA[
-            var projects = "#{bean.loadProject("ths28")}";
-            var nodes = "#{bean.loadNodes(0)}"; 
+//            var projects = "#/{bean.loadProject()}";
+//            var nodes = "#/{bean.loadNodes()}"; 
             var GPSLat = "#{bean.GPSLat()}";
             var GPSLatArray = GPSLat.split(",");
             var GPSLong = "#{bean.GPSLong()}";
@@ -121,7 +121,7 @@
         </div>     
         <div id="main" >
             <div id="side" >
-                Sidebar
+                <h:link outcome="/login" value="#{bundle.logout}"/>
             </div>
             <div id="map" />
             <div id="control" >

@@ -10,12 +10,14 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 
 /**
  *
  * @author t_sedgman
  */
+@NamedQuery (name = "findUserbyUsername", query =   "SELECT e FROM Users e WHERE e.username = :username")
 @Entity
 public class Users implements Serializable {
     private static final long serialVersionUID = 1L;

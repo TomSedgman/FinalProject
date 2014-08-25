@@ -4,14 +4,18 @@
  */
 package TestInput;
 
+import Classes.util.JsfUtil;
 import Entities.DataDefinitions;
 import Entities.DataValues;
 import Entities.Nodes;
 import Entities.Projects;
+import Entities.Users;
+import PersistedVariables.PUser;
 import Session.DataDefinitionsFacade;
 import Session.DataValuesFacade;
 import Session.NodesFacade;
 import Session.ProjectsFacade;
+import Session.UsersFacade;
 import com.google.gson.Gson;
 import java.io.BufferedInputStream;
 import java.io.DataInputStream;
@@ -34,6 +38,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Collection;
 import java.util.Locale;
+import javax.faces.model.SelectItem;
 /**
  *
  * @author t_sedgman
@@ -47,11 +52,15 @@ public class Bean {
     @EJB
     private ProjectsFacade projectsFacade;
     @EJB
+    private UsersFacade usersFacade;
+    @EJB
     private DataDefinitionsFacade dataDefinitionsFacade;
     @EJB
-    private PersistedVariables.PProjects projectList;
+    private PersistedVariables.PProjects projectsList;
     @EJB
     private PersistedVariables.PProject currProject;
+    @EJB
+    private PersistedVariables.PUser currUser;
     @EJB
     private PersistedVariables.PNodes currentNodes;
     @EJB
@@ -143,23 +152,71 @@ public class Bean {
     }
 
   }
-
+  private String username;
   
-    public void loadProject(String username)
-  {
-      List projects = projectsFacade.findProjectsByUser(username);
-      projectList.setProjects(projects);
-  }
+
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
+    }
+private Projects project;
+
+    public Projects getProject() {
+        return project;
+    }
+
+    public void setProject(Projects project) {
+        this.project = project;
+    }
+private String projectName;
+
+    public String getProjectName() {
+        return projectName;
+    }
+
+    public void setProjectName(String projectName) {
+        this.projectName = projectName;
+    }
+
+    public SelectItem[] projectList() 
+{
+     if (username != null)
+     {
+
+        Users temp = usersFacade.findUser(username);
+        currUser.setCurrentUser(temp);
+        List projects = projectsFacade.findProjectsByUser(username);
+        projectsList.setProjects(projects);
+    }
+     
+     if (projectsList.getProjects() == null)
+     {
+        SelectItem[] returnData = null;
+        return returnData;
+     }
+     else
+     {
+        SelectItem[] returnData = JsfUtil.getSelectItems(projectsList.getProjects(),true);
+        return returnData;
+     }
+}
+    public String initalise()
+    {
+        if (username != null)
+        {
+            project = projectsFacade.findProjectsByName(projectName,currUser.getCurrentUser().getUsername());
+            currProject.setCurrentProject(project);
+            currentNodes.setCurrentNodes(nodesFacade.nodesList(project));
+            return "load";
+        }
+        return null;
+        
+    }
     
-  public void loadNodes(int index)
-  {
-      List projects = projectList.getProjects();
-      int i = index;
-      Projects project = (Projects) projects.get(i);
-      currProject.setCurrentProject(project);
-      List<Nodes> nodes = nodesFacade.nodesList(project);
-      currentNodes.setCurrentNodes(nodes);    
-  }
+    
   public String GPSLat()
   {
     ArrayList gPSLat = new ArrayList();
