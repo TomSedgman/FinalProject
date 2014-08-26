@@ -32,7 +32,7 @@ function initialize()
         
     } 
 }
-
+var previous_window = false;
 function setDropDownList(mapMarker, mapInfoWindow, names, node,id) 
 {
     // event listener for dropdown list in the map markers' infowindow
@@ -65,6 +65,11 @@ function setDropDownList(mapMarker, mapInfoWindow, names, node,id)
 
         google.maps.event.addListener(mapMarker, 'click', function() 
         {
+            if(previous_window)
+            {
+                previous_window.close();
+            }
+            previous_window = mapInfoWindow;
             mapInfoWindow.open(map, this);
         });
     }
