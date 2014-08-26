@@ -63,6 +63,8 @@
             var docVariable;
             var docUpdate;
             var docArray;
+            var totalData = null;
+
 
             
             google.maps.event.addDomListener(window, 'load', initialize);
@@ -90,9 +92,8 @@
             
             function ajaxCall()
             {
-                //dataIn =  "685,87.81|686,87.79|687,87.77|688,87.82|689,87.92|690,87.88|691,87.90|692,88.13|693,88.13|694,88.08|"; 
                 
-                docArray = document.getElementsByClassName("ajax")
+                docArray = document.getElementsByClassName("ajax");
                 
                 for (i=0;i<docArray.length;i++)
                 {
@@ -109,7 +110,12 @@
                 docUpdate.click();
                 
             }
-            
+            function newChart()
+            {
+                var chartObject = document.getElementById("graph");
+                totalData = null;
+                chartObject.clear(); // need to replace with ajax call
+            }
             
             //]]>
         </script>
@@ -129,6 +135,8 @@
                     <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
                 </h:panelGroup>
                 <h:form id="form" enctype="multipart/form-data">
+                    <h:commandButton id="clearGraph" value="!Clear Chart" onclick="newChart"/>
+
                     <h:commandButton value="Upload"
                                      action="#{bean.upload}">
                     </h:commandButton>
