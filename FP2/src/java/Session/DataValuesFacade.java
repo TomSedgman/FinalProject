@@ -25,24 +25,16 @@ public class DataValuesFacade extends AbstractFacade<DataValues> {
     private EntityManager em;
     @EJB
     Session.ProjectsFacade projectFacade;
+    @EJB
+    private PersistedVariables.PProject currProject;
     
         public void RecordData(List<String> Record)
     {
         Projects currentProject = new Projects();
         Nodes currentNode = new Nodes();
             Date timeStamp = Calendar.getInstance().getTime();
-            List projects = projectFacade.findProjectsByUser("ths28");
-            for (int i = 0; i < projects.size(); i++)
-            {
-                Projects tempProject = (Projects) projects.get(i);
-                if ("Monitoring 1".equals(tempProject.getProjectName()))
-                {
-                    currentProject = tempProject;
-                    i = projects.size();
-                }
-            }
             String id = Record.get(5);
-            currentNode = findProjectNode(currentProject, id);
+            currentNode = findProjectNode(currProject.getCurrentProject(), id);
            
             
 

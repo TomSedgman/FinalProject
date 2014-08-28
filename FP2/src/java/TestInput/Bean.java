@@ -34,11 +34,14 @@ import TestInput.MarkerCode.DataPair;
 import TestInput.MarkerCode.Marker;
 import TestInput.MarkerCode.Variable;
 import com.google.gson.GsonBuilder;
+import java.io.FileOutputStream;
+import java.io.InputStream;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Collection;
 import java.util.Locale;
 import javax.faces.model.SelectItem;
+import javax.servlet.http.Part;
 /**
  *
  * @author t_sedgman
@@ -103,55 +106,88 @@ public class Bean {
     public void setFileContent2(String fileContent2) {
         this.fileContent2 = fileContent2;
     }
+  private Part fileUpload;
+
+    public Part getFileUpload() {
+        return fileUpload;
+    }
+
+    public void setFileUpload(Part fileUpload) {
+        this.fileUpload = fileUpload;
+    }
   
-  public void upload() {
+  public void upload() throws IOException
+  {
 
-    File file = new File("/Users/t_sedgman/Desktop/FinalProject/test_output_data.rtf");
-    FileInputStream fis = null;
-    BufferedInputStream bis = null;
-    DataInputStream dis = null;
+//    File file = new File("/Users/t_sedgman/Desktop/FinalProject/test_output_data.rtf");
+//    FileInputStream fis = null;
+//    BufferedInputStream bis = null;
+//    DataInputStream dis = null;
     ArrayList<String> tempArray = new ArrayList<>();
-    try
+    InputStream inputStream = fileUpload.getInputStream();
+    FileOutputStream outputStream = new FileOutputStream(getFilename(fileUpload));
+    byte[] buffer = new byte[4096];        
+    int bytesRead = 0;
+    while(true) 
+    {                        
+        bytesRead = inputStream.read(buffer);
+        if(bytesRead > 0) 
+        {
+            outputStream.write(buffer, 0, bytesRead);
+        }
+        else 
+        {
+            break;
+        }                       
+    }
+    outputStream.close();
+    inputStream.close();
+    setFileContentArray(tempArray);
+    for (int i = 0;i<tempArray.size()-1;i++)
     {
-      fis = new FileInputStream(file);
-      // Here BufferedInputStream is added for fast reading.
-      bis = new BufferedInputStream(fis);
-      dis = new DataInputStream(bis);
-
-      // dis.available() returns 0 if the file does not have more lines.
-      while (dis.available() != 0) 
-      {
-
-      // this statement reads the line from the file and print it to
-        // the console.
-        tempArray.add(dis.readLine());
-      }
-      // dispose all the resources after using them.
-      
-      fis.close();
-      bis.close();
-      dis.close();
-      setFileContentArray(tempArray);
-      for (int i = 8;i<tempArray.size()-1;i++)
-      {
         String tempString = tempArray.get(i);
         List<String> Record = Arrays.asList(tempString.split(","));  
         dataValuesFacade.RecordData(Record);
-      }
-      
-      
-
-    } 
-    catch (FileNotFoundException e) 
-    {
-        e.printStackTrace();
-    } 
-    catch (IOException e) 
-    {
-      e.printStackTrace();
     }
-
+    
   }
+    private static String getFilename(Part part) 
+    {
+        for (String cd : part.getHeader("content-disposition").split(";")) 
+        {
+            if (cd.trim().startsWith("filename")) 
+            {
+                String filename = cd.substring(cd.indexOf('=') + 1).trim().replace("\"", "");
+                return filename.substring(filename.lastIndexOf('/') + 1).substring(filename.lastIndexOf('\\') + 1); // MSIE fix.
+            }
+        }
+        return null;
+    }
+    
+    
+//    try
+//    {
+//      fis = new FileInputStream(fileUpload);
+//      // Here BufferedInputStream is added for fast reading.
+//      bis = new BufferedInputStream(fis);
+//      dis = new DataInputStream(bis);
+//
+//      // dis.available() returns 0 if the file does not have more lines.
+//      while (dis.available() != 0) 
+//      {
+//
+//      // this statement reads the line from the file and print it to
+//        // the console.
+//        tempArray.add(dis.readLine());
+//      }
+//      // dispose all the resources after using them.
+//      
+//      fis.close();
+//      bis.close();
+//      dis.close();
+      
+   
+  
   private String username;
   
 

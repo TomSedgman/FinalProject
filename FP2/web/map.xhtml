@@ -64,6 +64,8 @@
             var docUpdate;
             var docArray;
             var totalData = null;
+            var dataCount = 0;
+            var dataArray = new Array();
 
 
             
@@ -115,6 +117,8 @@
                 var chartObject = document.getElementById("graph");
                 totalData = null;
                 chartObject.clear(); // need to replace with ajax call
+                dataCount = 0;
+                dataArray = null;
             }
             
             //]]>
@@ -135,6 +139,7 @@
                     <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
                 </h:panelGroup>
                 <h:form id="form" enctype="multipart/form-data">
+                    <h:inputFile id="newFile" value="#{bean.fileUpload}"/>
                     <h:commandButton id="clearGraph" value="!Clear Chart" onclick="newChart"/>
 
                     <h:commandButton value="Upload"
