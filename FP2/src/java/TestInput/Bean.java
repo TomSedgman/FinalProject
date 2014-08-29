@@ -358,7 +358,7 @@ private String projectName;
    {
 //        String records = "";
         List dataReturn = dataValuesFacade.findOrderedData(currentNodes.getCurrentNodes().get(node), 0, variable);
-        
+        String dataType = dataDefinitionsFacade.getDataType(currProject.getCurrentProject().getProjectId(),variable);
         for (int i = 0;i<dataReturn.size();i++)
         {
             if (i%2==0)
@@ -369,7 +369,8 @@ private String projectName;
             }
             
         }
-                
+        dataReturn.add(0, dataType);
+  
                 
 //        ArrayList <DataValues> dataValuesArray = new ArrayList();
 //        Collection dataValues =  dataValuesFacade.findVariable(currentNodes.getCurrentNodes().get(node), 0); // get all records for a node at index 0

@@ -4,7 +4,7 @@ google.setOnLoadCallback(drawChart());
     
 function drawChart() 
 {
-      
+        
         var title = "Node: "+currentNode;
         var xTitle = "Date";
         var yTitle = titles[currentVariable];
@@ -24,17 +24,33 @@ function drawChart()
             dataCount = 1;
         }
         
+        
         var options = 
         {
-//            title: title,
+            
             hAxis: {title: xTitle},
-            vAxis: {title: yTitle},
-            pointSize: 1,
-            legend: {position: 'top', textStyle: {fontSize: 14}}
+                  
+             series: calculateSeries(),
+             vAxes: {0: {title: y1Type },
+                    1: {title: y2Type}
+                    },  
+            pointSize: 0.5,
+            legend: {position: 'top', textStyle: {fontSize: 10}}
             };
-        var chart = new google.visualization.ScatterChart(document.getElementById('graph'));
+        var chart = new google.visualization.LineChart(document.getElementById('graph'));
         chart.draw(totalData, options);
         
+        function calculateSeries()
+          {
+              var series = [];
+
+              for (i=0;i<axisAssignment.length;i++)
+              {
+                  series[i] = {targetAxisIndex: axisAssignment[i]};
+              }
+              return series;
+          }
+          
         function countArray(count)
         {
             var arrayCount= new Array();
@@ -52,9 +68,18 @@ function drawChart()
             }
             return arrayCount;
         }
+        
+    
+        
    function newData()
     {
+        var dataType = dataIn[0];
+        dataIn.shift();
+        var axis = dataSelect(dataType);
+        axisAssignment.push(axis);
+            
         var data = new google.visualization.DataTable();
+        
         data.addColumn('date', 'Date');
         data.addColumn('number', "Node: "+currentNode+": "+titles[currentVariable]);
         var num = (dataIn.length);
@@ -62,6 +87,7 @@ function drawChart()
         var i = 0;
         var j = 0;
         while (i<num)
+        
         {
             var d = (dataIn[i]);
             if (i%2===0)
@@ -79,4 +105,25 @@ function drawChart()
         }
         return data;
     }
+    function dataSelect(type)
+    {
+        var axisNumber;
+        if (y1Type === null || y1Type === type)
+        {
+            y1Type = type;
+            axisNumber = 0;
+        }
+        else if (y2Type === null || y2Type === type)
+        {
+            y2Type = type;
+            axisNumber = 1;
+        }
+        else
+        {
+            alert("You already have 2 axes assigned.\n\nPlease clear the graph \nor select more objects of \ntype"+y1Type+" or \ntype "+y2Type+" to continue.");
+            axisNumber = null;
+        }
+        return axisNumber;
+    }
+    
 }

@@ -12,6 +12,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 
@@ -19,7 +20,12 @@ import javax.persistence.OneToMany;
  *
  * @author t_sedgman
  */
-@NamedQuery (name = "findFieldsByName", query =   "SELECT e.nodeType.dataDefinitions FROM Nodes e WHERE e.nTIdentifier = :nTIdentifier")
+@NamedQueries(
+{
+@NamedQuery (name = "findFieldsByName", query =   "SELECT e.nodeType.dataDefinitions FROM Nodes e WHERE e.nTIdentifier = :nTIdentifier"),
+@NamedQuery (name = "findTypebyName", query =   "SELECT e FROM DataDefinitions e WHERE e.nodeType.project.projectId = :projectId and e.variablePositionId = :variable")
+
+})
 @Entity
 public class DataDefinitions implements Serializable {
     private static final long serialVersionUID = 1L;

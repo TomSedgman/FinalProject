@@ -15,13 +15,13 @@
         <style type="text/css">
             html { height: 100%; width: 100%; }
             body { height: 100%; width: 100%; margin: 0; padding: 0; background-color: #e0e2d1}
-            #head {height: 10%; width: 100%;}
-            #main {height: 80%; width: 100%; background-color: #e9ffd1}
+            #head {height: 5%; width: 100%;}
+            #main {height: 90%; width: 100%; background-color: #e9ffd1}
             #side {height: 100%; width: 10%; float:left; background-color: #e0e2d1}
             #map {height: 60%; width: 60%; float: left; }
             #control {height: 60%; width: 30%; float: right; }
             #graph {height: 40%; width: 90%; float: left; }
-            #foot {height: 10%; width: 100%;}
+            #foot {height: 5%; width: 100%;}
             #selects {visibility: collapse}
             .hidden {visibility: hidden}
             
@@ -66,13 +66,16 @@
             var totalData = null;
             var dataCount = 0;
             var dataArray = new Array();
+            var y1Type = null;
+            var y2Type = null;
+            var axisAssignment = new Array();
 
 
             
             google.maps.event.addDomListener(window, 'load', initialize);
             
             
-            function retrieveData(node, variable)
+            function retrieveData()
             {
                 var returnData = document.getElementById('output').getAttribute('value');
                 getData(returnData);
@@ -119,6 +122,9 @@
                 chartObject.clear(); // need to replace with ajax call
                 dataCount = 0;
                 dataArray = null;
+                y1Type = null;
+                y2Type = null;
+                axisAssignment = new Array();
             }
             
             //]]>

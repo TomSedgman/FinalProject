@@ -6,6 +6,7 @@ package Session;
 
 import Entities.DataDefinitions;
 import Entities.Nodes;
+import Entities.Projects;
 import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
@@ -34,5 +35,11 @@ public class DataDefinitionsFacade extends AbstractFacade<DataDefinitions> {
         List<DataDefinitions> dataDefinitions= em.createNamedQuery("findFieldsByName", DataDefinitions.class).setParameter("nTIdentifier",nTIdentifier).getResultList();
         
         return dataDefinitions;
+    }
+    public String getDataType(Long projectId, int variable)
+    {
+        DataDefinitions dataDefinition=em.createNamedQuery("findTypebyName", DataDefinitions.class).setParameter("projectId",projectId).setParameter("variable",variable).getSingleResult();
+        String data = dataDefinition.getdDType();
+        return data;
     }
 }
