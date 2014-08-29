@@ -35,6 +35,7 @@ function drawChart()
                     1: {title: y2Type}
                     },  
             pointSize: 0.5,
+            lineWidth: 0,
             legend: {position: 'top', textStyle: {fontSize: 10}}
             };
         var chart = new google.visualization.LineChart(document.getElementById('graph'));
