@@ -46,6 +46,16 @@ public class Projects implements Serializable {
     private String projectName;
     private String projectNotes;
 
+    private int SourceVariable;
+
+    public int getSourceVariable() {
+        return SourceVariable;
+    }
+
+    public void setSourceVariable(int SourceVariable) {
+        this.SourceVariable = SourceVariable;
+    }
+    
     public Long getProjectId() {
         return projectId;
     }

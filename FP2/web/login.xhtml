@@ -8,6 +8,22 @@
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
         <title><ui:insert name="title">Default Title</ui:insert></title>
         <h:outputStylesheet name="css/jsfcrud.css"/>
+        <script type="text/javascript" src="resources/JavaScript/jquery-2.1.1.min.js"></script>
+        <script type="text/javascript">
+           //<![CDATA[
+           
+            var target = document.getElementById("projectSelect");
+            function showResult(t)
+            {
+                if (t.status ==='success')
+                {
+                    $('#projectSelect').css("visibility", "visible");
+                    var test = $('#projectSelect').css("visibility"); 
+                    console.log(test);
+                }
+            }
+           //]]>
+        </script>   
     </h:head>
 
     <h:body>
@@ -23,27 +39,18 @@
                 
                 <h:inputText id="username"  value="#{bean.username}" />
                 <h:commandButton id="login" value="!Load Project List" class="ajax">
-                    <f:ajax execute="username" render="output"/>
+                    <f:ajax execute="username" render="output" onevent="showResult"/>
                 </h:commandButton>
                 <br/>
-                <h:outputText id="project" value="!Please select project: "/>
-                <h:selectOneMenu id="output" value="#{bean.projectName}" title="#{bundle.selectProject}">
-                    <f:selectItems id ="projects" value="#{bean.projectList()}" />
-               </h:selectOneMenu>
-                
-              
-                
-                <h:commandButton id="goToMap" value="!Login" action="#{bean.initalise()}"/>
-<!--                
-
-                <h:commandLink action="#/{usersController.prepareCreate}" value="#/{bundle.ListUsersCreateLink}"/>
-                <br/>
-                <h:outputText value="Please select project:"/>
-
-                
-                -->
+                <div id="projectSelect" style="visibility: hidden;">
+                    <h:outputText id="project" value="!Please select project: "/>
+                    <h:selectOneMenu id="output" value="#{bean.projectName}" title="#{bundle.selectProject}">
+                        <f:selectItems id ="projects" value="#{bean.projectList()}" />
+                    </h:selectOneMenu>
+                    <h:commandButton id="goToMap" value="!Login" action="#{bean.initalise()}"/>
+                </div>
             </h:form>
-                     
+                 
     </h:body>
 
 </html>

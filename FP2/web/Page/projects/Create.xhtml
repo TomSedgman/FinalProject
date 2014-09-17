@@ -18,15 +18,15 @@
                     <h:outputLabel value="#{bundle.CreateProjectsLabel_projectId}" for="projectId" />
                     <h:inputText id="projectId" value="#{projectsController.selected.projectId}" title="#{bundle.CreateProjectsTitle_projectId}" />
                     <h:outputLabel value="#{bundle.CreateProjectsLabel_user}" for="user" />
-                    <h:selectOneMenu id="user" value="#{projectsController.selected.user}" title="#{bundle.CreateProjectsTitle_user}" >
+                    <h:selectOneMenu id="user" value="#{projectsController.selected.user.username}" title="#{bundle.CreateProjectsTitle_user}" >
                         <f:selectItems value="#{usersController.itemsAvailableSelectOne}"/>
                     </h:selectOneMenu>
                     <h:outputLabel value="#{bundle.CreateProjectsLabel_projectName}" for="projectName" />
                     <h:inputText id="projectName" value="#{projectsController.selected.projectName}" title="#{bundle.CreateProjectsTitle_projectName}" />
                     <h:outputLabel value="#{bundle.CreateProjectsLabel_projectNotes}" for="projectNotes" />
                     <h:inputText id="projectNotes" value="#{projectsController.selected.projectNotes}" title="#{bundle.CreateProjectsTitle_projectNotes}" />
-                    <h:outputLabel value="#{bundle.CreateProjectsLabel_id}" for="id" />
-                    <h:inputText id="id" value="#{projectsController.selected.id}" title="#{bundle.CreateProjectsTitle_id}" />
+                    <h:outputLabel value="#{bundle.CreateProjectsLabel_SourceVariable}" for="SourceVariable" />
+                    <h:inputText id="SourceVariable" value="#{projectsController.selected.SourceVariable}" title="#{bundle.CreateProjectsTitle_SourceVariable}" />
                 </h:panelGrid>
                 <br />
                 <h:commandLink action="#{projectsController.create}" value="#{bundle.CreateProjectsSaveLink}" />

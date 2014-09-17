@@ -8,6 +8,10 @@
             <base-name>/Bundle</base-name>
             <var>bundle</var>
         </resource-bundle>
+        <resource-bundle>
+            <base-name>/Bundle2</base-name>
+            <var>bundle</var>
+        </resource-bundle>
     </application>
     <navigation-rule>
         <from-view-id>/login.xhtml</from-view-id>
@@ -54,6 +58,11 @@
     <managed-bean>
         <managed-bean-name>pUser</managed-bean-name>
         <managed-bean-class>PersistedVariables.PUser</managed-bean-class>
+        <managed-bean-scope>request</managed-bean-scope>
+    </managed-bean>
+    <managed-bean>
+        <managed-bean-name>socketBean</managed-bean-name>
+        <managed-bean-class>TestInput.SocketBean</managed-bean-class>
         <managed-bean-scope>request</managed-bean-scope>
     </managed-bean>
 </faces-config>

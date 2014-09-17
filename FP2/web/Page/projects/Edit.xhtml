@@ -25,8 +25,8 @@
                     <h:inputText id="projectName" value="#{projectsController.selected.projectName}" title="#{bundle.EditProjectsTitle_projectName}" />
                     <h:outputLabel value="#{bundle.EditProjectsLabel_projectNotes}" for="projectNotes" />
                     <h:inputText id="projectNotes" value="#{projectsController.selected.projectNotes}" title="#{bundle.EditProjectsTitle_projectNotes}" />
-                    <h:outputLabel value="#{bundle.EditProjectsLabel_id}" for="id" />
-                    <h:inputText id="id" value="#{projectsController.selected.id}" title="#{bundle.EditProjectsTitle_id}" />
+                    <h:outputLabel value="#{bundle.EditProjectsLabel_SourceVariable}" for="SourceVariable" />
+                    <h:inputText id="SourceVariable" value="#{projectsController.selected.SourceVariable}" title="#{bundle.EditProjectsTitle_SourceVariable}" />
                 </h:panelGrid>
                 <h:commandLink action="#{projectsController.update}" value="#{bundle.EditProjectsSaveLink}"/>
                 <br />

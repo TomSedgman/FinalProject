@@ -1,5 +1,7 @@
 
 google.load("visualization", "1", {packages:["corechart"]});
+google.load('visualization', '1.0', {'packages':['controls']});
+
 google.setOnLoadCallback(drawChart());
     
 function drawChart() 
@@ -11,11 +13,19 @@ function drawChart()
         if (totalData !== null)
         {
             var tempData = newData();
-            var tempData2 = totalData;
-            dataArray[dataCount] = tempData;
-            var joinMark = countArray(dataCount);
-            totalData = google.visualization.data.join(tempData2,tempData,'full',[[0,0]],joinMark,[1]);
-            dataCount = dataCount+1;
+            if (tempData === null)
+            {
+
+            }
+            else
+            {
+                var tempData2 = totalData;
+                dataArray[dataCount] = tempData;
+                var joinMark = countArray(dataCount);
+                totalData = google.visualization.data.join(tempData2,tempData,'full',[[0,0]],joinMark,[1]);
+                dataCount = dataCount+1;
+            }
+            
         }
         else
         {
@@ -38,8 +48,76 @@ function drawChart()
             lineWidth: 0,
             legend: {position: 'top', textStyle: {fontSize: 10}}
             };
-        var chart = new google.visualization.LineChart(document.getElementById('graph'));
-        chart.draw(totalData, options);
+        var dashboard = new google.visualization.Dashboard(document.getElementById('dashboard'));
+        var dateRangeSlider = new google.visualization.ControlWrapper(
+        {
+            'controlType': 'ChartRangeFilter',
+            'containerId': 'dxControls',
+            'options': 
+            {
+                'filterColumnLabel': 'Date',
+                'ui':
+                {
+                    chartType: 'LineChart',
+                    chartOptions: 
+                                {
+                                    series: calculateSeries(),
+                                    pointSize: 0.5,
+                                    lineWidth: 0
+                                }
+                }
+            }
+        });
+//        var sliderArray = new Array();
+//        sliderArray[0]=dateRangeSlider;
+//        var dataCol = totalData.getNumberofColumns();
+//        for (var i = 0;i<dataCol;i++)
+//        {
+//            var yaxisSlider = new google.visualization.ControlWrapper(
+//            {
+//                'controlType': 'NumberRangeFilter',
+//                'containerId': 'dyControls',
+//                'options': 
+//                {
+//                    'filterColumnIndex': i+1,
+//                    'ui':
+//                    {
+//                        label: i+1,
+//                        orientation:'vertical',
+//                        //chartOptions: options
+//
+//                    }
+//                }
+//            });
+//            sliderArray.push(yaxisSlider);
+//        }
+//        var y2axisSlider = new google.visualization.ControlWrapper(
+//           {
+//            'controlType': 'NumberRangeFilter',
+//            'containerId': 'dyControls',
+//            'options': 
+//            {
+//                'filterColumnLabel': y2Type,
+//                'ui':
+//                {
+//                    label: y2Type,
+//                    orientation:'vertical'
+//                    
+//                }
+//            }
+//        });
+
+        //var chart = new google.visualization.LineChart(document.getElementById('graph'));
+        var chart = new google.visualization.ChartWrapper({
+            'chartType': 'LineChart',
+          'containerId': 'graph',
+          'options': options
+        });
+
+        dashboard.bind(dateRangeSlider, chart);
+        dashboard.draw(totalData);
+
+        //chart.draw(totalData, options);
         
         function calculateSeries()
           {
@@ -77,34 +155,46 @@ function drawChart()
         var dataType = dataIn[0];
         dataIn.shift();
         var axis = dataSelect(dataType);
-        axisAssignment.push(axis);
-            
+        
+        
         var data = new google.visualization.DataTable();
-        
-        data.addColumn('date', 'Date');
-        data.addColumn('number', "Node: "+currentNode+": "+titles[currentVariable]);
-        var num = (dataIn.length);
-        data.addRows(num/2);
-        var i = 0;
-        var j = 0;
-        while (i<num)
-        
+
+
+        if(dataIn.length !== 0)
         {
-            var d = (dataIn[i]);
-            if (i%2===0)
+            axisAssignment.push(axis);
+            data.addColumn('date', 'Date');
+            data.addColumn('number', "Node: "+NodeNameArray[currentNode]+": "+titles[currentVariable]);
+            var num = (dataIn.length);
+            data.addRows(num/2);
+            var i = 0;
+            var j = 0;
+            while (i<num)
+
             {
-                d = new Date(d);
-                data.setCell(j,0,d);
-                i++;
-            }
-            else
-            {
-                data.setCell(j,1,parseFloat(d));                
-                i++;
-                j++;
+                var d = (dataIn[i]);
+                if (i%2===0)
+                {
+                    d = new Date(d);
+                    data.setCell(j,0,d);
+                    i++;
+                }
+                else
+                {
+                    data.setCell(j,1,parseFloat(d));                
+                    i++;
+                    j++;
+                }
             }
         }
+        else 
+        {
+            data = null;
+        }
         return data;
+        
+        
+        
     }
     function dataSelect(type)
     {
@@ -121,8 +211,8 @@ function drawChart()
         }
         else
         {
-            alert("You already have 2 axes assigned.\n\nPlease clear the graph \nor select more objects of \ntype"+y1Type+" or \ntype "+y2Type+" to continue.");
-            axisNumber = null;
+            alert("You already have 2 axes assigned.\n\nPlease clear the graph or select more objects of type"+y1Type+" or type "+y2Type+" to continue.");
+            dataIn.length = 0;
         }
         return axisNumber;
     }

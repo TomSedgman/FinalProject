@@ -5,8 +5,10 @@
 package Session;
 
 import Entities.DataValues;
+import Entities.NodeTypes;
 import Entities.Nodes;
 import Entities.Projects;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
@@ -28,27 +30,24 @@ public class DataValuesFacade extends AbstractFacade<DataValues> {
     @EJB
     private PersistedVariables.PProject currProject;
     
-        public void RecordData(List<String> Record)
+    public void RecordData(List<String> Record)
     {
-        Projects currentProject = new Projects();
-        Nodes currentNode = new Nodes();
-            Date timeStamp = Calendar.getInstance().getTime();
-            String id = Record.get(5);
-            currentNode = findProjectNode(currProject.getCurrentProject(), id);
-           
-            
-
-            for (int i = 0; i<Record.size(); i++)
-            {
-                DataValues data = new DataValues();
-                data.setNode(currentNode);
-                data.setdVariable(Record.get(i));
-                data.setdTimeStamp(timeStamp);
-                data.setVariablePositionId(i);
-                em.persist(data);
-            }
+//        Projects currentProject = new Projects();
+        int position = currProject.getCurrentProject().getSourceVariable();
+        Date timeStamp = Calendar.getInstance().getTime();
+        String id = Record.get(position);
+        Nodes currentNode = findProjectNode(currProject.getCurrentProject(), id);
+        for (int i = 0; i<Record.size(); i++)
+        {
+            DataValues data = new DataValues();
+            data.setNode(currentNode);
+            data.setdVariable(Record.get(i));
+            data.setdTimeStamp(timeStamp);
+            data.setVariablePositionId(i);
+            em.persist(data);
+        }
     }
-
+        
     @Override
     protected EntityManager getEntityManager() {
         return em;

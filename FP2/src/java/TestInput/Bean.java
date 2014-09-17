@@ -6,22 +6,14 @@ package TestInput;
 
 import Classes.util.JsfUtil;
 import Entities.DataDefinitions;
-import Entities.DataValues;
 import Entities.Nodes;
 import Entities.Projects;
 import Entities.Users;
-import PersistedVariables.PUser;
 import Session.DataDefinitionsFacade;
 import Session.DataValuesFacade;
 import Session.NodesFacade;
 import Session.ProjectsFacade;
 import Session.UsersFacade;
-import com.google.gson.Gson;
-import java.io.BufferedInputStream;
-import java.io.DataInputStream;
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.math.BigDecimal;
 import java.util.ArrayList;
@@ -30,15 +22,10 @@ import java.util.Date;
 import java.util.List;
 import javax.ejb.EJB;
 import javax.faces.bean.SessionScoped;
-import TestInput.MarkerCode.DataPair;
-import TestInput.MarkerCode.Marker;
-import TestInput.MarkerCode.Variable;
-import com.google.gson.GsonBuilder;
 import java.io.FileOutputStream;
 import java.io.InputStream;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.Collection;
 import java.util.Locale;
 import javax.faces.model.SelectItem;
 import javax.servlet.http.Part;
@@ -116,7 +103,7 @@ public class Bean {
         this.fileUpload = fileUpload;
     }
   
-  public void upload() throws IOException
+  public void upload() throws IOException // takes user selected file and loads it to the database
   {
 
 //    File file = new File("/Users/t_sedgman/Desktop/FinalProject/test_output_data.rtf");
@@ -126,7 +113,7 @@ public class Bean {
     ArrayList<String> tempArray = new ArrayList<>();
     InputStream inputStream = fileUpload.getInputStream();
     FileOutputStream outputStream = new FileOutputStream(getFilename(fileUpload));
-    byte[] buffer = new byte[4096];        
+    byte[] buffer = new byte[4096]; // get         
     int bytesRead = 0;
     while(true) 
     {                        
@@ -165,6 +152,8 @@ public class Bean {
     }
     
     
+     
+    {
 //    try
 //    {
 //      fis = new FileInputStream(fileUpload);
@@ -185,7 +174,7 @@ public class Bean {
 //      fis.close();
 //      bis.close();
 //      dis.close();
-      
+    }
    
   
   private String username;
@@ -238,6 +227,17 @@ private String projectName;
         SelectItem[] returnData = JsfUtil.getSelectItems(projectsList.getProjects(),true);
         return returnData;
      }
+}
+    public SelectItem[] dataType() 
+{
+    Users temp = usersFacade.findUser(username);
+    currUser.setCurrentUser(temp);
+    List projects = projectsFacade.findProjectsByUser(username);
+    projectsList.setProjects(projects);
+
+    SelectItem[] returnData = JsfUtil.getSelectItems(projectsList.getProjects(),true);
+    return returnData;
+     
 }
     public String initalise()
     {
@@ -371,7 +371,7 @@ private String projectName;
         }
         dataReturn.add(0, dataType);
   
-                
+        
 //        ArrayList <DataValues> dataValuesArray = new ArrayList();
 //        Collection dataValues =  dataValuesFacade.findVariable(currentNodes.getCurrentNodes().get(node), 0); // get all records for a node at index 0
 //        dataValuesArray.addAll(dataValues);
@@ -384,7 +384,7 @@ private String projectName;
 //            records = records.concat(j+"");//recordArray.get(0).getdVariable().toString()); // get timestamp, may need to later adapt to accept 
 //            records = records.concat(","); 
 //            records = records.concat(recordArray.get(variable).getdVariable().toString()); // get variable of interest
-//            records = records.concat("|");
+//            records = records.concat("|");     
 //        }
         return dataReturn;
    }

@@ -23,7 +23,8 @@ function initialize()
             map: map,
             title: NodeNameArray[i],
             id: NodeNameArray[i],
-            position: new google.maps.LatLng(parseFloat(GPSLatArray[i]), parseFloat(GPSLongArray[i]))
+            position: new google.maps.LatLng(parseFloat(GPSLatArray[i]), parseFloat(GPSLongArray[i])),
+            size: 5
         });
         var Array = variableArray[i].split(",");
 
