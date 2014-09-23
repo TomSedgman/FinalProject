@@ -1,0 +1,330 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <ui:composition template="/template.xhtml">
+        <ui:define name="title">
+            <h:outputText value="#{bundle.SummaryTitle}"></h:outputText>
+        </ui:define>
+        <ui:define name="body">
+        <div id="SummaryProjectInfo">
+            <h:form styleClass="jsfcrud_list_form">
+            <h:panelGrid columns="2">
+                    <h:outputText value="#{bundle.ViewProjectsLabel_projectName}"/>
+                    <h:outputText value="#{bean.returnProject().projectName}" title="#{bundle.ViewProjectsTitle_projectName}"/>
+                    <h:outputText value="#{bundle.ViewProjectsLabel_projectNotes}"/>
+                    <h:outputText value="#{bean.returnProject().projectNotes}" title="#{bundle.ViewProjectsTitle_projectNotes}"/>
+                </h:panelGrid>
+                <br />
+                <h:commandLink action="#{projectsController.destroyAndView}" value="#{bundle.ViewProjectsDestroyLink}"/>
+                <br />
+                <br />
+                <h:link outcome="Edit" value="#{bundle.ViewProjectsEditLink}"/>
+                <br />
+            </h:form>
+        </div>
+            <div id="SummaryUserInfo">
+                <h:form styleClass="jsfcrud_list_form">
+                 <h:panelGrid columns="2">
+                    <h:outputText value="#{bundle.ViewUsersLabel_username}"/>
+                    <h:outputText value="#{bean.returnUser().username}" title="#{bundle.ViewUsersTitle_username}"/>
+                    <h:outputText value="#{bundle.ViewUsersLabel_email}"/>
+                    <h:outputText value="#{bean.returnUser().email}" title="#{bundle.ViewUsersTitle_email}"/>
+                    <h:outputText value="#{bundle.ViewUsersLabel_forename}"/>
+                    <h:outputText value="#{bean.returnUser().forename}" title="#{bundle.ViewUsersTitle_forename}"/>
+                    <h:outputText value="#{bundle.ViewUsersLabel_surname}"/>
+                    <h:outputText value="#{bean.returnUser().surname}" title="#{bundle.ViewUsersTitle_surname}"/>
+                </h:panelGrid>
+                <br />
+                <h:commandLink action="#{usersController.destroyAndView}" value="#{bundle.ViewUsersDestroyLink}"/>
+                <br />
+                <br />
+                <h:link outcome="Edit" value="#{bundle.ViewUsersEditLink}"/>
+                </h:form>
+            </div>
+            
+        <div id="SummaryNodeTypeTable">
+            <h:form styleClass="jsfcrud_list_form">
+                <h:panelGroup id="messagePanel" layout="block">
+                    <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
+                </h:panelGroup>
+                <h:outputText escape="false" value="#{bundle.ListNodeTypesEmpty}" rendered="#{nodeTypesController.items.rowCount == 0}"/>
+                <h:panelGroup rendered="#{nodeTypesController.items.rowCount > 0}">
+                    <h:outputText value="#{nodeTypesController.pagination.pageFirstItem + 1}..#{nodeTypesController.pagination.pageLastItem + 1}/#{nodeTypesController.pagination.itemsCount}"/>&nbsp;
+                    <h:commandLink action="#{nodeTypesController.previous}" value="#{bundle.Previous} #{nodeTypesController.pagination.pageSize}" rendered="#{nodeTypesController.pagination.hasPreviousPage}"/>&nbsp;
+                    <h:commandLink action="#{nodeTypesController.next}" value="#{bundle.Next} #{nodeTypesController.pagination.pageSize}" rendered="#{nodeTypesController.pagination.hasNextPage}"/>&nbsp;
+                    <h:dataTable value="#{nodeTypesController.items}" var="item" border="0" cellpadding="2" cellspacing="0" rowClasses="jsfcrud_odd_row,jsfcrud_even_row" rules="all" style="border:solid 1px">
+                        
+                        
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListNodeTypesTitle_nTName}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.nTName}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListNodeTypesTitle_nTCreationDate}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.nTCreationDate}">
+                                <f:convertDateTime pattern="MM/dd/yyyy" />
+                            </h:outputText>
+                        </h:column>
+                       
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="&nbsp;"/>
+                            </f:facet>
+                            <h:commandLink action="#{nodeTypesController.prepareEdit}" value="#{bundle.ListNodeTypesEditLink}"/>
+                            <h:outputText value=" "/>
+                            <h:commandLink action="#{nodeTypesController.destroy}" value="#{bundle.ListNodeTypesDestroyLink}"/>
+                        </h:column>
+                    </h:dataTable>
+                </h:panelGroup>
+                <br />
+                <h:commandLink action="#{nodeTypesController.prepareCreate}" value="#{bundle.ListNodeTypesCreateLink}"/>
+                <br />
+                <br />
+            </h:form>
+        </div>
+        <div id="SummaryDataDefinitionTable">
+            <h:form styleClass="jsfcrud_list_form">
+                <h:panelGroup id="messagePanel" layout="block">
+                    <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
+                </h:panelGroup>
+                <h:outputText escape="false" value="#{bundle.ListDataDefinitionsEmpty}" rendered="#{dataDefinitionsController.items.rowCount == 0}"/>
+                <h:panelGroup rendered="#{dataDefinitionsController.items.rowCount > 0}">
+                    <h:outputText value="#{dataDefinitionsController.pagination.pageFirstItem + 1}..#{dataDefinitionsController.pagination.pageLastItem + 1}/#{dataDefinitionsController.pagination.itemsCount}"/>&nbsp;
+                    <h:commandLink action="#{dataDefinitionsController.previous}" value="#{bundle.Previous} #{dataDefinitionsController.pagination.pageSize}" rendered="#{dataDefinitionsController.pagination.hasPreviousPage}"/>&nbsp;
+                    <h:commandLink action="#{dataDefinitionsController.next}" value="#{bundle.Next} #{dataDefinitionsController.pagination.pageSize}" rendered="#{dataDefinitionsController.pagination.hasNextPage}"/>&nbsp;
+                    <h:dataTable value="#{dataDefinitionsController.items}" var="item" border="0" cellpadding="2" cellspacing="0" rowClasses="jsfcrud_odd_row,jsfcrud_even_row" rules="all" style="border:solid 1px">
+                       
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListDataDefinitionsTitle_nodeType}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.nodeType.nTName}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListDataDefinitionsTitle_dDName}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.dDName}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListDataDefinitionsTitle_dDUnit}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.dDUnit}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListDataDefinitionsTitle_dDMaxValue}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.dDMaxValue}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListDataDefinitionsTitle_dDMinValue}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.dDMinValue}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListDataDefinitionsTitle_dDNotes}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.dDNotes}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListDataDefinitionsTitle_dDType}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.dDType}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListDataDefinitionsTitle_variablePositionId}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.variablePositionId}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="&nbsp;"/>
+                            </f:facet>
+                            <h:commandLink action="#{dataDefinitionsController.prepareView}" value="#{bundle.ListDataDefinitionsViewLink}"/>
+                            <h:outputText value=" "/>
+                            <h:commandLink action="#{dataDefinitionsController.prepareEdit}" value="#{bundle.ListDataDefinitionsEditLink}"/>
+                            <h:outputText value=" "/>
+                            <h:commandLink action="#{dataDefinitionsController.destroy}" value="#{bundle.ListDataDefinitionsDestroyLink}"/>
+                        </h:column>
+                    </h:dataTable>
+                </h:panelGroup>
+                <br />
+                <h:commandLink action="#{dataDefinitionsController.prepareCreate}" value="#{bundle.ListDataDefinitionsCreateLink}"/>
+                <br />
+                <br />
+            </h:form>
+            
+            
+        </div>
+        <div id="SummaryNodeVariableTable">
+            <h:form styleClass="jsfcrud_list_form">
+                <h:panelGroup id="messagePanel" layout="block">
+                    <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
+                </h:panelGroup>
+                <h:outputText escape="false" value="#{bundle.ListNodeVariablesEmpty}" rendered="#{nodeVariablesController.items.rowCount == 0}"/>
+                <h:panelGroup rendered="#{nodeVariablesController.items.rowCount > 0}">
+                    <h:outputText value="#{nodeVariablesController.pagination.pageFirstItem + 1}..#{nodeVariablesController.pagination.pageLastItem + 1}/#{nodeVariablesController.pagination.itemsCount}"/>&nbsp;
+                    <h:commandLink action="#{nodeVariablesController.previous}" value="#{bundle.Previous} #{nodeVariablesController.pagination.pageSize}" rendered="#{nodeVariablesController.pagination.hasPreviousPage}"/>&nbsp;
+                    <h:commandLink action="#{nodeVariablesController.next}" value="#{bundle.Next} #{nodeVariablesController.pagination.pageSize}" rendered="#{nodeVariablesController.pagination.hasNextPage}"/>&nbsp;
+                    <h:dataTable value="#{nodeVariablesController.items}" var="NVitem" border="0" cellpadding="2" cellspacing="0" rowClasses="jsfcrud_odd_row,jsfcrud_even_row" rules="all" style="border:solid 1px">
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListNodeVariablesTitle_nodeType}"/>
+                            </f:facet>
+                            <h:outputText value="#{NVitem.nodeType.nTName}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListNodeVariablesTitle_nVName}"/>
+                            </f:facet>
+                            <h:outputText value="#{NVitem.nVName}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListNodeVariablesTitle_nVDate}"/>
+                            </f:facet>
+                            <h:outputText value="#{NVitem.nVDate}">
+                                <f:convertDateTime pattern="MM/dd/yyyy" />
+                            </h:outputText>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListNodeVariablesTitle_nVValue}"/>
+                            </f:facet>
+                            <h:outputText value="#{NVitem.nVValue}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="&nbsp;"/>
+                            </f:facet>
+                            <h:commandLink action="#{nodeVariablesController.prepareView}" value="#{bundle.ListNodeVariablesViewLink}"/>
+                            <h:outputText value=" "/>
+                            <h:commandLink action="#{nodeVariablesController.prepareEdit}" value="#{bundle.ListNodeVariablesEditLink}"/>
+                            <h:outputText value=" "/>
+                            <h:commandLink action="#{nodeVariablesController.destroy}" value="#{bundle.ListNodeVariablesDestroyLink}"/>
+                        </h:column>
+                    </h:dataTable>
+                </h:panelGroup>
+                <br />
+                <h:commandLink action="#{nodeVariablesController.prepareCreate}" value="#{bundle.ListNodeVariablesCreateLink}"/>
+                <br />
+                <br />
+            </h:form>
+        </div>
+        <div id="SummaryNodesTable">
+            <h:form styleClass="jsfcrud_list_form">
+                <h:panelGroup id="messagePanel" layout="block">
+                    <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
+                </h:panelGroup>
+                <h:outputText escape="false" value="#{bundle.ListNodesEmpty}" rendered="#{nodesController.items.rowCount == 0}"/>
+                <h:panelGroup rendered="#{nodesController.items.rowCount > 0}">
+                    <h:outputText value="#{nodesController.pagination.pageFirstItem + 1}..#{nodesController.pagination.pageLastItem + 1}/#{nodesController.pagination.itemsCount}"/>&nbsp;
+                    <h:commandLink action="#{nodesController.previous}" value="#{bundle.Previous} #{nodesController.pagination.pageSize}" rendered="#{nodesController.pagination.hasPreviousPage}"/>&nbsp;
+                    <h:commandLink action="#{nodesController.next}" value="#{bundle.Next} #{nodesController.pagination.pageSize}" rendered="#{nodesController.pagination.hasNextPage}"/>&nbsp;
+                    <h:dataTable value="#{nodesController.items}" var="NTitem" border="0" cellpadding="2" cellspacing="0" rowClasses="jsfcrud_odd_row,jsfcrud_even_row" rules="all" style="border:solid 1px">
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListNodesTitle_nodeType}"/>
+                            </f:facet>
+                            <h:outputText value="#{NTitem.nodeType.nTName}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListNodesTitle_nTIdentifier}"/>
+                            </f:facet>
+                            <h:outputText value="#{NTitem.nTIdentifier}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListNodesTitle_gPSLat}"/>
+                            </f:facet>
+                            <h:outputText value="#{NTitem.gPSLat}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListNodesTitle_gPSLong}"/>
+                            </f:facet>
+                            <h:outputText value="#{NTitem.gPSLong}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListNodesTitle_isStatic}"/>
+                            </f:facet>
+                            <h:outputText value="#{NTitem.isStatic}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="&nbsp;"/>
+                            </f:facet>
+                            <h:commandLink action="#{nodesController.prepareView}" value="#{bundle.ListNodesViewLink}"/>
+                            <h:outputText value=" "/>
+                            <h:commandLink action="#{nodesController.prepareEdit}" value="#{bundle.ListNodesEditLink}"/>
+                            <h:outputText value=" "/>
+                            <h:commandLink action="#{nodesController.destroy}" value="#{bundle.ListNodesDestroyLink}"/>
+                        </h:column>
+                    </h:dataTable>
+                </h:panelGroup>
+                <br />
+                <h:commandLink action="#{nodesController.prepareCreate}" value="#{bundle.ListNodesCreateLink}"/>
+                <br />
+                <br />
+            </h:form>
+            
+            
+        </div>
+        <div id="SummaryTagsTable">
+            <h:form styleClass="jsfcrud_list_form">
+            <h:panelGroup id="messagePanel" layout="block">
+                <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
+            </h:panelGroup>
+            <h:outputText escape="false" value="#{bundle.ListTagsEmpty}" rendered="#{tagsController.items.rowCount == 0}"/>
+            <h:panelGroup rendered="#{tagsController.items.rowCount > 0}">
+                <h:outputText value="#{tagsController.pagination.pageFirstItem + 1}..#{tagsController.pagination.pageLastItem + 1}/#{tagsController.pagination.itemsCount}"/>&nbsp;
+                <h:commandLink action="#{tagsController.previous}" value="#{bundle.Previous} #{tagsController.pagination.pageSize}" rendered="#{tagsController.pagination.hasPreviousPage}"/>&nbsp;
+                <h:commandLink action="#{tagsController.next}" value="#{bundle.Next} #{tagsController.pagination.pageSize}" rendered="#{tagsController.pagination.hasNextPage}"/>&nbsp;
+                <h:dataTable value="#{tagsController.items}" var="Titem" border="0" cellpadding="2" cellspacing="0" rowClasses="jsfcrud_odd_row,jsfcrud_even_row" rules="all" style="border:solid 1px">
+                    <h:column>
+                        <f:facet name="header">
+                            <h:outputText value="#{bundle.ListTagsTitle_tags}"/>
+                        </f:facet>
+                        <h:outputText value="#{Titem.tags}"/>
+                    </h:column>
+                    <h:column>
+                        <f:facet name="header">
+                            <h:outputText value="&nbsp;"/>
+                        </f:facet>
+                        <h:commandLink action="#{tagsController.prepareView}" value="#{bundle.ListTagsViewLink}"/>
+                        <h:outputText value=" "/>
+                        <h:commandLink action="#{tagsController.prepareEdit}" value="#{bundle.ListTagsEditLink}"/>
+                        <h:outputText value=" "/>
+                        <h:commandLink action="#{tagsController.destroy}" value="#{bundle.ListTagsDestroyLink}"/>
+                    </h:column>
+                </h:dataTable>
+            </h:panelGroup>
+            <br />
+            <h:commandLink action="#{tagsController.prepareCreate}" value="#{bundle.ListTagsCreateLink}"/>
+            <br />
+            <br />
+            <h:link outcome="/index" value="#{bundle.ListTagsIndexLink}"/>
+        </h:form>
+
+
+        </div>
+            
+        </ui:define>
+    </ui:composition>
+</html>

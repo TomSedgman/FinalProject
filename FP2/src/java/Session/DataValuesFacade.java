@@ -1,4 +1,4 @@
-/*
+ /*
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
@@ -86,5 +86,10 @@ public class DataValuesFacade extends AbstractFacade<DataValues> {
     {
         List returnData = em.createNamedQuery("findVariablesByTypeAndNodeOrdered",DataValues.class).setParameter("node", node).setParameter("variable1", var1).setParameter("variable2", var2).getResultList();
         return returnData;
+    }
+    public String bulkUpload(List<String> Record)
+    {
+        
+        return "success";
     }
 }

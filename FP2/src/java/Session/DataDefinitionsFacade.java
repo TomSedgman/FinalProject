@@ -42,4 +42,10 @@ public class DataDefinitionsFacade extends AbstractFacade<DataDefinitions> {
         String data = dataDefinition.getdDType();
         return data;
     }
+     public List allDefinitions(Projects project)
+    {
+        List<DataDefinitions> dataDefinitions= em.createNamedQuery("findAllDefinitionsbyProject", DataDefinitions.class).setParameter("project",project).getResultList();
+        
+        return dataDefinitions;
+    }
 }

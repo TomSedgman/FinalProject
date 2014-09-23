@@ -28,6 +28,7 @@ import javax.persistence.TemporalType;
     //@NamedQuery (name = "findVariablesByTypeAndNodeCrossTab", query = "SELECT * FROM crosstab(SELECT e FROM DataValues e WHERE (e.node = :node and e.variablePositionId = :variable1) or (e.node = :node and e.variablePositionId = :variable2) ORDER BY 1,2) AS ct(huw1 text, huw2 text)"),
     @NamedQuery (name = "findVariableByTypeAndNode", query = "SELECT e FROM DataValues e WHERE  e.node = :node and e.variablePositionId = :variable1"),
     @NamedQuery (name="findRecords",query = "SELECT e FROM DataValues e WHERE e.dTimeStamp = :time ORDER BY e.variablePositionId")
+//    @NamedQuery (name="bulkUpload",query = "INSERT INTO DataValues () VALUES( )")
 })
 @Entity
 //e.dVariable, e.dTimeStamp, e.variablePositionId

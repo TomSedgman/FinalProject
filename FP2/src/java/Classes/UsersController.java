@@ -3,6 +3,7 @@ package Classes;
 import Entities.Users;
 import Classes.util.JsfUtil;
 import Classes.util.PaginationHelper;
+import Session.ProjectsFacade;
 import Session.UsersFacade;
 
 import java.io.Serializable;
@@ -26,6 +27,8 @@ public class UsersController implements Serializable {
     private DataModel items = null;
     @EJB
     private Session.UsersFacade ejbFacade;
+    @EJB
+    private Session.ProjectsFacade projectsFacade;
     private PaginationHelper pagination;
     private int selectedItemIndex;
 
@@ -81,6 +84,7 @@ public class UsersController implements Serializable {
     public String create() {
         try {
             getFacade().create(current);
+            projectsFacade.createNewProject(current);
             JsfUtil.addSuccessMessage(ResourceBundle.getBundle("/Bundle").getString("UsersCreated"));
             return prepareCreate();
         } catch (Exception e) {
@@ -88,7 +92,7 @@ public class UsersController implements Serializable {
             return null;
         }
     }
-
+    
     public String prepareEdit() {
         current = (Users) getItems().getRowData();
         selectedItemIndex = pagination.getPageFirstItem() + getItems().getRowIndex();

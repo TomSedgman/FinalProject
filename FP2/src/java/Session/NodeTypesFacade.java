@@ -5,6 +5,9 @@
 package Session;
 
 import Entities.NodeTypes;
+import Entities.Projects;
+import java.util.Date;
+import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -26,5 +29,9 @@ public class NodeTypesFacade extends AbstractFacade<NodeTypes> {
     public NodeTypesFacade() {
         super(NodeTypes.class);
     }
-    
+    public List allByProject (Projects project)
+    {
+        List dataDefinitions=  em.createNamedQuery("findAllNodeTypesbyProject", NodeTypes.class).setParameter("project",project).getResultList();
+        return dataDefinitions;
+    }
 }

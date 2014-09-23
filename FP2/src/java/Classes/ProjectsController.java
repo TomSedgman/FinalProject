@@ -3,6 +3,7 @@ package Classes;
 import Entities.Projects;
 import Classes.util.JsfUtil;
 import Classes.util.PaginationHelper;
+import Entities.Users;
 import Session.ProjectsFacade;
 
 import java.io.Serializable;
@@ -22,12 +23,23 @@ import javax.faces.model.SelectItem;
 @SessionScoped
 public class ProjectsController implements Serializable {
 
+    public void createNewProject(Users current) {
+        Projects newProject = new Projects();
+        newProject.setUser(current);
+        newProject.setProjectName("PlaceHolder");
+        newProject.setPrivacy(false);
+        getFacade().create(newProject);
+    }
+
     private Projects current;
     private DataModel items = null;
     @EJB
     private Session.ProjectsFacade ejbFacade;
     private PaginationHelper pagination;
     private int selectedItemIndex;
+    @EJB
+    private PersistedVariables.PProject currProject;
+
 
     public ProjectsController() {
     }
@@ -78,6 +90,15 @@ public class ProjectsController implements Serializable {
         return "Create";
     }
 
+    public String fetchName()
+    {
+        return currProject.getCurrentProject().getProjectName();
+    }
+    
+    public String fetchNotes()
+    {
+        return currProject.getCurrentProject().getProjectNotes();
+    }
     public String create() {
         try {
             getFacade().create(current);

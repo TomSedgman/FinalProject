@@ -13,6 +13,7 @@
            //<![CDATA[
            
             var target = document.getElementById("projectSelect");
+            
             function showResult(t)
             {
                 if (t.status ==='success')
@@ -35,19 +36,22 @@
             </h:panelGroup>
         
             <h:form id="LoginForm">
-                <h:outputText value="! username: "/>
+                <h:outputText value="#{bundle.LoginUsername}"/>
                 
-                <h:inputText id="username"  value="#{bean.username}" />
-                <h:commandButton id="login" value="!Load Project List" class="ajax">
+                <h:inputText id="username"  value="#{bean.username}">
+                    <f:validateRequired />
+                </h:inputText>
+                <h:commandButton id="login" value="#{bundle.LoginLoadProjectList}" class="ajax">
                     <f:ajax execute="username" render="output" onevent="showResult"/>
                 </h:commandButton>
-                <br/>
-                <div id="projectSelect" style="visibility: hidden;">
-                    <h:outputText id="project" value="!Please select project: "/>
-                    <h:selectOneMenu id="output" value="#{bean.projectName}" title="#{bundle.selectProject}">
+                <h:commandButton id="newUser" value="#{bundle.newUser}" action="/Page/users/Create" immediate="true"/>
+                <br/> <br/>
+                <div id="projectSelect">
+                    <h:outputText id="project" value="#{bundle.LoginSelectProjectPrompt}"/>
+                    <h:selectOneMenu id="output" value="#{bean.projectName}" title="#{bundle.LoginSelectProject}">
                         <f:selectItems id ="projects" value="#{bean.projectList()}" />
                     </h:selectOneMenu>
-                    <h:commandButton id="goToMap" value="!Login" action="#{bean.initalise()}"/>
+                    <h:commandButton id="goToMap" value="#{bundle.LoginLoadSingleProject}" action="#{bean.initalise()}"/>
                 </div>
             </h:form>
                  

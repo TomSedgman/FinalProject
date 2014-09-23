@@ -23,7 +23,8 @@ import javax.persistence.OneToMany;
 @NamedQueries(
 {
 @NamedQuery (name = "findFieldsByName", query =   "SELECT e.nodeType.dataDefinitions FROM Nodes e WHERE e.nTIdentifier = :nTIdentifier"),
-@NamedQuery (name = "findTypebyName", query =   "SELECT e FROM DataDefinitions e WHERE e.nodeType.project.projectId = :projectId and e.variablePositionId = :variable")
+@NamedQuery (name = "findTypebyName", query =   "SELECT e FROM DataDefinitions e WHERE e.nodeType.project.projectId = :projectId and e.variablePositionId = :variable"),
+@NamedQuery (name = "findAllDefinitionsbyProject", query= "SELECT e FROM DataDefinitions e WHERE e.nodeType.project = :project")
 
 })
 @Entity

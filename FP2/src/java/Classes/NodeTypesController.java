@@ -6,6 +6,8 @@ import Classes.util.PaginationHelper;
 import Session.NodeTypesFacade;
 
 import java.io.Serializable;
+import java.util.Collection;
+import java.util.List;
 import java.util.ResourceBundle;
 import javax.ejb.EJB;
 import javax.inject.Named;
@@ -28,6 +30,8 @@ public class NodeTypesController implements Serializable {
     private Session.NodeTypesFacade ejbFacade;
     private PaginationHelper pagination;
     private int selectedItemIndex;
+    @EJB
+    private PersistedVariables.PProject currProject;
 
     public NodeTypesController() {
     }
@@ -49,12 +53,12 @@ public class NodeTypesController implements Serializable {
             pagination = new PaginationHelper(10) {
                 @Override
                 public int getItemsCount() {
-                    return getFacade().count();
+                    return getFacade().allByProject(currProject.getCurrentProject()).size();
                 }
 
                 @Override
                 public DataModel createPageDataModel() {
-                    return new ListDataModel(getFacade().findRange(new int[]{getPageFirstItem(), getPageFirstItem() + getPageSize()}));
+                    return new ListDataModel(getFacade().allByProject(currProject.getCurrentProject()));
                 }
             };
         }

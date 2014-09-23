@@ -5,6 +5,7 @@
 package Session;
 
 import Entities.Projects;
+import Entities.Users;
 import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
@@ -19,6 +20,14 @@ public class ProjectsFacade extends AbstractFacade<Projects> {
     @PersistenceContext(unitName = "FP2PU")
     private EntityManager em;
 
+    public void createNewProject(Users current) {
+        Projects newProject = new Projects();
+        newProject.setUser(current);
+        newProject.setProjectName("PlaceHolder");
+        newProject.setPrivacy(false);
+        em.persist(newProject);
+    }
+    
     @Override
     protected EntityManager getEntityManager() {
         return em;

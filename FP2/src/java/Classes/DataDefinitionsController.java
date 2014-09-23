@@ -6,6 +6,7 @@ import Classes.util.PaginationHelper;
 import Session.DataDefinitionsFacade;
 
 import java.io.Serializable;
+import java.util.List;
 import java.util.ResourceBundle;
 import javax.ejb.EJB;
 import javax.inject.Named;
@@ -28,7 +29,9 @@ public class DataDefinitionsController implements Serializable {
     private Session.DataDefinitionsFacade ejbFacade;
     private PaginationHelper pagination;
     private int selectedItemIndex;
-
+    @EJB
+    private PersistedVariables.PProject currProject;
+    
     public DataDefinitionsController() {
     }
 
@@ -43,18 +46,27 @@ public class DataDefinitionsController implements Serializable {
     private DataDefinitionsFacade getFacade() {
         return ejbFacade;
     }
-
     public PaginationHelper getPagination() {
         if (pagination == null) {
             pagination = new PaginationHelper(10) {
                 @Override
                 public int getItemsCount() {
-                    return getFacade().count();
+                    return getFacade().allDefinitions(currProject.getCurrentProject()).size(); // prevent overreporting of numbers
                 }
 
                 @Override
-                public DataModel createPageDataModel() {
-                    return new ListDataModel(getFacade().findRange(new int[]{getPageFirstItem(), getPageFirstItem() + getPageSize()}));
+                public DataModel createPageDataModel() // not stock for security, restircting list on table to those for currProject
+                {
+                    if ((getPageFirstItem() + getPageSize()) > getPageLastItem())
+                    {
+                        return new ListDataModel(getFacade().allDefinitions(currProject.getCurrentProject()).subList(getPageFirstItem(), getPageLastItem()));
+   
+                    }
+                    else
+                    {
+                        return new ListDataModel(getFacade().allDefinitions(currProject.getCurrentProject()).subList(getPageFirstItem(), getPageFirstItem() + getPageSize()));
+
+                    }
                 }
             };
         }
@@ -128,6 +140,13 @@ public class DataDefinitionsController implements Serializable {
         }
     }
 
+    public String projectList() // depricated, previous attempt to restict list of variables
+    {
+        List temp =  (List) ejbFacade.allDefinitions(currProject.getCurrentProject()); 
+        items.setWrappedData(temp);
+        return "";
+    }
+    
     private void performDestroy() {
         try {
             getFacade().remove(current);
@@ -138,7 +157,7 @@ public class DataDefinitionsController implements Serializable {
     }
 
     private void updateCurrentItem() {
-        int count = getFacade().count();
+        int count = getFacade().allDefinitions(currProject.getCurrentProject()).size(); // not stock for security
         if (selectedItemIndex >= count) {
             // selected index cannot be bigger than number of items:
             selectedItemIndex = count - 1;
@@ -147,7 +166,9 @@ public class DataDefinitionsController implements Serializable {
                 pagination.previousPage();
             }
         }
-        if (selectedItemIndex >= 0) {
+        if (selectedItemIndex >= 0) 
+        {
+           
             current = getFacade().findRange(new int[]{selectedItemIndex, selectedItemIndex + 1}).get(0);
         }
     }

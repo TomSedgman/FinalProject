@@ -12,31 +12,10 @@
         <h:outputStylesheet name="css/jsfcrud.css"/>
 
         <meta name="viewport" content="initial-scale=1.0, user-scalable=no" />
-        <style type="text/css">
-            html { height: 100%; width: 100%; }
-            body { height: 100%; width: 100%; margin: 0; padding: 0; background-color: #e0e2d1}
-            #head {height: 5%; width: 100%;}
-            #main {height: 90%; width: 100%; background-color: #e9ffd1}
-            #side {height: 100%; width: 10%; float:left; background-color: #e0e2d1}
-            #map {height: 50%; width: 60%; float: left; }
-            #control {height: 50%; width: 30%; float: right; }
-            #dashboard {height: 50%; width: 90%; float: left; background-color: white}
-            #vert1{height: 90%}
-            #graph {width:100%; height:100%; float: left}
-            #dyControls {width:0%; height:100%;float: right}
-            #dxControls {height:10%}
-            #foot {height: 5%; width: 100%;}
-            #selects {visibility: collapse}
-            .hidden {visibility: hidden}
-            
+        <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBn3ekiVRTR-gme-EH5bqcn3dNxuiUxzRg"/>
+        <script type="text/javascript" src="https://www.google.com/jsapi"/>
 
-
-        </style>
-        <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBn3ekiVRTR-gme-EH5bqcn3dNxuiUxzRg">
-        </script>
-        <script type="text/javascript" src="https://www.google.com/jsapi"></script>
-
-        <script type="text/javascript" src="resources/JavaScript/Map.js"></script>
+        <script type="text/javascript" src="resources/JavaScript/Map.js"/>
         <!--<script type="text/javascript" src="resources/JavaScript/mootools-core-1.5.0-full-compat"></script>-->
         <!--<script type="text/javascript" src="resources/JavaScript/jquery-2.1.1.min.js"></script>-->
         <!--<script src="http://ajax.aspnetcdn.com/ajax/jQuery/jquery-1.6.1.min.js"></script>-->
@@ -87,7 +66,7 @@
                 var returnData = document.getElementById('output').getAttribute('value');
                 getData(returnData);
             }
-            function ajaxTest(t)
+            function ajaxResponse(t)
             {
                 if (t.status ==='success')
                 {
@@ -138,64 +117,51 @@
         </script>
     </h:head>
     <h:body>
-    	
         <div id="head" >
+            
             head
+             <h:form id="form" enctype="multipart/form-data">
+                 
+                    <h:inputFile id="newFile" value="#{bean.fileUpload}"/>
+                    <h:commandButton value="Upload" action="#{bean.upload}"/>
+            </h:form>
         </div>     
         <div id="main" >
             <div id="side" >
-                <h:link outcome="/login" value="#{bundle.logout}"/>
-            </div>
-            <div id="map" />
-            <div id="control" >
-                <h:panelGroup id="messagePanel" layout="block">
-                    <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
-                </h:panelGroup>
-                <h:form id="form" enctype="multipart/form-data">
-                    <h:inputFile id="newFile" value="#{bean.fileUpload}"/>
-                    <br />
-                    <h:commandButton value="Upload"
-                                     action="#{bean.upload}">
-                    </h:commandButton>
-                    <br/>
-                    <h:commandButton id="clearGraph" value="!Clear Chart" onclick="newChart"/>
-
-                    
-                    
-                
-                </h:form>
-                
-                <h:link outcome="/Page/dataDefinitions/List" value="!Edit Project Settings"/>
-                
+                <h:link outcome="/login" value="#{bundle.Logout}"/>
+                <br/><br/>
+                <h:link outcome="/Page/Summary/Summary" value="#{bundle.EditSettings}"/>
+                <br/><br/>
+                <h:commandButton id="clearGraph" value="#{bundle.ClearChart}" onclick="newChart"/>
                 <h:form class="hidden" id="ajaxForm">
                     <h:inputText id="node" class="ajax" value="#{bean.node}" ></h:inputText>
                     <h:inputText id="variable" class="ajax" value="#{bean.variable}"></h:inputText>
                    <h:commandButton id="update" value="update" class="ajax">
-                       <f:ajax execute="node variable" render="output" onevent="ajaxTest" />
-                         
+                       <f:ajax execute="node variable" render="output" onevent="ajaxResponse" />
                    </h:commandButton>
-
-                   <h:outputText id="output" value="#{bean.graphData}" />
-                   
-                 	
+                    <h:outputText id="output" value="#{bean.graphData}" style="font-size: 0"/>
                 </h:form>
                 <div id="selects"></div>
-                
- 
-            </div> 
+            </div>
+            
+            <div id="map" />
+            
           <div id="dashboard">
-              <div id="vert1">
-                <div id ="graph"></div>
-                <div id="dyControls"></div>  
+              <!--<div id="vert1">-->
+                <div id ="graph" >
+                    <h:outputText id="instruction" value="Please select a marker, and pick a variable to view the data"/>
+                    <h:panelGroup id="messagePanel" layout="block">
+                <h:messages errorStyle="color: red" infoStyle="color: green" layout="table" warnStyle="visiblity: hidden"/>
+                </h:panelGroup>
+                </div>
+                <!--<div id="dyControls"></div>-->  
+                <div id="dxControls"></div>   
               </div>
-              <div id="dxControls"></div>   
               
            </div>
-        </div> 
-        <div id="foot" >
+<!--        <div id="foot" >
             foot
-        </div>
+        </div>-->
     </h:body>
-  
 </html>
 

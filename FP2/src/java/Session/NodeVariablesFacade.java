@@ -5,6 +5,8 @@
 package Session;
 
 import Entities.NodeVariables;
+import Entities.Projects;
+import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -25,6 +27,11 @@ public class NodeVariablesFacade extends AbstractFacade<NodeVariables> {
 
     public NodeVariablesFacade() {
         super(NodeVariables.class);
+    }
+    public List allVariables(Projects project)
+    {
+        List<NodeVariables> dataDefinitions= em.createNamedQuery("findAllVariablesbyProject", NodeVariables.class).setParameter("project",project).getResultList();
+        return dataDefinitions;
     }
     
 }

@@ -6,6 +6,7 @@ import Classes.util.PaginationHelper;
 import Session.NodeVariablesFacade;
 
 import java.io.Serializable;
+import java.util.List;
 import java.util.ResourceBundle;
 import javax.ejb.EJB;
 import javax.inject.Named;
@@ -28,7 +29,9 @@ public class NodeVariablesController implements Serializable {
     private Session.NodeVariablesFacade ejbFacade;
     private PaginationHelper pagination;
     private int selectedItemIndex;
-
+    @EJB
+    private PersistedVariables.PProject currProject;
+    
     public NodeVariablesController() {
     }
 
@@ -127,6 +130,14 @@ public class NodeVariablesController implements Serializable {
             return "List";
         }
     }
+    
+    public String projectList()
+    {
+        List temp =  (List) ejbFacade.allVariables(currProject.getCurrentProject()); 
+        items.setWrappedData(temp);
+        return "";
+    }
+    
 
     private void performDestroy() {
         try {

@@ -11,6 +11,7 @@ import Entities.Projects;
 import Entities.Users;
 import Session.DataDefinitionsFacade;
 import Session.DataValuesFacade;
+import Session.NodeTypesFacade;
 import Session.NodesFacade;
 import Session.ProjectsFacade;
 import Session.UsersFacade;
@@ -26,6 +27,7 @@ import java.io.FileOutputStream;
 import java.io.InputStream;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.Collection;
 import java.util.Locale;
 import javax.faces.model.SelectItem;
 import javax.servlet.http.Part;
@@ -39,6 +41,8 @@ public class Bean {
     private DataValuesFacade dataValuesFacade;
     @EJB
     private NodesFacade nodesFacade;
+    @EJB
+    private NodeTypesFacade nodeTypesFacade;
     @EJB
     private ProjectsFacade projectsFacade;
     @EJB
@@ -56,43 +60,31 @@ public class Bean {
     @EJB
     private PersistedVariables.PCoordinates coordinates;
     
-  private String fileContent;
-  private String fileContent2;
-  private ArrayList<String> fileContentArray = new ArrayList<>();;
-  private int counter = 0;
-
-
-    public int getCounter() {
-        return counter;
+    public Projects returnProject()
+    {
+        return currProject.getCurrentProject();
+    }
+    public Users returnUser()
+    {
+        return currProject.getCurrentProject().getUser();
     }
 
-    public void setCounter(int counter) {
-        this.counter = counter;
-    }
 
-    public ArrayList<String> getFileContentArray() {
-        return fileContentArray;
-    }
-
-    public void setFileContentArray(ArrayList<String> fileContentArray) {
-        this.fileContentArray = fileContentArray;
-    }
-
-    public String getFileContent() {
-        return fileContent;
-    }
-
-    public void setFileContent(String fileContent) {
-        this.fileContent = fileContent;
-    }
-    
-    public String getFileContent2() {
-        return fileContent2;
-    }
-
-    public void setFileContent2(String fileContent2) {
-        this.fileContent2 = fileContent2;
-    }
+//    public String getFileContent() {
+//        return fileContent;
+//    }
+//
+//    public void setFileContent(String fileContent) {
+//        this.fileContent = fileContent;
+//    }
+//    
+//    public String getFileContent2() {
+//        return fileContent2;
+//    }
+//
+//    public void setFileContent2(String fileContent2) {
+//        this.fileContent2 = fileContent2;
+//    }
   private Part fileUpload;
 
     public Part getFileUpload() {
@@ -103,7 +95,7 @@ public class Bean {
         this.fileUpload = fileUpload;
     }
   
-  public void upload() throws IOException // takes user selected file and loads it to the database
+  public void upload() throws IOException // takes user selected file and converts it into a List
   {
 
 //    File file = new File("/Users/t_sedgman/Desktop/FinalProject/test_output_data.rtf");
@@ -113,7 +105,7 @@ public class Bean {
     ArrayList<String> tempArray = new ArrayList<>();
     InputStream inputStream = fileUpload.getInputStream();
     FileOutputStream outputStream = new FileOutputStream(getFilename(fileUpload));
-    byte[] buffer = new byte[4096]; // get         
+    byte[] buffer = new byte[4096];      
     int bytesRead = 0;
     while(true) 
     {                        
@@ -129,8 +121,7 @@ public class Bean {
     }
     outputStream.close();
     inputStream.close();
-    setFileContentArray(tempArray);
-    for (int i = 0;i<tempArray.size()-1;i++)
+    for (int i = 0;i<tempArray.size()-1;i++) // loops over every line from the file 
     {
         String tempString = tempArray.get(i);
         List<String> Record = Arrays.asList(tempString.split(","));  
@@ -138,7 +129,7 @@ public class Bean {
     }
     
   }
-    private static String getFilename(Part part) 
+    private static String getFilename(Part part) // identifies the location of the file to be uploaded
     {
         for (String cd : part.getHeader("content-disposition").split(";")) 
         {
@@ -150,8 +141,6 @@ public class Bean {
         }
         return null;
     }
-    
-    
      
     {
 //    try
@@ -177,6 +166,12 @@ public class Bean {
     }
    
   
+    public List getProjectNodeTypes()
+    {
+        return nodeTypesFacade.allByProject(currProject.getCurrentProject());
+                
+    }
+    
   private String username;
   
 
@@ -253,7 +248,7 @@ private String projectName;
     }
     
     
-  public String GPSLat()
+  public String GPSLat() // calculate the latitide of all the nodes and return it as a list
   {
     ArrayList gPSLat = new ArrayList();
     List<Nodes> nodes = currentNodes.getCurrentNodes();
@@ -272,7 +267,7 @@ private String projectName;
      coordinates.setGPSLat(gPSLat);
      return returnArray;
   }
-   public String GPSLong()
+   public String GPSLong() // calculate the longitude of all the nodes and return it as a list
   {
     ArrayList gPSLong = new ArrayList();
     List<Nodes> nodes = currentNodes.getCurrentNodes();
@@ -502,12 +497,12 @@ private String projectName;
 //        
 //        return variable;
 //    }
-//    public String title()
+//    public Projects title()
 //    {
-//        String title = currProject.getCurrentProject().getProjectName();
+//        Projects title = currProject.getCurrentProject();
 //        return title;
 //    }
-    
+//    
     
 }
 

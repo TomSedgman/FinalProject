@@ -8,16 +8,24 @@
             <base-name>/Bundle</base-name>
             <var>bundle</var>
         </resource-bundle>
-        <resource-bundle>
-            <base-name>/Bundle2</base-name>
-            <var>bundle</var>
-        </resource-bundle>
+        
     </application>
     <navigation-rule>
         <from-view-id>/login.xhtml</from-view-id>
         <navigation-case>
             <from-outcome>load</from-outcome>
             <to-view-id>/map.xhtml</to-view-id>
+        </navigation-case>
+    </navigation-rule>
+    <navigation-rule>
+        <from-view-id>/Page/users/Create.xhtml</from-view-id>
+        <navigation-case>
+            <from-outcome>/index</from-outcome>
+            <to-view-id>/login.xhtml</to-view-id>
+        </navigation-case>
+        <navigation-case>
+            <from-outcome>Create</from-outcome>
+            <to-view-id>/login.xhtml</to-view-id>
         </navigation-case>
     </navigation-rule>
     <managed-bean>

@@ -3,14 +3,35 @@ root {
 }
 
 body {
-    font-family: Arial, Helvetica, sans-serif;
-    color: #3a4f54;
-    background-color: #dfecf1;
+    font-family: sans-serif, Arial, Helvetica;
     font-size: small;
+    background-color: #CCC9C6; 
+    color: #854840;
+    height: 100%; 
+    width: 100%;
+    margin: 0px
 }
+#messagePanel {float: top} 
+html { height: 100%; width: 100%; }
+#head {height: 5%; width: 100%;}
+#main {height: 95%; width: 100%; float: left}
+#side {height: 50%; width: 10%; float: left; background-color: #999796}
+#map {height: 50%; width: 90%; float: right;}
+/*#control {height: 50%; width: 30%; float: right; }*/
+#dashboard {height: 50%; width: 100%; float: right; background-color: white}
+/*#vert1{height: 90%}*/
+#graph {width:100%; height:90%; float: top}
+/*#dyControls {width:10%; height:100%;float: right}*/
+#dxControls {width: 100%; height:10%; float:bottom}
+/*#foot {height: 5%; width: 100%;}*/
+#selects {visibility: hidden}
+.hidden {visibility: hidden}
+#form {float:right}
+#instruction {font-size: 30px; margin: auto}
+#projectSelect {visibility: hidden;}
 
 a {
-    color: #e33b06;
+    color: #333230;
 }
 
 table {
@@ -19,7 +40,7 @@ table {
 
 form.jsfcrud_list_form th, td th {
     font-size: x-small;
-    color: #4e6a71;
+    color: #854840;
     border-top-style: solid;
     border-bottom-style: solid;
     border-left-style: solid;
@@ -28,17 +49,17 @@ form.jsfcrud_list_form th, td th {
     border-bottom-width: 1px;
     border-left-width: 1px;
     border-right-width: 1px;
-    border-top-color: #b2d5d6;
-    border-bottom-color: #b2d5d6;
-    border-left-color: #90b4bd;
-    border-right-color: #90b4bd;
+    border-top-color: #856240;
+    border-bottom-color: #856240;
+    border-left-color: #856240;
+    border-right-color: #856240;
     letter-spacing: 3px;
     text-align: left;
     padding-top: 6px;
     padding-bottom: 6px;
     padding-left: 6px;
     padding-right: 6px;
-    background-color: #b2d5d6;
+    background-color: #E6E3E0;
 }
 
 td {
@@ -56,23 +77,23 @@ form.jsfcrud_list_form td, td td {
     border-bottom-width: 1px;
     border-left-width: 1px;
     border-right-width: 1px;
-    border-top-color: #b2d5d6;
-    border-bottom-color: #b2d5d6;
-    border-left-color: #b2d5d6;
-    border-right-color: #b2d5d6;
+    border-top-color: #856240;
+    border-bottom-color: #856240;
+    border-left-color: #856240;
+    border-right-color: #856240;
     vertical-align: baseline;
     padding-bottom: 0px;
 }
 
 tr.jsfcrud_odd_row {
-    background-color: #fefeff;
-    color: #4e6a71;
+    background-color: #CCC9C6;
+    color: #854840;
 }
 
 
 tr.jsfcrud_even_row {
-    background-color: #eff5fa;
-    color: #4e6a71;
+    background-color: #999796;
+    color: #854840;
 }
 
 #busyImage {

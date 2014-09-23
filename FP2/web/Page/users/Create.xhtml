@@ -15,28 +15,17 @@
             </h:panelGroup>
             <h:form>
                 <h:panelGrid columns="2">
-                    <h:outputLabel value="#{bundle.CreateUsersLabel_userId}" for="userId" />
-                    <h:inputText id="userId" value="#{usersController.selected.userId}" title="#{bundle.CreateUsersTitle_userId}" />
                     <h:outputLabel value="#{bundle.CreateUsersLabel_username}" for="username" />
                     <h:inputText id="username" value="#{usersController.selected.username}" title="#{bundle.CreateUsersTitle_username}" />
-                    <h:outputLabel value="#{bundle.CreateUsersLabel_password}" for="password" />
-                    <h:inputText id="password" value="#{usersController.selected.password}" title="#{bundle.CreateUsersTitle_password}" />
-                    <h:outputLabel value="#{bundle.CreateUsersLabel_passwordHint}" for="passwordHint" />
-                    <h:inputText id="passwordHint" value="#{usersController.selected.passwordHint}" title="#{bundle.CreateUsersTitle_passwordHint}" />
                     <h:outputLabel value="#{bundle.CreateUsersLabel_email}" for="email" />
                     <h:inputText id="email" value="#{usersController.selected.email}" title="#{bundle.CreateUsersTitle_email}" />
                     <h:outputLabel value="#{bundle.CreateUsersLabel_forename}" for="forename" />
                     <h:inputText id="forename" value="#{usersController.selected.forename}" title="#{bundle.CreateUsersTitle_forename}" />
                     <h:outputLabel value="#{bundle.CreateUsersLabel_surname}" for="surname" />
                     <h:inputText id="surname" value="#{usersController.selected.surname}" title="#{bundle.CreateUsersTitle_surname}" />
-                    <h:outputLabel value="#{bundle.CreateUsersLabel_id}" for="id" />
-                    <h:inputText id="id" value="#{usersController.selected.id}" title="#{bundle.CreateUsersTitle_id}" />
                 </h:panelGrid>
                 <br />
                 <h:commandLink action="#{usersController.create}" value="#{bundle.CreateUsersSaveLink}" />
-                <br />
-                <br />
-                <h:commandLink action="#{usersController.prepareList}" value="#{bundle.CreateUsersShowAllLink}" immediate="true"/>
                 <br />
                 <br />
                 <h:link outcome="/index" value="#{bundle.CreateUsersIndexLink}"/>
