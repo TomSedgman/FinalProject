@@ -15,8 +15,6 @@
             </h:panelGroup>
             <h:form>
                 <h:panelGrid columns="2">
-                    <h:outputLabel value="#{bundle.CreateNodesLabel_nodeId}" for="nodeId" />
-                    <h:inputText id="nodeId" value="#{nodesController.selected.nodeId}" title="#{bundle.CreateNodesTitle_nodeId}" />
                     <h:outputLabel value="#{bundle.CreateNodesLabel_nodeType}" for="nodeType" />
                     <h:selectOneMenu id="nodeType" value="#{nodesController.selected.nodeType}" title="#{bundle.CreateNodesTitle_nodeType}" >
                         <f:selectItems value="#{nodeTypesController.itemsAvailableSelectOne}"/>
@@ -29,17 +27,12 @@
                     <h:inputText id="gPSLong" value="#{nodesController.selected.gPSLong}" title="#{bundle.CreateNodesTitle_gPSLong}" />
                     <h:outputLabel value="#{bundle.CreateNodesLabel_isStatic}" for="isStatic" />
                     <h:inputText id="isStatic" value="#{nodesController.selected.isStatic}" title="#{bundle.CreateNodesTitle_isStatic}" />
-                    <h:outputLabel value="#{bundle.CreateNodesLabel_id}" for="id" />
-                    <h:inputText id="id" value="#{nodesController.selected.id}" title="#{bundle.CreateNodesTitle_id}" />
                 </h:panelGrid>
                 <br />
                 <h:commandLink action="#{nodesController.create}" value="#{bundle.CreateNodesSaveLink}" />
                 <br />
                 <br />
-                <h:commandLink action="#{nodesController.prepareList}" value="#{bundle.CreateNodesShowAllLink}" immediate="true"/>
-                <br />
-                <br />
-                <h:link outcome="/index" value="#{bundle.CreateNodesIndexLink}"/>
+                <h:link outcome="/Page/Summary/Summary.xhtml" value="#{bundle.CreateNodesIndexLink}"/>
             </h:form>
         </ui:define>
     </ui:composition>

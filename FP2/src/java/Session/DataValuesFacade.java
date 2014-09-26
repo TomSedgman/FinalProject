@@ -30,18 +30,18 @@ public class DataValuesFacade extends AbstractFacade<DataValues> {
     @EJB
     private PersistedVariables.PProject currProject;
     
-    public void RecordData(List<String> Record)
+    public void RecordData(String[] Record)
     {
 //        Projects currentProject = new Projects();
         int position = currProject.getCurrentProject().getSourceVariable();
         Date timeStamp = Calendar.getInstance().getTime();
-        String id = Record.get(position);
+        String id = Record[position];
         Nodes currentNode = findProjectNode(currProject.getCurrentProject(), id);
-        for (int i = 0; i<Record.size(); i++)
+        for (int i = 0; i<Record.length; i++)
         {
             DataValues data = new DataValues();
             data.setNode(currentNode);
-            data.setdVariable(Record.get(i));
+            data.setdVariable(Record[i]);
             data.setdTimeStamp(timeStamp);
             data.setVariablePositionId(i);
             em.persist(data);

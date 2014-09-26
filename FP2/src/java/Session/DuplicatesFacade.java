@@ -5,6 +5,8 @@
 package Session;
 
 import Entities.Duplicates;
+import Entities.Projects;
+import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -26,5 +28,10 @@ public class DuplicatesFacade extends AbstractFacade<Duplicates> {
     public DuplicatesFacade() {
         super(Duplicates.class);
     }
-    
+    public List allDuplicates(Projects project)
+    {
+        List<Duplicates> Duplicates= em.createNamedQuery("findAllDuplicatesbyProject", Duplicates.class).setParameter("project",project).getResultList();
+        
+        return Duplicates;
+    }
 }

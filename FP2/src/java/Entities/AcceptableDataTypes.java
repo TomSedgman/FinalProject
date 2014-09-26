@@ -9,11 +9,13 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.NamedQuery;
 
 /**
  *
  * @author t_sedgman
  */
+@NamedQuery (name="findAll", query= "SELECT e.dDTypeValue FROM AcceptableDataTypes e")
 @Entity
 public class AcceptableDataTypes implements Serializable {
     private static final long serialVersionUID = 1L;

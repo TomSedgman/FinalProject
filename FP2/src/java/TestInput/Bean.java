@@ -5,16 +5,23 @@
 package TestInput;
 
 import Classes.util.JsfUtil;
+import Entities.AcceptableDataTypes;
 import Entities.DataDefinitions;
 import Entities.Nodes;
 import Entities.Projects;
 import Entities.Users;
+import Session.AcceptableDataTypesFacade;
 import Session.DataDefinitionsFacade;
 import Session.DataValuesFacade;
 import Session.NodeTypesFacade;
 import Session.NodesFacade;
 import Session.ProjectsFacade;
 import Session.UsersFacade;
+import au.com.bytecode.opencsv.CSVReader;
+import java.io.BufferedInputStream;
+import java.io.DataInputStream;
+import java.io.File;
+import java.io.FileInputStream;
 import java.io.IOException;
 import java.math.BigDecimal;
 import java.util.ArrayList;
@@ -24,11 +31,15 @@ import java.util.List;
 import javax.ejb.EJB;
 import javax.faces.bean.SessionScoped;
 import java.io.FileOutputStream;
+import java.io.FileReader;
 import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Collection;
+import java.util.HashMap;
 import java.util.Locale;
+import java.util.Map;
 import javax.faces.model.SelectItem;
 import javax.servlet.http.Part;
 /**
@@ -59,6 +70,8 @@ public class Bean {
     private PersistedVariables.PNodes currentNodes;
     @EJB
     private PersistedVariables.PCoordinates coordinates;
+    @EJB
+    private AcceptableDataTypesFacade acceptableDataTypes;
     
     public Projects returnProject()
     {
@@ -99,33 +112,31 @@ public class Bean {
   {
 
 //    File file = new File("/Users/t_sedgman/Desktop/FinalProject/test_output_data.rtf");
-//    FileInputStream fis = null;
-//    BufferedInputStream bis = null;
-//    DataInputStream dis = null;
-    ArrayList<String> tempArray = new ArrayList<>();
-    InputStream inputStream = fileUpload.getInputStream();
-    FileOutputStream outputStream = new FileOutputStream(getFilename(fileUpload));
-    byte[] buffer = new byte[4096];      
-    int bytesRead = 0;
-    while(true) 
-    {                        
-        bytesRead = inputStream.read(buffer);
-        if(bytesRead > 0) 
-        {
-            outputStream.write(buffer, 0, bytesRead);
-        }
-        else 
-        {
-            break;
-        }                       
-    }
-    outputStream.close();
-    inputStream.close();
-    for (int i = 0;i<tempArray.size()-1;i++) // loops over every line from the file 
+      
+      InputStream IS = fileUpload.getInputStream();
+      InputStreamReader ISR = new InputStreamReader(IS);
+      CSVReader reader  = new CSVReader(ISR);
+      List<String[]> tempArray = reader.readAll();
+   
+//    byte[] buffer = new byte[4096];      
+//    int bytesRead = 0;
+//    while(true) 
+//    {                        
+//        bytesRead = inputStream.read(buffer);
+//        if(bytesRead > 0) 
+//        {
+//            outputStream.write(buffer, 0, bytesRead);
+//        }
+//        else 
+//        {
+//            break;
+//        }                       
+//    }
+    for (int i = 0;i<tempArray.size();i++) // loops over every line from the file 
     {
-        String tempString = tempArray.get(i);
-        List<String> Record = Arrays.asList(tempString.split(","));  
-        dataValuesFacade.RecordData(Record);
+        String[] tempString = tempArray.get(i);
+//        List<String> Record = tempString;  
+        dataValuesFacade.RecordData(tempString);
     }
     
   }
@@ -168,7 +179,7 @@ public class Bean {
   
     public List getProjectNodeTypes()
     {
-        return nodeTypesFacade.allByProject(currProject.getCurrentProject());
+        return nodeTypesFacade.allNodeTypes(currProject.getCurrentProject());
                 
     }
     
@@ -201,7 +212,7 @@ private String projectName;
         this.projectName = projectName;
     }
 
-    public SelectItem[] projectList() 
+    public SelectItem[] projectList() // returns the contents for the select project dropdown menu on login screen
 {
      if (username != null)
      {
@@ -223,24 +234,20 @@ private String projectName;
         return returnData;
      }
 }
-    public SelectItem[] dataType() 
+    public SelectItem[] dataType() // returns a list of acceptable data types when settin up a data definition
 {
-    Users temp = usersFacade.findUser(username);
-    currUser.setCurrentUser(temp);
-    List projects = projectsFacade.findProjectsByUser(username);
-    projectsList.setProjects(projects);
-
-    SelectItem[] returnData = JsfUtil.getSelectItems(projectsList.getProjects(),true);
+    
+    SelectItem[] returnData = JsfUtil.getSelectItems(acceptableDataTypes.allDataTypes(),true);
     return returnData;
      
 }
-    public String initalise()
+    public String initalise() // sets persisted variables for the project scope,
     {
         if (username != null)
         {
             project = projectsFacade.findProjectsByName(projectName,currUser.getCurrentUser().getUsername());
             currProject.setCurrentProject(project);
-            currentNodes.setCurrentNodes(nodesFacade.nodesList(project));
+            currentNodes.setCurrentNodes(nodesFacade.allNodes(project));
             return "load";
         }
         return null;
@@ -248,7 +255,7 @@ private String projectName;
     }
     
     
-  public String GPSLat() // calculate the latitide of all the nodes and return it as a list
+  public String GPSLat() // calculate the latitide of all the nodes and return it as a list(possible room for efficiencies)
   {
     ArrayList gPSLat = new ArrayList();
     List<Nodes> nodes = currentNodes.getCurrentNodes();
@@ -267,7 +274,7 @@ private String projectName;
      coordinates.setGPSLat(gPSLat);
      return returnArray;
   }
-   public String GPSLong() // calculate the longitude of all the nodes and return it as a list
+   public String GPSLong() // calculate the longitude of all the nodes and return it as a list (possible room for efficiencies)
   {
     ArrayList gPSLong = new ArrayList();
     List<Nodes> nodes = currentNodes.getCurrentNodes();
@@ -286,7 +293,7 @@ private String projectName;
      return returnArray;
   }
    
-   public String NodeName()
+   public String NodeName()// returns a list of node names for the project, room to improve with a refined ArrayList of objects. possilb eroom to improeve, but only called once
   {
     List<Nodes> nodes = currentNodes.getCurrentNodes();
     String returnArray = "";
@@ -302,7 +309,7 @@ private String projectName;
      return returnArray;
   }
    
-   public String getVariables()
+   public String getVariables() // get a list of the variables of the nodes, room for efficienies, possible bug with one node presenting the list twice.
    {
        
        String returnString = "";
@@ -349,23 +356,30 @@ private String projectName;
     }
    
    
-   public List getGraphData() throws ParseException
+   public List getGraphData() throws ParseException // get array of data to be plotted on the graph with the dDType prepended for efficiency.
    {
-//        String records = "";
-        List dataReturn = dataValuesFacade.findOrderedData(currentNodes.getCurrentNodes().get(node), 0, variable);
-        String dataType = dataDefinitionsFacade.getDataType(currProject.getCurrentProject().getProjectId(),variable);
-        for (int i = 0;i<dataReturn.size();i++)
+        List dataReturn = null;
+        if (currentNodes.getCurrentNodes().size()!=0)
         {
-            if (i%2==0)
+            dataReturn = dataValuesFacade.findOrderedData(currentNodes.getCurrentNodes().get(node), 0, variable);
+            String dataType = dataDefinitionsFacade.getDataType(currProject.getCurrentProject().getProjectId(),variable);
+        
+            for (int i = 0;i<dataReturn.size();i++)
             {
-               String string = dataReturn.get(i).toString();
-               Date date = new SimpleDateFormat("DD/MM/yy-HH:mm:ss", Locale.ENGLISH).parse(string); 
-               dataReturn.set(i, date);
+                if (i%2==0)// formats i==even as date.
+                {
+                   String string = dataReturn.get(i).toString();
+                   Date date = new SimpleDateFormat(determineDateFormat(string), Locale.ENGLISH).parse(string); 
+                   dataReturn.set(i, date);
+                }
+
             }
-            
+            dataReturn.add(0, dataType);
         }
-        dataReturn.add(0, dataType);
-  
+        
+        
+        
+        
         
 //        ArrayList <DataValues> dataValuesArray = new ArrayList();
 //        Collection dataValues =  dataValuesFacade.findVariable(currentNodes.getCurrentNodes().get(node), 0); // get all records for a node at index 0
@@ -383,6 +397,50 @@ private String projectName;
 //        }
         return dataReturn;
    }
+   
+   
+   
+   private static final Map<String, String> DATE_FORMAT_REGEXPS = new HashMap<String, String>() {{ // author BalusC on Stack overflow: http://stackoverflow.com/questions/3389348/parse-any-date-in-java
+    put("^\\d{8}$", "yyyyMMdd");
+    put("^\\d{1,2}-\\d{1,2}-\\d{4}$", "dd-MM-yyyy");
+    put("^\\d{4}-\\d{1,2}-\\d{1,2}$", "yyyy-MM-dd");
+    put("^\\d{1,2}/\\d{1,2}/\\d{4}$", "MM/dd/yyyy");
+    put("^\\d{4}/\\d{1,2}/\\d{1,2}$", "yyyy/MM/dd");
+    put("^\\d{1,2}\\s[a-z]{3}\\s\\d{4}$", "dd MMM yyyy");
+    put("^\\d{1,2}\\s[a-z]{4,}\\s\\d{4}$", "dd MMMM yyyy");
+    put("^\\d{12}$", "yyyyMMddHHmm");
+    put("^\\d{8}\\s\\d{4}$", "yyyyMMdd HHmm");
+    put("^\\d{1,2}-\\d{1,2}-\\d{4}\\s\\d{1,2}:\\d{2}$", "dd-MM-yyyy HH:mm");
+    put("^\\d{4}-\\d{1,2}-\\d{1,2}\\s\\d{1,2}:\\d{2}$", "yyyy-MM-dd HH:mm");
+    put("^\\d{1,2}/\\d{1,2}/\\d{4}\\s\\d{1,2}:\\d{2}$", "MM/dd/yyyy HH:mm");
+    put("^\\d{4}/\\d{1,2}/\\d{1,2}\\s\\d{1,2}:\\d{2}$", "yyyy/MM/dd HH:mm");
+    put("^\\d{1,2}\\s[a-z]{3}\\s\\d{4}\\s\\d{1,2}:\\d{2}$", "dd MMM yyyy HH:mm");
+    put("^\\d{1,2}\\s[a-z]{4,}\\s\\d{4}\\s\\d{1,2}:\\d{2}$", "dd MMMM yyyy HH:mm");
+    put("^\\d{14}$", "yyyyMMddHHmmss");
+    put("^\\d{8}\\s\\d{6}$", "yyyyMMdd HHmmss");
+    put("^\\d{1,2}-\\d{1,2}-\\d{4}\\s\\d{1,2}:\\d{2}:\\d{2}$", "dd-MM-yyyy HH:mm:ss");
+    put("^\\d{4}-\\d{1,2}-\\d{1,2}\\s\\d{1,2}:\\d{2}:\\d{2}$", "yyyy-MM-dd HH:mm:ss");
+    put("^\\d{1,2}/\\d{1,2}/\\d{4}\\s\\d{1,2}:\\d{2}:\\d{2}$", "MM/dd/yyyy HH:mm:ss");
+    put("^\\d{4}/\\d{1,2}/\\d{1,2}\\s\\d{1,2}:\\d{2}:\\d{2}$", "yyyy/MM/dd HH:mm:ss");
+    put("^\\d{1,2}\\s[a-z]{3}\\s\\d{4}\\s\\d{1,2}:\\d{2}:\\d{2}$", "dd MMM yyyy HH:mm:ss");
+    put("^\\d{1,2}\\s[a-z]{4,}\\s\\d{4}\\s\\d{1,2}:\\d{2}:\\d{2}$", "dd MMMM yyyy HH:mm:ss");
+}};
+
+/**
+ * Determine SimpleDateFormat pattern matching with the given date string. Returns null if
+ * format is unknown. You can simply extend DateUtil with more formats if needed.
+ * @param dateString The date string to determine the SimpleDateFormat pattern for.
+ * @return The matching SimpleDateFormat pattern, or null if format is unknown.
+ * @see SimpleDateFormat
+ */
+public static String determineDateFormat(String dateString) {
+    for (String regexp : DATE_FORMAT_REGEXPS.keySet()) {
+        if (dateString.toLowerCase().matches(regexp)) {
+            return DATE_FORMAT_REGEXPS.get(regexp);
+        }
+    }
+    return null; // Unknown format.
+}
       
 //  public String getData(int positionId, String nodeIdentifier)
 //  {
@@ -406,7 +464,7 @@ private String projectName;
 //        }
 //      return data;
 //  }
-    public String CentrePoint()
+    public String CentrePoint() // calculates the centrepoint of the project, should replace with mapBounds, which will size to the project, rahter than this aproach and using a fixed zoom level.
     {
         List gpsLat = coordinates.getGPSLat();
         List gpsLong = coordinates.getGPSLong();
@@ -418,7 +476,7 @@ private String projectName;
         return centre;
     }
    
-    public static Double average(List<BigDecimal> list) 
+    public static Double average(List<BigDecimal> list) // averages the numbers in a list and returns a single value (used in this case for GPS coords. possible bug when usign this aproach near the international date line.
     {
         // 'average' is undefined if there are no elements in the list.
         if (list == null || list.isEmpty())
@@ -435,6 +493,9 @@ private String projectName;
         // We don't want to perform an integer division, so the cast is mandatory.
         return ((Double) sum) / n;
     }
+
+    
+}
     
 //    public String makeJson()
 //    {
@@ -503,6 +564,5 @@ private String projectName;
 //        return title;
 //    }
 //    
-    
-}
+
 

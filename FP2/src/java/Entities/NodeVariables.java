@@ -21,7 +21,7 @@ import javax.persistence.TemporalType;
  * @author t_sedgman
  */
 
-@NamedQuery (name = "findAllVariablesbyProject", query= "SELECT e FROM NodeVariables e WHERE e.nodeType = :project")
+@NamedQuery (name = "findAllVariablesbyProject", query= "SELECT e FROM NodeVariables e WHERE e.nodeType.project = :project")
 
 @Entity
 public class NodeVariables implements Serializable {

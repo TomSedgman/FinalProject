@@ -4,7 +4,9 @@
  */
 package Session;
 
+import Entities.Projects;
 import Entities.Tags;
+import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -26,5 +28,10 @@ public class TagsFacade extends AbstractFacade<Tags> {
     public TagsFacade() {
         super(Tags.class);
     }
-    
+    public List allTags(Projects project)
+    {
+        List<Tags> tags= em.createNamedQuery("findAllTagsbyProject", Tags.class).setParameter("project",project).getResultList();
+        
+        return tags;
+    }
 }

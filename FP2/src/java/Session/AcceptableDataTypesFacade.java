@@ -5,6 +5,7 @@
 package Session;
 
 import Entities.AcceptableDataTypes;
+import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -26,5 +27,10 @@ public class AcceptableDataTypesFacade extends AbstractFacade<AcceptableDataType
     public AcceptableDataTypesFacade() {
         super(AcceptableDataTypes.class);
     }
-    
+         public List <String>allDataTypes()
+    {
+        List permissableDataTypes= em.createNamedQuery("findAll", AcceptableDataTypes.class).getResultList();
+        
+        return permissableDataTypes;
+    }
 }

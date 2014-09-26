@@ -52,12 +52,23 @@ public class NodeVariablesController implements Serializable {
             pagination = new PaginationHelper(10) {
                 @Override
                 public int getItemsCount() {
-                    return getFacade().count();
+                    return getFacade().allVariables(currProject.getCurrentProject()).size(); // prevent overreporting of numbers when handling multiple projects
                 }
 
                 @Override
-                public DataModel createPageDataModel() {
-                    return new ListDataModel(getFacade().findRange(new int[]{getPageFirstItem(), getPageFirstItem() + getPageSize()}));
+                public DataModel createPageDataModel() // not stock for security, restircting list on table to those for currProject
+                {
+//                    if ((getPageFirstItem() + getPageSize()) > getPageLastItem())
+//                    {
+//                        return new ListDataModel(getFacade().allVariables(currProject.getCurrentProject()).subList(getPageFirstItem(), getPageLastItem()));
+//   
+//                    }
+//                    else
+//                    {
+//                        return new ListDataModel(getFacade().allVariables(currProject.getCurrentProject()).subList(getPageFirstItem(), getPageFirstItem() + getPageSize()));
+//
+//                    }
+                      return new ListDataModel(getFacade().allVariables(currProject.getCurrentProject()));
                 }
             };
         }
@@ -66,19 +77,19 @@ public class NodeVariablesController implements Serializable {
 
     public String prepareList() {
         recreateModel();
-        return "List";
+        return "NodeVariablesList";
     }
 
     public String prepareView() {
         current = (NodeVariables) getItems().getRowData();
         selectedItemIndex = pagination.getPageFirstItem() + getItems().getRowIndex();
-        return "View";
+        return "NodeVariablesView";
     }
 
     public String prepareCreate() {
         current = new NodeVariables();
         selectedItemIndex = -1;
-        return "Create";
+        return "NodeVariablesCreate";
     }
 
     public String create() {
@@ -95,14 +106,14 @@ public class NodeVariablesController implements Serializable {
     public String prepareEdit() {
         current = (NodeVariables) getItems().getRowData();
         selectedItemIndex = pagination.getPageFirstItem() + getItems().getRowIndex();
-        return "Edit";
+        return "NodeVariablesEdit";
     }
 
     public String update() {
         try {
             getFacade().edit(current);
             JsfUtil.addSuccessMessage(ResourceBundle.getBundle("/Bundle").getString("NodeVariablesUpdated"));
-            return "View";
+            return "NodeVariablesView";
         } catch (Exception e) {
             JsfUtil.addErrorMessage(e, ResourceBundle.getBundle("/Bundle").getString("PersistenceErrorOccured"));
             return null;
@@ -115,7 +126,7 @@ public class NodeVariablesController implements Serializable {
         performDestroy();
         recreatePagination();
         recreateModel();
-        return "List";
+        return "NodeVariablesList";
     }
 
     public String destroyAndView() {
@@ -123,11 +134,11 @@ public class NodeVariablesController implements Serializable {
         recreateModel();
         updateCurrentItem();
         if (selectedItemIndex >= 0) {
-            return "View";
+            return "NodeVariablesView";
         } else {
             // all items were removed - go back to list
             recreateModel();
-            return "List";
+            return "NodeVariablesList";
         }
     }
     
@@ -181,13 +192,13 @@ public class NodeVariablesController implements Serializable {
     public String next() {
         getPagination().nextPage();
         recreateModel();
-        return "List";
+        return "NodeVariablesList";
     }
 
     public String previous() {
         getPagination().previousPage();
         recreateModel();
-        return "List";
+        return "NodeVariablesList";
     }
 
     public SelectItem[] getItemsAvailableSelectMany() {

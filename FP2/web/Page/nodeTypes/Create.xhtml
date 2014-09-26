@@ -15,29 +15,14 @@
             </h:panelGroup>
             <h:form>
                 <h:panelGrid columns="2">
-                    <h:outputLabel value="#{bundle.CreateNodeTypesLabel_nodeTypeId}" for="nodeTypeId" />
-                    <h:inputText id="nodeTypeId" value="#{nodeTypesController.selected.nodeTypeId}" title="#{bundle.CreateNodeTypesTitle_nodeTypeId}" />
-                    <h:outputLabel value="#{bundle.CreateNodeTypesLabel_project}" for="project" />
-                    <h:selectOneMenu id="project" value="#{nodeTypesController.selected.project}" title="#{bundle.CreateNodeTypesTitle_project}" >
-                        <f:selectItems value="#{projectsController.itemsAvailableSelectOne}"/>
-                    </h:selectOneMenu>
                     <h:outputLabel value="#{bundle.CreateNodeTypesLabel_nTName}" for="nTName" />
                     <h:inputText id="nTName" value="#{nodeTypesController.selected.nTName}" title="#{bundle.CreateNodeTypesTitle_nTName}" />
-                    <h:outputLabel value="#{bundle.CreateNodeTypesLabel_nTCreationDate}" for="nTCreationDate" />
-                    <h:inputText id="nTCreationDate" value="#{nodeTypesController.selected.nTCreationDate}" title="#{bundle.CreateNodeTypesTitle_nTCreationDate}" >
-                        <f:convertDateTime pattern="MM/dd/yyyy" />
-                    </h:inputText>
-                    <h:outputLabel value="#{bundle.CreateNodeTypesLabel_id}" for="id" />
-                    <h:inputText id="id" value="#{nodeTypesController.selected.id}" title="#{bundle.CreateNodeTypesTitle_id}" />
                 </h:panelGrid>
                 <br />
                 <h:commandLink action="#{nodeTypesController.create}" value="#{bundle.CreateNodeTypesSaveLink}" />
                 <br />
                 <br />
-                <h:commandLink action="#{nodeTypesController.prepareList}" value="#{bundle.CreateNodeTypesShowAllLink}" immediate="true"/>
-                <br />
-                <br />
-                <h:link outcome="/index" value="#{bundle.CreateNodeTypesIndexLink}"/>
+                <h:link outcome="/Page/Summary/Summary.xhtml" value="#{bundle.CreateNodeTypesIndexLink}"/>
             </h:form>
         </ui:define>
     </ui:composition>

@@ -31,7 +31,7 @@ public class NodesFacade extends AbstractFacade<Nodes>
     public NodesFacade() {
         super(Nodes.class);
     }
-    public List nodesList(Projects project)
+    public List allNodes(Projects project)
     {
         List<Nodes> nodeList= em.createNamedQuery("findNodesByProject", Nodes.class).setParameter("project",project).getResultList();
         

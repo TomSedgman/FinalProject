@@ -17,6 +17,72 @@
             <to-view-id>/map.xhtml</to-view-id>
         </navigation-case>
     </navigation-rule>
+    
+    <navigation-rule>
+        <from-view-id>Page/Summary/Summary.xhtml</from-view-id>
+            <navigation-case>
+                <from-outcome>DataDefinitionsCreate</from-outcome>
+                <to-view-id>/Page/dataDefinitions/Create.xhtml</to-view-id>
+            </navigation-case>
+            <navigation-case>
+                <from-outcome>DataDefinitionsEdit</from-outcome>
+                <to-view-id>/Page/dataDefinitions/Edit.xhtml</to-view-id>
+            </navigation-case>
+            <navigation-case>
+                <from-outcome>DataDefinitionsList</from-outcome>
+                <to-view-id>/Page/dataDefinitions/List.xhtml</to-view-id>
+            </navigation-case>
+            
+            
+            <navigation-case>
+                <from-outcome>NodeTypesCreate</from-outcome>
+                <to-view-id>/Page/nodeTypes/Create.xhtml</to-view-id>
+            </navigation-case>
+            <navigation-case>
+                <from-outcome>NodeTypesEdit</from-outcome>
+                <to-view-id>/Page/nodeTypes/Edit.xhtml</to-view-id>
+            </navigation-case>
+            <navigation-case>
+                <from-outcome>NodeTypesList</from-outcome>
+                <to-view-id>/Page/nodeTypes/List.xhtml</to-view-id>
+            </navigation-case>
+            
+            
+            <navigation-case>
+                <from-outcome>NodeVariablesCreate</from-outcome>
+                <to-view-id>/Page/nodeVariables/Create.xhtml</to-view-id>
+            </navigation-case>
+            <navigation-case>
+                <from-outcome>NodeVariablesEdit</from-outcome>
+                <to-view-id>/Page/nodeVariables/Edit.xhtml</to-view-id>
+            </navigation-case>
+            <navigation-case>
+                <from-outcome>NodeVariablesList</from-outcome>
+                <to-view-id>/Page/nodeVariables/List.xhtml</to-view-id>
+            </navigation-case>
+           
+        
+        
+            <navigation-case>
+                <from-outcome>NodesCreate</from-outcome>
+                <to-view-id>/Page/nodes/Create.xhtml</to-view-id>
+            </navigation-case>
+            <navigation-case>
+                <from-outcome>NodesEdit</from-outcome>
+                <to-view-id>/Page/nodes/Edit.xhtml</to-view-id>
+            </navigation-case>
+            <navigation-case>
+                <from-outcome>NodesList</from-outcome>
+                <to-view-id>/Page/nodes/List.xhtml</to-view-id>
+            </navigation-case>
+           
+        
+            <navigation-case>
+                <from-outcome>ProjectEdit</from-outcome>
+                <to-view-id>/Page/projects/Edit.xhtml</to-view-id>
+            </navigation-case>
+    </navigation-rule>
+    
     <navigation-rule>
         <from-view-id>/Page/users/Create.xhtml</from-view-id>
         <navigation-case>
@@ -28,6 +94,15 @@
             <to-view-id>/login.xhtml</to-view-id>
         </navigation-case>
     </navigation-rule>
+    
+    <navigation-rule>
+        <from-view-id>/Page/NodeType/Create.xhtml</from-view-id>
+        <navigation-case>
+            <from-outcome>NodeTypesCreate</from-outcome>
+            <to-view-id>/Page/dataDefinitions/Create.xhtml</to-view-id>
+        </navigation-case>
+    </navigation-rule>
+    
     <managed-bean>
         <managed-bean-name>bean</managed-bean-name>
         <managed-bean-class>TestInput.Bean</managed-bean-class>

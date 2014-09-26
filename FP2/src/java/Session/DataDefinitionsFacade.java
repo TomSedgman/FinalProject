@@ -21,6 +21,14 @@ public class DataDefinitionsFacade extends AbstractFacade<DataDefinitions> {
     @PersistenceContext(unitName = "FP2PU")
     private EntityManager em;
 
+    public void newDefinition(DataDefinitions selected)
+    {
+        
+        selected.setdDType(selected.getdDType());
+        
+        em.persist(selected);
+    }
+    
     @Override
     protected EntityManager getEntityManager() {
         return em;

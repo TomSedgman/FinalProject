@@ -46,14 +46,14 @@ public class Projects implements Serializable {
     private String projectName;
     private String projectNotes;
 
-    private int SourceVariable;
+    private int sourceVariable;
 
     public int getSourceVariable() {
-        return SourceVariable;
+        return sourceVariable;
     }
 
     public void setSourceVariable(int SourceVariable) {
-        this.SourceVariable = SourceVariable;
+        this.sourceVariable = SourceVariable;
     }
     
     public Long getProjectId() {

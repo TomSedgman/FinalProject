@@ -75,19 +75,19 @@ public class ProjectsController implements Serializable {
 
     public String prepareList() {
         recreateModel();
-        return "List";
+        return "ProjectList";
     }
 
     public String prepareView() {
         current = (Projects) getItems().getRowData();
         selectedItemIndex = pagination.getPageFirstItem() + getItems().getRowIndex();
-        return "View";
+        return "ProjectView";
     }
 
     public String prepareCreate() {
         current = new Projects();
         selectedItemIndex = -1;
-        return "Create";
+        return "ProjectCreate";
     }
 
     public String fetchName()
@@ -113,14 +113,14 @@ public class ProjectsController implements Serializable {
     public String prepareEdit() {
         current = (Projects) getItems().getRowData();
         selectedItemIndex = pagination.getPageFirstItem() + getItems().getRowIndex();
-        return "Edit";
+        return "ProjectEdit";
     }
 
     public String update() {
         try {
             getFacade().edit(current);
             JsfUtil.addSuccessMessage(ResourceBundle.getBundle("/Bundle").getString("ProjectsUpdated"));
-            return "View";
+            return "ProjectView";
         } catch (Exception e) {
             JsfUtil.addErrorMessage(e, ResourceBundle.getBundle("/Bundle").getString("PersistenceErrorOccured"));
             return null;
@@ -133,7 +133,7 @@ public class ProjectsController implements Serializable {
         performDestroy();
         recreatePagination();
         recreateModel();
-        return "List";
+        return "ProjectList";
     }
 
     public String destroyAndView() {
@@ -141,11 +141,11 @@ public class ProjectsController implements Serializable {
         recreateModel();
         updateCurrentItem();
         if (selectedItemIndex >= 0) {
-            return "View";
+            return "ProjectView";
         } else {
             // all items were removed - go back to list
             recreateModel();
-            return "List";
+            return "ProjectList";
         }
     }
 
@@ -191,13 +191,13 @@ public class ProjectsController implements Serializable {
     public String next() {
         getPagination().nextPage();
         recreateModel();
-        return "List";
+        return "ProjectList";
     }
 
     public String previous() {
         getPagination().previousPage();
         recreateModel();
-        return "List";
+        return "ProjectList";
     }
 
     public SelectItem[] getItemsAvailableSelectMany() {

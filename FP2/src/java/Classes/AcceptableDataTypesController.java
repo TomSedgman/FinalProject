@@ -184,7 +184,7 @@ public class AcceptableDataTypesController implements Serializable {
     }
 
     public SelectItem[] getItemsAvailableSelectOne() {
-        return JsfUtil.getSelectItems(ejbFacade.findAll(), true);
+        return JsfUtil.getSelectItems(ejbFacade.allDataTypes(), true);
     }
 
     public AcceptableDataTypes getAcceptableDataTypes(java.lang.Long id) {

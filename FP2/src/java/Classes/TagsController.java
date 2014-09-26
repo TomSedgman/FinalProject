@@ -28,6 +28,8 @@ public class TagsController implements Serializable {
     private Session.TagsFacade ejbFacade;
     private PaginationHelper pagination;
     private int selectedItemIndex;
+    @EJB
+    private PersistedVariables.PProject currProject;
 
     public TagsController() {
     }
@@ -49,12 +51,23 @@ public class TagsController implements Serializable {
             pagination = new PaginationHelper(10) {
                 @Override
                 public int getItemsCount() {
-                    return getFacade().count();
+                    return getFacade().allTags(currProject.getCurrentProject()).size(); // prevent overreporting of numbers when handling multiple projects
                 }
 
                 @Override
-                public DataModel createPageDataModel() {
-                    return new ListDataModel(getFacade().findRange(new int[]{getPageFirstItem(), getPageFirstItem() + getPageSize()}));
+                public DataModel createPageDataModel() // not stock for security, restircting list on table to those for currProject
+                {
+//                    if ((getPageFirstItem() + getPageSize()) > getPageLastItem())
+//                    {
+//                        return new ListDataModel(getFacade().allTags(currProject.getCurrentProject()).subList(getPageFirstItem(), getPageLastItem()));
+//   
+//                    }
+//                    else
+//                    {
+//                        return new ListDataModel(getFacade().allTags(currProject.getCurrentProject()).subList(getPageFirstItem(), getPageFirstItem() + getPageSize()));
+//
+//                    }
+                        return new ListDataModel(getFacade().allTags(currProject.getCurrentProject()));
                 }
             };
         }
@@ -63,19 +76,19 @@ public class TagsController implements Serializable {
 
     public String prepareList() {
         recreateModel();
-        return "List";
+        return "TagsList";
     }
 
     public String prepareView() {
         current = (Tags) getItems().getRowData();
         selectedItemIndex = pagination.getPageFirstItem() + getItems().getRowIndex();
-        return "View";
+        return "TagsView";
     }
 
     public String prepareCreate() {
         current = new Tags();
         selectedItemIndex = -1;
-        return "Create";
+        return "TagsCreate";
     }
 
     public String create() {
@@ -92,14 +105,14 @@ public class TagsController implements Serializable {
     public String prepareEdit() {
         current = (Tags) getItems().getRowData();
         selectedItemIndex = pagination.getPageFirstItem() + getItems().getRowIndex();
-        return "Edit";
+        return "TagsEdit";
     }
 
     public String update() {
         try {
             getFacade().edit(current);
             JsfUtil.addSuccessMessage(ResourceBundle.getBundle("/Bundle").getString("TagsUpdated"));
-            return "View";
+            return "TagsView";
         } catch (Exception e) {
             JsfUtil.addErrorMessage(e, ResourceBundle.getBundle("/Bundle").getString("PersistenceErrorOccured"));
             return null;
@@ -112,7 +125,7 @@ public class TagsController implements Serializable {
         performDestroy();
         recreatePagination();
         recreateModel();
-        return "List";
+        return "TagsList";
     }
 
     public String destroyAndView() {
@@ -120,11 +133,11 @@ public class TagsController implements Serializable {
         recreateModel();
         updateCurrentItem();
         if (selectedItemIndex >= 0) {
-            return "View";
+            return "TagsView";
         } else {
             // all items were removed - go back to list
             recreateModel();
-            return "List";
+            return "TagsList";
         }
     }
 
@@ -170,13 +183,13 @@ public class TagsController implements Serializable {
     public String next() {
         getPagination().nextPage();
         recreateModel();
-        return "List";
+        return "TagsList";
     }
 
     public String previous() {
         getPagination().previousPage();
         recreateModel();
-        return "List";
+        return "TagsList";
     }
 
     public SelectItem[] getItemsAvailableSelectMany() {

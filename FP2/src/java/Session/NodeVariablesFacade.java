@@ -30,8 +30,8 @@ public class NodeVariablesFacade extends AbstractFacade<NodeVariables> {
     }
     public List allVariables(Projects project)
     {
-        List<NodeVariables> dataDefinitions= em.createNamedQuery("findAllVariablesbyProject", NodeVariables.class).setParameter("project",project).getResultList();
-        return dataDefinitions;
+        List<NodeVariables> nodeVariables= em.createNamedQuery("findAllVariablesbyProject", NodeVariables.class).setParameter("project",project).getResultList();
+        return nodeVariables;
     }
     
 }

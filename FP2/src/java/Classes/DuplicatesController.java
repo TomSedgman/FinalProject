@@ -28,6 +28,8 @@ public class DuplicatesController implements Serializable {
     private Session.DuplicatesFacade ejbFacade;
     private PaginationHelper pagination;
     private int selectedItemIndex;
+    @EJB
+    private PersistedVariables.PProject currProject;
 
     public DuplicatesController() {
     }
@@ -49,12 +51,22 @@ public class DuplicatesController implements Serializable {
             pagination = new PaginationHelper(10) {
                 @Override
                 public int getItemsCount() {
-                    return getFacade().count();
+                    return getFacade().allDuplicates(currProject.getCurrentProject()).size();
                 }
 
                 @Override
-                public DataModel createPageDataModel() {
-                    return new ListDataModel(getFacade().findRange(new int[]{getPageFirstItem(), getPageFirstItem() + getPageSize()}));
+                public DataModel createPageDataModel() // not stock for security, restircting list on table to those for currProject
+                {
+                    if ((getPageFirstItem() + getPageSize()) > getPageLastItem())
+                    {
+                        return new ListDataModel(getFacade().allDuplicates(currProject.getCurrentProject()).subList(getPageFirstItem(), getPageLastItem()));
+   
+                    }
+                    else
+                    {
+                        return new ListDataModel(getFacade().allDuplicates(currProject.getCurrentProject()).subList(getPageFirstItem(), getPageFirstItem() + getPageSize()));
+
+                    }
                 }
             };
         }

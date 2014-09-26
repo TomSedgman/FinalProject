@@ -11,11 +11,14 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.NamedQuery;
 
 /**
  *
  * @author t_sedgman
  */
+@NamedQuery (name = "findAllDuplicatesbyProject", query= "SELECT e FROM Duplicates e WHERE e.dataDefinition.nodeType.project = :project")
+
 @Entity
 public class Duplicates implements Serializable {
     private static final long serialVersionUID = 1L;

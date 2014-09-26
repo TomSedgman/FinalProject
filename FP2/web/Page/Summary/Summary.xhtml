@@ -10,6 +10,8 @@
             <h:outputText value="#{bundle.SummaryTitle}"></h:outputText>
         </ui:define>
         <ui:define name="body">
+            <h:link outcome="/map.xhtml" value="#{bundle.Map}"/>
+
         <div id="SummaryProjectInfo">
             <h:form styleClass="jsfcrud_list_form">
             <h:panelGrid columns="2">
@@ -22,7 +24,7 @@
                 <h:commandLink action="#{projectsController.destroyAndView}" value="#{bundle.ViewProjectsDestroyLink}"/>
                 <br />
                 <br />
-                <h:link outcome="Edit" value="#{bundle.ViewProjectsEditLink}"/>
+                <h:commandLink action="#{nodesController.prepareEdit}" value="#{bundle.ViewProjectsEditLink}"/>
                 <br />
             </h:form>
         </div>
@@ -53,12 +55,10 @@
                 </h:panelGroup>
                 <h:outputText escape="false" value="#{bundle.ListNodeTypesEmpty}" rendered="#{nodeTypesController.items.rowCount == 0}"/>
                 <h:panelGroup rendered="#{nodeTypesController.items.rowCount > 0}">
-                    <h:outputText value="#{nodeTypesController.pagination.pageFirstItem + 1}..#{nodeTypesController.pagination.pageLastItem + 1}/#{nodeTypesController.pagination.itemsCount}"/>&nbsp;
-                    <h:commandLink action="#{nodeTypesController.previous}" value="#{bundle.Previous} #{nodeTypesController.pagination.pageSize}" rendered="#{nodeTypesController.pagination.hasPreviousPage}"/>&nbsp;
-                    <h:commandLink action="#{nodeTypesController.next}" value="#{bundle.Next} #{nodeTypesController.pagination.pageSize}" rendered="#{nodeTypesController.pagination.hasNextPage}"/>&nbsp;
+<!--                    <h:outputText value="#/{nodeTypesController.pagination.pageFirstItem + 1}..#/{nodeTypesController.pagination.pageLastItem + 1}/#/{nodeTypesController.pagination.itemsCount}"/>&nbsp;
+                    <h:commandLink action="#/{nodeTypesController.previous}" value="#/{bundle.Previous} #/{nodeTypesController.pagination.pageSize}" rendered="#/{nodeTypesController.pagination.hasPreviousPage}"/>&nbsp;
+                    <h:commandLink action="#/{nodeTypesController.next}" value="#/{bundle.Next} #/{nodeTypesController.pagination.pageSize}" rendered="#/{nodeTypesController.pagination.hasNextPage}"/>&nbsp;-->
                     <h:dataTable value="#{nodeTypesController.items}" var="item" border="0" cellpadding="2" cellspacing="0" rowClasses="jsfcrud_odd_row,jsfcrud_even_row" rules="all" style="border:solid 1px">
-                        
-                        
                         <h:column>
                             <f:facet name="header">
                                 <h:outputText value="#{bundle.ListNodeTypesTitle_nTName}"/>
@@ -97,9 +97,9 @@
                 </h:panelGroup>
                 <h:outputText escape="false" value="#{bundle.ListDataDefinitionsEmpty}" rendered="#{dataDefinitionsController.items.rowCount == 0}"/>
                 <h:panelGroup rendered="#{dataDefinitionsController.items.rowCount > 0}">
-                    <h:outputText value="#{dataDefinitionsController.pagination.pageFirstItem + 1}..#{dataDefinitionsController.pagination.pageLastItem + 1}/#{dataDefinitionsController.pagination.itemsCount}"/>&nbsp;
-                    <h:commandLink action="#{dataDefinitionsController.previous}" value="#{bundle.Previous} #{dataDefinitionsController.pagination.pageSize}" rendered="#{dataDefinitionsController.pagination.hasPreviousPage}"/>&nbsp;
-                    <h:commandLink action="#{dataDefinitionsController.next}" value="#{bundle.Next} #{dataDefinitionsController.pagination.pageSize}" rendered="#{dataDefinitionsController.pagination.hasNextPage}"/>&nbsp;
+<!--                    <h:outputText value="#/{dataDefinitionsController.pagination.pageFirstItem + 1}..#/{dataDefinitionsController.pagination.pageLastItem + 1}/#/{dataDefinitionsController.pagination.itemsCount}"/>&nbsp;
+                    <h:commandLink action="#/{dataDefinitionsController.previous}" value="#/{bundle.Previous} #/{dataDefinitionsController.pagination.pageSize}" rendered="#/{dataDefinitionsController.pagination.hasPreviousPage}"/>&nbsp;
+                    <h:commandLink action="#/{dataDefinitionsController.next}" value="#/{bundle.Next} #/{dataDefinitionsController.pagination.pageSize}" rendered="#/{dataDefinitionsController.pagination.hasNextPage}"/>&nbsp;-->
                     <h:dataTable value="#{dataDefinitionsController.items}" var="item" border="0" cellpadding="2" cellspacing="0" rowClasses="jsfcrud_odd_row,jsfcrud_even_row" rules="all" style="border:solid 1px">
                        
                         <h:column>
@@ -177,9 +177,9 @@
                 </h:panelGroup>
                 <h:outputText escape="false" value="#{bundle.ListNodeVariablesEmpty}" rendered="#{nodeVariablesController.items.rowCount == 0}"/>
                 <h:panelGroup rendered="#{nodeVariablesController.items.rowCount > 0}">
-                    <h:outputText value="#{nodeVariablesController.pagination.pageFirstItem + 1}..#{nodeVariablesController.pagination.pageLastItem + 1}/#{nodeVariablesController.pagination.itemsCount}"/>&nbsp;
-                    <h:commandLink action="#{nodeVariablesController.previous}" value="#{bundle.Previous} #{nodeVariablesController.pagination.pageSize}" rendered="#{nodeVariablesController.pagination.hasPreviousPage}"/>&nbsp;
-                    <h:commandLink action="#{nodeVariablesController.next}" value="#{bundle.Next} #{nodeVariablesController.pagination.pageSize}" rendered="#{nodeVariablesController.pagination.hasNextPage}"/>&nbsp;
+<!--                    <h:outputText value="#/{nodeVariablesController.pagination.pageFirstItem + 1}..#/{nodeVariablesController.pagination.pageLastItem + 1}/#/{nodeVariablesController.pagination.itemsCount}"/>&nbsp;
+                    <h:commandLink action="#/{nodeVariablesController.previous}" value="#/{bundle.Previous} #/{nodeVariablesController.pagination.pageSize}" rendered="#/{nodeVariablesController.pagination.hasPreviousPage}"/>&nbsp;
+                    <h:commandLink action="#/{nodeVariablesController.next}" value="#/{bundle.Next} #/{nodeVariablesController.pagination.pageSize}" rendered="#/{nodeVariablesController.pagination.hasNextPage}"/>&nbsp;-->
                     <h:dataTable value="#{nodeVariablesController.items}" var="NVitem" border="0" cellpadding="2" cellspacing="0" rowClasses="jsfcrud_odd_row,jsfcrud_even_row" rules="all" style="border:solid 1px">
                         <h:column>
                             <f:facet name="header">
@@ -232,9 +232,9 @@
                 </h:panelGroup>
                 <h:outputText escape="false" value="#{bundle.ListNodesEmpty}" rendered="#{nodesController.items.rowCount == 0}"/>
                 <h:panelGroup rendered="#{nodesController.items.rowCount > 0}">
-                    <h:outputText value="#{nodesController.pagination.pageFirstItem + 1}..#{nodesController.pagination.pageLastItem + 1}/#{nodesController.pagination.itemsCount}"/>&nbsp;
-                    <h:commandLink action="#{nodesController.previous}" value="#{bundle.Previous} #{nodesController.pagination.pageSize}" rendered="#{nodesController.pagination.hasPreviousPage}"/>&nbsp;
-                    <h:commandLink action="#{nodesController.next}" value="#{bundle.Next} #{nodesController.pagination.pageSize}" rendered="#{nodesController.pagination.hasNextPage}"/>&nbsp;
+<!--                    <h:outputText value="#/{nodesController.pagination.pageFirstItem + 1}..#/{nodesController.pagination.pageLastItem + 1}/#/{nodesController.pagination.itemsCount}"/>&nbsp;
+                    <h:commandLink action="#/{nodesController.previous}" value="#/{bundle.Previous} #/{nodesController.pagination.pageSize}" rendered="#/{nodesController.pagination.hasPreviousPage}"/>&nbsp;
+                    <h:commandLink action="#/{nodesController.next}" value="#/{bundle.Next} #/{nodesController.pagination.pageSize}" rendered="#/{nodesController.pagination.hasNextPage}"/>&nbsp;-->
                     <h:dataTable value="#{nodesController.items}" var="NTitem" border="0" cellpadding="2" cellspacing="0" rowClasses="jsfcrud_odd_row,jsfcrud_even_row" rules="all" style="border:solid 1px">
                         <h:column>
                             <f:facet name="header">
@@ -293,9 +293,9 @@
             </h:panelGroup>
             <h:outputText escape="false" value="#{bundle.ListTagsEmpty}" rendered="#{tagsController.items.rowCount == 0}"/>
             <h:panelGroup rendered="#{tagsController.items.rowCount > 0}">
-                <h:outputText value="#{tagsController.pagination.pageFirstItem + 1}..#{tagsController.pagination.pageLastItem + 1}/#{tagsController.pagination.itemsCount}"/>&nbsp;
-                <h:commandLink action="#{tagsController.previous}" value="#{bundle.Previous} #{tagsController.pagination.pageSize}" rendered="#{tagsController.pagination.hasPreviousPage}"/>&nbsp;
-                <h:commandLink action="#{tagsController.next}" value="#{bundle.Next} #{tagsController.pagination.pageSize}" rendered="#{tagsController.pagination.hasNextPage}"/>&nbsp;
+<!--                <h:outputText value="#/{tagsController.pagination.pageFirstItem + 1}..#/{tagsController.pagination.pageLastItem + 1}/#/{tagsController.pagination.itemsCount}"/>&nbsp;
+                <h:commandLink action="#/{tagsController.previous}" value="#/{bundle.Previous} #/{tagsController.pagination.pageSize}" rendered="#/{tagsController.pagination.hasPreviousPage}"/>&nbsp;
+                <h:commandLink action="#/{tagsController.next}" value="#/{bundle.Next} #/{tagsController.pagination.pageSize}" rendered="#/{tagsController.pagination.hasNextPage}"/>&nbsp;-->
                 <h:dataTable value="#{tagsController.items}" var="Titem" border="0" cellpadding="2" cellspacing="0" rowClasses="jsfcrud_odd_row,jsfcrud_even_row" rules="all" style="border:solid 1px">
                     <h:column>
                         <f:facet name="header">
@@ -319,7 +319,6 @@
             <h:commandLink action="#{tagsController.prepareCreate}" value="#{bundle.ListTagsCreateLink}"/>
             <br />
             <br />
-            <h:link outcome="/index" value="#{bundle.ListTagsIndexLink}"/>
         </h:form>
 
 

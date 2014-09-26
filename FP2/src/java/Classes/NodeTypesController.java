@@ -6,7 +6,6 @@ import Classes.util.PaginationHelper;
 import Session.NodeTypesFacade;
 
 import java.io.Serializable;
-import java.util.Collection;
 import java.util.List;
 import java.util.ResourceBundle;
 import javax.ejb.EJB;
@@ -47,18 +46,29 @@ public class NodeTypesController implements Serializable {
     private NodeTypesFacade getFacade() {
         return ejbFacade;
     }
-
     public PaginationHelper getPagination() {
         if (pagination == null) {
             pagination = new PaginationHelper(10) {
                 @Override
                 public int getItemsCount() {
-                    return getFacade().allByProject(currProject.getCurrentProject()).size();
+                    int data = getFacade().allNodeTypes(currProject.getCurrentProject()).size(); // prevent overreporting of numbers when handling multiple projects
+                    return data; 
                 }
 
                 @Override
-                public DataModel createPageDataModel() {
-                    return new ListDataModel(getFacade().allByProject(currProject.getCurrentProject()));
+                public DataModel createPageDataModel() // not stock for security, restircting list on table to those for currProject
+                {
+//                    if ((getPageFirstItem() + getPageSize()) > getPageLastItem())
+//                    {
+//                        return new ListDataModel(getFacade().allNodeTypes(currProject.getCurrentProject()).subList(getPageFirstItem(), getPageLastItem()));
+//   
+//                    }
+//                    else
+//                    {
+//                        return new ListDataModel(getFacade().allNodeTypes(currProject.getCurrentProject()).subList(getPageFirstItem(), getPageFirstItem() + getPageSize()));
+//
+//                    }
+                    return new ListDataModel(getFacade().allNodeTypes(currProject.getCurrentProject()));
                 }
             };
         }
@@ -67,24 +77,24 @@ public class NodeTypesController implements Serializable {
 
     public String prepareList() {
         recreateModel();
-        return "List";
+        return "NodeTypesList";
     }
 
     public String prepareView() {
         current = (NodeTypes) getItems().getRowData();
         selectedItemIndex = pagination.getPageFirstItem() + getItems().getRowIndex();
-        return "View";
+        return "NodeTypesView";
     }
 
     public String prepareCreate() {
         current = new NodeTypes();
         selectedItemIndex = -1;
-        return "Create";
+        return "NodeTypesCreate";
     }
 
     public String create() {
         try {
-            getFacade().create(current);
+            getFacade().newNodeType(current);
             JsfUtil.addSuccessMessage(ResourceBundle.getBundle("/Bundle").getString("NodeTypesCreated"));
             return prepareCreate();
         } catch (Exception e) {
@@ -96,14 +106,14 @@ public class NodeTypesController implements Serializable {
     public String prepareEdit() {
         current = (NodeTypes) getItems().getRowData();
         selectedItemIndex = pagination.getPageFirstItem() + getItems().getRowIndex();
-        return "Edit";
+        return "NodeTypesEdit";
     }
 
     public String update() {
         try {
             getFacade().edit(current);
             JsfUtil.addSuccessMessage(ResourceBundle.getBundle("/Bundle").getString("NodeTypesUpdated"));
-            return "View";
+            return "NodeTypesView";
         } catch (Exception e) {
             JsfUtil.addErrorMessage(e, ResourceBundle.getBundle("/Bundle").getString("PersistenceErrorOccured"));
             return null;
@@ -116,7 +126,7 @@ public class NodeTypesController implements Serializable {
         performDestroy();
         recreatePagination();
         recreateModel();
-        return "List";
+        return "NodeTypesList";
     }
 
     public String destroyAndView() {
@@ -124,11 +134,11 @@ public class NodeTypesController implements Serializable {
         recreateModel();
         updateCurrentItem();
         if (selectedItemIndex >= 0) {
-            return "View";
+            return "NodeTypesView";
         } else {
             // all items were removed - go back to list
             recreateModel();
-            return "List";
+            return "NodeTypesList";
         }
     }
 
@@ -151,7 +161,8 @@ public class NodeTypesController implements Serializable {
                 pagination.previousPage();
             }
         }
-        if (selectedItemIndex >= 0) {
+        if (selectedItemIndex >= 0) 
+        {
             current = getFacade().findRange(new int[]{selectedItemIndex, selectedItemIndex + 1}).get(0);
         }
     }
@@ -174,21 +185,21 @@ public class NodeTypesController implements Serializable {
     public String next() {
         getPagination().nextPage();
         recreateModel();
-        return "List";
+        return "NodeTypesList";
     }
 
     public String previous() {
         getPagination().previousPage();
         recreateModel();
-        return "List";
+        return "NodeTypesList";
     }
 
     public SelectItem[] getItemsAvailableSelectMany() {
-        return JsfUtil.getSelectItems(ejbFacade.findAll(), false);
+        return JsfUtil.getSelectItems(ejbFacade.allNodeTypes(currProject.getCurrentProject()), false);
     }
 
     public SelectItem[] getItemsAvailableSelectOne() {
-        return JsfUtil.getSelectItems(ejbFacade.findAll(), true);
+        return JsfUtil.getSelectItems(ejbFacade.allNodeTypes(currProject.getCurrentProject()), true);
     }
 
     public NodeTypes getNodeTypes(java.lang.Long id) {

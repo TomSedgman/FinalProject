@@ -11,11 +11,14 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.NamedQuery;
 
 /**
  *
  * @author t_sedgman
  */
+@NamedQuery (name = "findAllTagsbyProject", query= "SELECT e FROM Tags e WHERE e.project = :project")
+
 @Entity
 public class Tags implements Serializable {
     private static final long serialVersionUID = 1L;

@@ -51,22 +51,24 @@ public class DataDefinitionsController implements Serializable {
             pagination = new PaginationHelper(10) {
                 @Override
                 public int getItemsCount() {
-                    return getFacade().allDefinitions(currProject.getCurrentProject()).size(); // prevent overreporting of numbers
+                    int data = getFacade().allDefinitions(currProject.getCurrentProject()).size(); // prevent overreporting of numbers when handling multiple projects
+                    return data; 
                 }
 
                 @Override
                 public DataModel createPageDataModel() // not stock for security, restircting list on table to those for currProject
                 {
-                    if ((getPageFirstItem() + getPageSize()) > getPageLastItem())
-                    {
-                        return new ListDataModel(getFacade().allDefinitions(currProject.getCurrentProject()).subList(getPageFirstItem(), getPageLastItem()));
-   
-                    }
-                    else
-                    {
-                        return new ListDataModel(getFacade().allDefinitions(currProject.getCurrentProject()).subList(getPageFirstItem(), getPageFirstItem() + getPageSize()));
-
-                    }
+//                    if ((getPageFirstItem() + getPageSize()) > getPageLastItem())
+//                    {
+//                        return new ListDataModel(getFacade().allDefinitions(currProject.getCurrentProject()).subList(getPageFirstItem(), getPageLastItem()));
+//   
+//                    }
+//                    else
+//                    {
+//                        return new ListDataModel(getFacade().allDefinitions(currProject.getCurrentProject()).subList(getPageFirstItem(), getPageFirstItem() + getPageSize()));
+//
+//                    }
+                    return new ListDataModel(getFacade().allDefinitions(currProject.getCurrentProject()));
                 }
             };
         }
@@ -75,24 +77,24 @@ public class DataDefinitionsController implements Serializable {
 
     public String prepareList() {
         recreateModel();
-        return "List";
+        return "DataDefinitionsList";
     }
 
     public String prepareView() {
         current = (DataDefinitions) getItems().getRowData();
         selectedItemIndex = pagination.getPageFirstItem() + getItems().getRowIndex();
-        return "View";
+        return "DataDefinitionsView";
     }
 
     public String prepareCreate() {
         current = new DataDefinitions();
         selectedItemIndex = -1;
-        return "Create";
+        return "DataDefinitionsCreate";
     }
 
     public String create() {
         try {
-            getFacade().create(current);
+            getFacade().newDefinition(current);
             JsfUtil.addSuccessMessage(ResourceBundle.getBundle("/Bundle").getString("DataDefinitionsCreated"));
             return prepareCreate();
         } catch (Exception e) {
@@ -104,14 +106,14 @@ public class DataDefinitionsController implements Serializable {
     public String prepareEdit() {
         current = (DataDefinitions) getItems().getRowData();
         selectedItemIndex = pagination.getPageFirstItem() + getItems().getRowIndex();
-        return "Edit";
+        return "DataDefinitionsEdit";
     }
 
     public String update() {
         try {
             getFacade().edit(current);
             JsfUtil.addSuccessMessage(ResourceBundle.getBundle("/Bundle").getString("DataDefinitionsUpdated"));
-            return "View";
+            return "DataDefinitionsView";
         } catch (Exception e) {
             JsfUtil.addErrorMessage(e, ResourceBundle.getBundle("/Bundle").getString("PersistenceErrorOccured"));
             return null;
@@ -124,7 +126,7 @@ public class DataDefinitionsController implements Serializable {
         performDestroy();
         recreatePagination();
         recreateModel();
-        return "List";
+        return "DataDefinitionsList";
     }
 
     public String destroyAndView() {
@@ -132,20 +134,20 @@ public class DataDefinitionsController implements Serializable {
         recreateModel();
         updateCurrentItem();
         if (selectedItemIndex >= 0) {
-            return "View";
+            return "DataDefinitionsView";
         } else {
             // all items were removed - go back to list
             recreateModel();
-            return "List";
+            return "DataDefinitionsList";
         }
     }
 
-    public String projectList() // depricated, previous attempt to restict list of variables
-    {
-        List temp =  (List) ejbFacade.allDefinitions(currProject.getCurrentProject()); 
-        items.setWrappedData(temp);
-        return "";
-    }
+//    public String projectList() // depricated, previous attempt to restict list of variables
+//    {
+//        List temp =  (List) ejbFacade.allDefinitions(currProject.getCurrentProject()); 
+//        items.setWrappedData(temp);
+//        return "";
+//    }
     
     private void performDestroy() {
         try {
@@ -168,7 +170,6 @@ public class DataDefinitionsController implements Serializable {
         }
         if (selectedItemIndex >= 0) 
         {
-           
             current = getFacade().findRange(new int[]{selectedItemIndex, selectedItemIndex + 1}).get(0);
         }
     }
@@ -191,13 +192,13 @@ public class DataDefinitionsController implements Serializable {
     public String next() {
         getPagination().nextPage();
         recreateModel();
-        return "List";
+        return "DataDefinitionsList";
     }
 
     public String previous() {
         getPagination().previousPage();
         recreateModel();
-        return "List";
+        return "DataDefinitionsList";
     }
 
     public SelectItem[] getItemsAvailableSelectMany() {

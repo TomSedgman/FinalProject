@@ -28,6 +28,8 @@ public class NodesController implements Serializable {
     private Session.NodesFacade ejbFacade;
     private PaginationHelper pagination;
     private int selectedItemIndex;
+    @EJB
+    private PersistedVariables.PProject currProject;
 
     public NodesController() {
     }
@@ -49,12 +51,24 @@ public class NodesController implements Serializable {
             pagination = new PaginationHelper(10) {
                 @Override
                 public int getItemsCount() {
-                    return getFacade().count();
+                    return getFacade().allNodes(currProject.getCurrentProject()).size(); // prevent overreporting of numbers when handling multiple projects
                 }
 
                 @Override
-                public DataModel createPageDataModel() {
-                    return new ListDataModel(getFacade().findRange(new int[]{getPageFirstItem(), getPageFirstItem() + getPageSize()}));
+                public DataModel createPageDataModel() // not stock for security, restircting list on table to those for currProject
+                {
+//                    if ((getPageFirstItem() + getPageSize()) > getPageLastItem())
+//                    {
+//                        return new ListDataModel(getFacade().allNodes(currProject.getCurrentProject()).subList(getPageFirstItem(), getPageLastItem()));
+//   
+//                    }
+//                    else
+//                    {
+//                        return new ListDataModel(getFacade().allNodes(currProject.getCurrentProject()).subList(getPageFirstItem(), getPageFirstItem() + getPageSize()));
+//
+//                    }
+                      return new ListDataModel(getFacade().allNodes(currProject.getCurrentProject()));
+
                 }
             };
         }
@@ -63,19 +77,19 @@ public class NodesController implements Serializable {
 
     public String prepareList() {
         recreateModel();
-        return "List";
+        return "NodesList";
     }
 
     public String prepareView() {
         current = (Nodes) getItems().getRowData();
         selectedItemIndex = pagination.getPageFirstItem() + getItems().getRowIndex();
-        return "View";
+        return "NodesView";
     }
 
     public String prepareCreate() {
         current = new Nodes();
         selectedItemIndex = -1;
-        return "Create";
+        return "NodesCreate";
     }
 
     public String create() {
@@ -92,14 +106,14 @@ public class NodesController implements Serializable {
     public String prepareEdit() {
         current = (Nodes) getItems().getRowData();
         selectedItemIndex = pagination.getPageFirstItem() + getItems().getRowIndex();
-        return "Edit";
+        return "NodesEdit";
     }
 
     public String update() {
         try {
             getFacade().edit(current);
             JsfUtil.addSuccessMessage(ResourceBundle.getBundle("/Bundle").getString("NodesUpdated"));
-            return "View";
+            return "NodesView";
         } catch (Exception e) {
             JsfUtil.addErrorMessage(e, ResourceBundle.getBundle("/Bundle").getString("PersistenceErrorOccured"));
             return null;
@@ -112,7 +126,7 @@ public class NodesController implements Serializable {
         performDestroy();
         recreatePagination();
         recreateModel();
-        return "List";
+        return "NodesList";
     }
 
     public String destroyAndView() {
@@ -120,11 +134,11 @@ public class NodesController implements Serializable {
         recreateModel();
         updateCurrentItem();
         if (selectedItemIndex >= 0) {
-            return "View";
+            return "NodesView";
         } else {
             // all items were removed - go back to list
             recreateModel();
-            return "List";
+            return "NodesList";
         }
     }
 
@@ -170,13 +184,13 @@ public class NodesController implements Serializable {
     public String next() {
         getPagination().nextPage();
         recreateModel();
-        return "List";
+        return "NodesList";
     }
 
     public String previous() {
         getPagination().previousPage();
         recreateModel();
-        return "List";
+        return "NodesList";
     }
 
     public SelectItem[] getItemsAvailableSelectMany() {
