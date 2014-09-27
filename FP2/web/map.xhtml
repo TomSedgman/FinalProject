@@ -121,8 +121,8 @@
             
             head
              <h:form id="form" enctype="multipart/form-data">
-                 
-                    <h:inputFile id="newFile" value="#{bean.fileUpload}"/>
+                 <h:outputText value="#{bundle.selectfile}"/>
+                 <h:inputFile id="newFile" value="#{bean.fileUpload}" />
                     <h:commandButton value="Upload" action="#{bean.upload}"/>
             </h:form>
         </div>     

@@ -15,12 +15,6 @@
             </h:panelGroup>
             <h:form>
                 <h:panelGrid columns="2">
-                    <h:outputLabel value="#{bundle.EditProjectsLabel_projectId}" for="projectId" />
-                    <h:inputText id="projectId" value="#{projectsController.selected.projectId}" title="#{bundle.EditProjectsTitle_projectId}" />
-                    <h:outputLabel value="#{bundle.EditProjectsLabel_user}" for="user" />
-                    <h:selectOneMenu id="user" value="#{projectsController.selected.user}" title="#{bundle.EditProjectsTitle_user}" >
-                        <f:selectItems value="#{usersController.itemsAvailableSelectOne}"/>
-                    </h:selectOneMenu>
                     <h:outputLabel value="#{bundle.EditProjectsLabel_projectName}" for="projectName" />
                     <h:inputText id="projectName" value="#{projectsController.selected.projectName}" title="#{bundle.EditProjectsTitle_projectName}" />
                     <h:outputLabel value="#{bundle.EditProjectsLabel_projectNotes}" for="projectNotes" />

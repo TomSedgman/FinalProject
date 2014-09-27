@@ -363,13 +363,13 @@ private String projectName;
         {
             dataReturn = dataValuesFacade.findOrderedData(currentNodes.getCurrentNodes().get(node), 0, variable);
             String dataType = dataDefinitionsFacade.getDataType(currProject.getCurrentProject().getProjectId(),variable);
-        
+            String dateFormat = determineDateFormat(dataReturn.get(0).toString());
             for (int i = 0;i<dataReturn.size();i++)
             {
                 if (i%2==0)// formats i==even as date.
                 {
                    String string = dataReturn.get(i).toString();
-                   Date date = new SimpleDateFormat(determineDateFormat(string), Locale.ENGLISH).parse(string); 
+                   Date date = new SimpleDateFormat(dateFormat, Locale.ENGLISH).parse(string); 
                    dataReturn.set(i, date);
                 }
 
@@ -412,7 +412,7 @@ private String projectName;
     put("^\\d{8}\\s\\d{4}$", "yyyyMMdd HHmm");
     put("^\\d{1,2}-\\d{1,2}-\\d{4}\\s\\d{1,2}:\\d{2}$", "dd-MM-yyyy HH:mm");
     put("^\\d{4}-\\d{1,2}-\\d{1,2}\\s\\d{1,2}:\\d{2}$", "yyyy-MM-dd HH:mm");
-    put("^\\d{1,2}/\\d{1,2}/\\d{4}\\s\\d{1,2}:\\d{2}$", "MM/dd/yyyy HH:mm");
+    put("^\\d{1,2}/\\d{1,2}/\\d{4}\\s\\d{1,2}:\\d{2}$", "dd/MM/yyyy HH:mm");
     put("^\\d{4}/\\d{1,2}/\\d{1,2}\\s\\d{1,2}:\\d{2}$", "yyyy/MM/dd HH:mm");
     put("^\\d{1,2}\\s[a-z]{3}\\s\\d{4}\\s\\d{1,2}:\\d{2}$", "dd MMM yyyy HH:mm");
     put("^\\d{1,2}\\s[a-z]{4,}\\s\\d{4}\\s\\d{1,2}:\\d{2}$", "dd MMMM yyyy HH:mm");
@@ -420,11 +420,13 @@ private String projectName;
     put("^\\d{8}\\s\\d{6}$", "yyyyMMdd HHmmss");
     put("^\\d{1,2}-\\d{1,2}-\\d{4}\\s\\d{1,2}:\\d{2}:\\d{2}$", "dd-MM-yyyy HH:mm:ss");
     put("^\\d{4}-\\d{1,2}-\\d{1,2}\\s\\d{1,2}:\\d{2}:\\d{2}$", "yyyy-MM-dd HH:mm:ss");
-    put("^\\d{1,2}/\\d{1,2}/\\d{4}\\s\\d{1,2}:\\d{2}:\\d{2}$", "MM/dd/yyyy HH:mm:ss");
+    put("^\\d{1,2}/\\d{1,2}/\\d{4}\\s\\d{1,2}:\\d{2}:\\d{2}$", "dd/MM/yyyy HH:mm:ss");
+    put("^\\d{1,2}/\\d{1,2}/\\d{2}\\s\\d{1,2}:\\d{2}:\\d{2}$", "dd/MM/yy HH:mm:ss");
+    put("^\\d{1,2}/\\d{1,2}/\\d{2}-\\d{1,2}:\\d{2}:\\d{2}$", "dd/MM/yy-HH:mm:ss");
     put("^\\d{4}/\\d{1,2}/\\d{1,2}\\s\\d{1,2}:\\d{2}:\\d{2}$", "yyyy/MM/dd HH:mm:ss");
     put("^\\d{1,2}\\s[a-z]{3}\\s\\d{4}\\s\\d{1,2}:\\d{2}:\\d{2}$", "dd MMM yyyy HH:mm:ss");
     put("^\\d{1,2}\\s[a-z]{4,}\\s\\d{4}\\s\\d{1,2}:\\d{2}:\\d{2}$", "dd MMMM yyyy HH:mm:ss");
-}};
+   }};
 
 /**
  * Determine SimpleDateFormat pattern matching with the given date string. Returns null if

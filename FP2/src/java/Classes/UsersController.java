@@ -31,6 +31,8 @@ public class UsersController implements Serializable {
     private Session.ProjectsFacade projectsFacade;
     private PaginationHelper pagination;
     private int selectedItemIndex;
+    @EJB
+    private PersistedVariables.PProject currProject;
 
     public UsersController() {
     }
@@ -66,19 +68,19 @@ public class UsersController implements Serializable {
 
     public String prepareList() {
         recreateModel();
-        return "List";
+        return "UserList";
     }
 
     public String prepareView() {
         current = (Users) getItems().getRowData();
         selectedItemIndex = pagination.getPageFirstItem() + getItems().getRowIndex();
-        return "View";
+        return "UserView";
     }
 
     public String prepareCreate() {
         current = new Users();
         selectedItemIndex = -1;
-        return "Create";
+        return "UserCreate";
     }
 
     public String create() {
@@ -94,16 +96,15 @@ public class UsersController implements Serializable {
     }
     
     public String prepareEdit() {
-        current = (Users) getItems().getRowData();
-        selectedItemIndex = pagination.getPageFirstItem() + getItems().getRowIndex();
-        return "Edit";
+        current = currProject.getCurrentProject().getUser();
+        return "UserEdit";
     }
 
     public String update() {
         try {
             getFacade().edit(current);
             JsfUtil.addSuccessMessage(ResourceBundle.getBundle("/Bundle").getString("UsersUpdated"));
-            return "View";
+            return "UserView";
         } catch (Exception e) {
             JsfUtil.addErrorMessage(e, ResourceBundle.getBundle("/Bundle").getString("PersistenceErrorOccured"));
             return null;
@@ -174,13 +175,13 @@ public class UsersController implements Serializable {
     public String next() {
         getPagination().nextPage();
         recreateModel();
-        return "List";
+        return "UserList";
     }
 
     public String previous() {
         getPagination().previousPage();
         recreateModel();
-        return "List";
+        return "UserList";
     }
 
     public SelectItem[] getItemsAvailableSelectMany() {

@@ -111,8 +111,7 @@ public class ProjectsController implements Serializable {
     }
 
     public String prepareEdit() {
-        current = (Projects) getItems().getRowData();
-        selectedItemIndex = pagination.getPageFirstItem() + getItems().getRowIndex();
+        current = currProject.getCurrentProject();
         return "ProjectEdit";
     }
 
