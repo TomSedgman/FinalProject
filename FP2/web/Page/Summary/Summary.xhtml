@@ -17,8 +17,8 @@
                     <h:commandButton value="Upload" action="#{bean.upload}"/>
             </h:form>
         </div>     
-        <div id="main">
-            <div id="side" style="position:fixed; padding-top: 1.9%; z-index: 1">
+        <div id="main" style="width: 95%;">
+            <div id="side" style="position:fixed; padding-top: 1.8%; z-index: 1">
                 <h:graphicImage class="logo" name="Logo.png" library="Graphics" style="width: 100%"/>
                 <br/><br/>
                 <h:button outcome="/login" value="#{bundle.Logout}"/>
@@ -68,7 +68,7 @@
                 </h:form>
                 
             
-            <h:form styleClass="jsfcrud_list_form"  style="float: right; float: top; margin-right: -400px">
+            <h:form styleClass="jsfcrud_list_form"  style="float: left; float: top; margin-right: -400px">
                 Node Types
                 <br/>
                 <br/>
@@ -111,7 +111,8 @@
                 <br />
             </h:form>
                 
-            <h:form styleClass="jsfcrud_list_form"  style="float: top">
+            <h:form styleClass="jsfcrud_list_form"  style="float: left">
+                
                 Nodes
                 <h:panelGroup id="messagePanel" layout="block">
                     <h:messages errorStyle="color: red" infoStyle="color: green" layout="table" warnStyle="visibility:hidden"/>
@@ -169,7 +170,7 @@
                 <br/>
                 <br/>
                 
-            <h:form styleClass="jsfcrud_list_form">
+                <h:form styleClass="jsfcrud_list_form" style="float: left">
                 Data Definitions
                 <br/>
                 <h:panelGroup id="messagePanel" layout="block">

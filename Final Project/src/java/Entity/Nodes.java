@@ -5,7 +5,9 @@
 package Entity;
 
 import java.io.Serializable;
+import java.math.BigDecimal;
 import java.util.Collection;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -35,8 +37,10 @@ public class Nodes implements Serializable {
     private NodeTypes nodeType;
     
     private String nTIdentifier;
-    private Float gPSLat;
-    private Float gPSLong;
+    @Column(precision=12, scale=8)
+    private BigDecimal gPSLat;
+    @Column(precision=12, scale=8)
+    private BigDecimal gPSLong;
     private boolean isStatic;
 
     
@@ -72,19 +76,19 @@ public class Nodes implements Serializable {
         this.nTIdentifier = nTIdentifier;
     }
 
-    public Float getgPSLat() {
+    public BigDecimal getgPSLat() {
         return gPSLat;
     }
 
-    public void setgPSLat(Float gPSLat) {
+    public void setgPSLat(BigDecimal gPSLat) {
         this.gPSLat = gPSLat;
     }
 
-    public Float getgPSLong() {
+    public BigDecimal getgPSLong() {
         return gPSLong;
     }
 
-    public void setgPSLong(Float gPSLong) {
+    public void setgPSLong(BigDecimal gPSLong) {
         this.gPSLong = gPSLong;
     }
 

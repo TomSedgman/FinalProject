@@ -48,7 +48,7 @@ public class DataDefinitions implements Serializable {
     private boolean dDNullsAllowed;
     private boolean dDZeroStringsAllowed;
     private String dDNotes;
-    private String dDType; // replace with restrict later
+    private String dDType; // replace with restrict later [DONE]
     private int variablePositionId;
 
     public Long getDataDefinitionId() {

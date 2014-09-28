@@ -33,8 +33,6 @@
             </h:panelGroup>
             <h:form>
                 <h:panelGrid columns="2">
-                    <h:outputLabel value="#{bundle.EditDataDefinitionsLabel_dataDefinitionId}" for="dataDefinitionId" />
-                    <h:inputText id="dataDefinitionId" value="#{dataDefinitionsController.selected.dataDefinitionId}" title="#{bundle.EditDataDefinitionsTitle_dataDefinitionId}" />
                     <h:outputLabel value="#{bundle.EditDataDefinitionsLabel_nodeType}" for="nodeType" />
                     <h:selectOneMenu id="nodeType" value="#{dataDefinitionsController.selected.nodeType}" title="#{bundle.EditDataDefinitionsTitle_nodeType}" >
                         <f:selectItems value="#{nodeTypesController.itemsAvailableSelectOne}"/>
@@ -50,11 +48,11 @@
                     <h:outputLabel value="#{bundle.EditDataDefinitionsLabel_dDNotes}" for="dDNotes" />
                     <h:inputText id="dDNotes" value="#{dataDefinitionsController.selected.dDNotes}" title="#{bundle.EditDataDefinitionsTitle_dDNotes}" />
                     <h:outputLabel value="#{bundle.EditDataDefinitionsLabel_dDType}" for="dDType" />
-                    <h:inputText id="dDType" value="#{dataDefinitionsController.selected.dDType}" title="#{bundle.EditDataDefinitionsTitle_dDType}" />
+                    <h:selectOneMenu id="dDType" value="#{dataDefinitionsController.selected.dDType}" title="#{bundle.CreateDataDefinitionsTitle_dDType}" >
+                         <f:selectItems value="#{acceptableDataTypesController.itemsAvailableSelectOne}"/>
+                    </h:selectOneMenu>
                     <h:outputLabel value="#{bundle.EditDataDefinitionsLabel_variablePositionId}" for="variablePositionId" />
                     <h:inputText id="variablePositionId" value="#{dataDefinitionsController.selected.variablePositionId}" title="#{bundle.EditDataDefinitionsTitle_variablePositionId}" />
-                    <h:outputLabel value="#{bundle.EditDataDefinitionsLabel_id}" for="id" />
-                    <h:inputText id="id" value="#{dataDefinitionsController.selected.id}" title="#{bundle.EditDataDefinitionsTitle_id}" />
                 </h:panelGrid>
                 <h:commandLink action="#{dataDefinitionsController.update}" value="#{bundle.EditDataDefinitionsSaveLink}"/>
                 <br />

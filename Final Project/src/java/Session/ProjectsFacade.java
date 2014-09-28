@@ -29,7 +29,7 @@ public class ProjectsFacade extends AbstractFacade<Projects> {
     }
     public List<Projects> findProjectsByUser(String username)
     {
-         List projects = em.createNamedQuery("findProjectsbyUser", Projects.class).setParameter("username", username).getResultList();
+         List projects =  em.createNamedQuery("findProjectsbyUser", Projects.class).setParameter("username", username).getResultList();
          return projects;
     }
     

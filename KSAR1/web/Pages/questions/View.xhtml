@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <ui:composition template="/template.xhtml">
+        <ui:define name="title">
+            <h:outputText value="#{bundle.ViewQuestionsTitle}"></h:outputText>
+        </ui:define>
+        <ui:define name="body">
+            <h:panelGroup id="messagePanel" layout="block">
+                <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
+            </h:panelGroup>
+            <h:form>
+                <h:panelGrid columns="2">
+                    <h:outputText value="#{bundle.ViewQuestionsLabel_id}"/>
+                    <h:outputText value="#{questionsController.selected.id}" title="#{bundle.ViewQuestionsTitle_id}"/>
+                    <h:outputText value="#{bundle.ViewQuestionsLabel_q1}"/>
+                    <h:outputText value="#{questionsController.selected.q1}" title="#{bundle.ViewQuestionsTitle_q1}"/>
+                    <h:outputText value="#{bundle.ViewQuestionsLabel_q2}"/>
+                    <h:outputText value="#{questionsController.selected.q2}" title="#{bundle.ViewQuestionsTitle_q2}"/>
+                    <h:outputText value="#{bundle.ViewQuestionsLabel_q3}"/>
+                    <h:outputText value="#{questionsController.selected.q3}" title="#{bundle.ViewQuestionsTitle_q3}"/>
+                    <h:outputText value="#{bundle.ViewQuestionsLabel_q4}"/>
+                    <h:outputText value="#{questionsController.selected.q4}" title="#{bundle.ViewQuestionsTitle_q4}"/>
+                    <h:outputText value="#{bundle.ViewQuestionsLabel_q5}"/>
+                    <h:outputText value="#{questionsController.selected.q5}" title="#{bundle.ViewQuestionsTitle_q5}"/>
+                    <h:outputText value="#{bundle.ViewQuestionsLabel_q6}"/>
+                    <h:outputText value="#{questionsController.selected.q6}" title="#{bundle.ViewQuestionsTitle_q6}"/>
+                    <h:outputText value="#{bundle.ViewQuestionsLabel_q7}"/>
+                    <h:outputText value="#{questionsController.selected.q7}" title="#{bundle.ViewQuestionsTitle_q7}"/>
+                    <h:outputText value="#{bundle.ViewQuestionsLabel_q8}"/>
+                    <h:outputText value="#{questionsController.selected.q8}" title="#{bundle.ViewQuestionsTitle_q8}"/>
+                    <h:outputText value="#{bundle.ViewQuestionsLabel_q9}"/>
+                    <h:outputText value="#{questionsController.selected.q9}" title="#{bundle.ViewQuestionsTitle_q9}"/>
+                    <h:outputText value="#{bundle.ViewQuestionsLabel_q10}"/>
+                    <h:outputText value="#{questionsController.selected.q10}" title="#{bundle.ViewQuestionsTitle_q10}"/>
+                    <h:outputText value="#{bundle.ViewQuestionsLabel_q11}"/>
+                    <h:outputText value="#{questionsController.selected.q11}" title="#{bundle.ViewQuestionsTitle_q11}"/>
+                    <h:outputText value="#{bundle.ViewQuestionsLabel_q12}"/>
+                    <h:outputText value="#{questionsController.selected.q12}" title="#{bundle.ViewQuestionsTitle_q12}"/>
+                    <h:outputText value="#{bundle.ViewQuestionsLabel_q13}"/>
+                    <h:outputText value="#{questionsController.selected.q13}" title="#{bundle.ViewQuestionsTitle_q13}"/>
+                    <h:outputText value="#{bundle.ViewQuestionsLabel_q14}"/>
+                    <h:outputText value="#{questionsController.selected.q14}" title="#{bundle.ViewQuestionsTitle_q14}"/>
+                    <h:outputText value="#{bundle.ViewQuestionsLabel_q15}"/>
+                    <h:outputText value="#{questionsController.selected.q15}" title="#{bundle.ViewQuestionsTitle_q15}"/>
+                </h:panelGrid>
+                <br />
+                <h:commandLink action="#{questionsController.destroyAndView}" value="#{bundle.ViewQuestionsDestroyLink}"/>
+                <br />
+                <br />
+                <h:link outcome="Edit" value="#{bundle.ViewQuestionsEditLink}"/>
+                <br />
+                <h:commandLink action="#{questionsController.prepareCreate}" value="#{bundle.ViewQuestionsCreateLink}" />
+                <br />
+                <h:commandLink action="#{questionsController.prepareList}" value="#{bundle.ViewQuestionsShowAllLink}"/>
+                <br />
+                <br />
+                <h:link outcome="/index" value="#{bundle.ViewQuestionsIndexLink}"/>
+
+            </h:form>
+        </ui:define>
+    </ui:composition>
+
+</html>

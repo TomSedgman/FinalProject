@@ -1,0 +1,81 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+<head>
+  <script type="text/javascript" src="https://www.google.com/jsapi"></script>
+  <script type="text/javascript">
+               //<![CDATA[
+                               
+                var chartData = new google.visualization.DataTable();
+                chartData.addColumn('number');
+                chartData.addColumn('number');
+                chartData.addRow([(random(0,100)), (random(0,100))]);
+                google.load("visualization", "1", {packages:["corechart"]});
+                google.setOnLoadCallback(drawChart);
+                function drawChart() 
+                {
+                    chartData.addRow([(random(0,100)), (random(0,100))]);
+                    
+                    //var axisMinMax = calculateMinMax(chartData);
+                    //alert('Min: ' + axisMinMax[0] + ', Max: ' + axisMinMax[1]);
+                    //chart.setOption('vAxis.viewWindow.min', axisMinMax[0]);
+                    //chart.setOption('vAxis.viewWindow.max', axisMinMax[1]);
+
+                    var options = 
+                    {
+                        title: "test",
+                        hAxis: {title: 'Age', minValue: 0, maxValue: 100},
+                        vAxis: {title: 'Weight', minValue: 0, maxValue: 100},
+                        legend: 'none'
+                    };
+
+                    var chart = new google.visualization.ScatterChart(document.getElementById('graph'));
+                    chart.draw(chartData, options);
+
+                }
+                window.setInterval(drawChart,100);
+                
+                function calculateMinMax(data) 
+                {
+                    // Get max and min values for the data table
+
+                    var totalMin = data.getValue(0,1);
+                    var totalMax = data.getValue(0,1);
+
+                    for (var i = 1;i < data.getNumberOfColumns();i++) 
+                    {
+                        for (var j = 0;j < data.getNumberOfRows();j++)
+                        {
+                          if ( data.getValue(j, i) < totalMin ) 
+                          {
+                                totalMin = data.getValue(j, i);
+                          }          
+                          if ( data.getValue(j, i) > totalMax ) 
+                          {
+                                totalMax = data.getValue(j, i);
+                          }
+                        }
+                    }
+                }
+               
+               function random(min,max)
+               {
+                   var ans = Math.random(min,max);
+                   return ans;
+               }
+              
+    //]]>
+    </script>
+  </head>
+  <body>
+    <div id="graph"></div>
+    hello
+  </body>
+</html>
+
+
+

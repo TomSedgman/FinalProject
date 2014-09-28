@@ -4,27 +4,30 @@
  */
 package TestInput;
 
-import Classes.NodesController;
-import Entity.DataValues;
 import Entity.Nodes;
+import Entity.Projects;
+import PersistedVariables.PCoordinates;
+import PersistedVariables.PProject;
 import Session.DataValuesFacade;
+import Session.NodesFacade;
+import Session.ProjectsFacade;
+import com.google.gson.Gson;
+import com.google.gson.annotations.Expose;
 import java.io.BufferedInputStream;
 import java.io.DataInputStream;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Calendar;
 import java.util.Collection;
-import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
+import java.util.ListIterator;
 import javax.ejb.EJB;
 import javax.faces.bean.SessionScoped;
-import javax.faces.model.DataModel;
-
 /**
  *
  * @author t_sedgman
@@ -33,7 +36,18 @@ import javax.faces.model.DataModel;
 public class Bean {
     @EJB
     private DataValuesFacade dataValuesFacade;
-
+    @EJB
+    private NodesFacade nodesFacade;
+    @EJB
+    private ProjectsFacade projectsFacade;
+    @EJB
+    private PersistedVariables.PProjects projectList;
+    @EJB
+    private PersistedVariables.PProject currProject;
+    @EJB
+    private PersistedVariables.PNodes currentNodes;
+    @EJB
+    private PersistedVariables.PCoordinates coordinates;
     
   private String fileContent;
   private String fileContent2;
@@ -122,17 +136,73 @@ public class Bean {
 
   public void next()
   {
-      ArrayList<String> tempArray = new ArrayList<>();
-      tempArray = getFileContentArray();
-      int size = tempArray.size();
-      if (counter <= size)
-      {
-        counter++;
-        fileContent2 = tempArray.get(counter);
-      }
-      else
-      {
-          counter = 0;
-      }
+     List returnedData = dataValuesFacade.findVariables(null, 0, 8);
+     fileContent2 = returnedData.get(counter).toString();
+     counter++;
   }
+    public void loadProject(String username)
+  {
+      List projects = projectsFacade.findProjectsByUser(username);
+      projectList.setProjects(projects);
+  }
+    
+  public void loadNodes(int index)
+  {
+      List projects = projectList.getProjects();
+      int i = index;
+      Projects project = (Projects) projects.get(i);
+      currProject.setCurrentProject(project);
+      List<Nodes> nodes = nodesFacade.nodesList(project);
+      currentNodes.setCurrentNodes(nodes);   
+  }
+  public void GPSLat()
+  {
+    ArrayList gPSLat = new ArrayList();
+    List<Nodes> nodes = currentNodes.getCurrentNodes();
+    for (int i = 0; i < nodes.size();i++)
+    {
+        gPSLat.add(nodes.get(i).getgPSLat());
+    }
+     coordinates.setGPSLat(gPSLat);
+  }
+   public void GPSLong()
+  {
+    ArrayList gPSLong = new ArrayList();
+    List<Nodes> nodes = currentNodes.getCurrentNodes();
+    for (int i = 0; i < nodes.size();i++)
+    {
+        gPSLong.add(nodes.get(i).getgPSLong());
+    }
+     coordinates.setGPSLong(gPSLong);
+  }
+  
+    public String CentrePoint()
+    {
+        List gpsLat = coordinates.getGPSLat();
+        List gpsLong = coordinates.getGPSLong();
+        Double centreLat = average(gpsLat);
+        Double centreLong = average(gpsLong);
+        String centre = centreLat.toString();
+        centre = centre.concat(" , ");
+        centre = centre.concat(centreLong.toString());
+        return centre;
+    }
+   
+    public static Double average(List<BigDecimal> list) 
+    {
+        // 'average' is undefined if there are no elements in the list.
+        if (list == null || list.isEmpty())
+            return 0.0;
+        // Calculate the summation of the elements in the list
+        Double sum = 0.0;
+        int n = list.size();
+        // Iterating manually is faster than using an enhanced for loop.
+        for (int i = 0; i < n; i++)
+        {
+            Double temp = list.get(i).doubleValue();
+            sum += temp;
+        }
+        // We don't want to perform an integer division, so the cast is mandatory.
+        return ((Double) sum) / n;
+    }
 }

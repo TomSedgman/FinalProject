@@ -12,6 +12,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.NamedQuery;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
@@ -19,6 +20,8 @@ import javax.persistence.TemporalType;
  *
  * @author t_sedgman
  */
+@NamedQuery (name = "findVariablesByTypeAndNode", query = "SELECT e FROM DataValues e WHERE ( e.node = :node and e.variablePositionId = :variable1) or ( e.node = :node and e.variablePositionId = :variable2)")
+//e.dVariable, e.dTimeStamp, e.variablePositionId
 @Entity
 public class DataValues implements Serializable {
     private static final long serialVersionUID = 1L;

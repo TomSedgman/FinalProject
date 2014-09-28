@@ -1,8 +1,11 @@
 <?xml version='1.0' encoding='UTF-8' ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
       xmlns:f="http://xmlns.jcp.org/jsf/core">
+    
     <h:head>
         <title>Facelet Title</title>
         <h:outputStylesheet name="css/jsfcrud.css"/>
@@ -23,20 +26,62 @@
         </style>
         <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBn3ekiVRTR-gme-EH5bqcn3dNxuiUxzRg">
         </script>
-        <script type =" "></script>
         <script type="text/javascript">
-            function initialize()
-            {
-                var mapOptions = {center: new google.maps.LatLng(-34.397, 150.644), zoom: 8};
-                var map = new google.maps.Map(document.getElementById("map"), mapOptions);
-            }
-            google.maps.event.addDomListener(window, 'load', initialize);
+                //<![CDATA[
+                   var projects = "#{bean.loadProject("ths28")}";
+                  var nodes = "#{bean.loadNodes(0)}"; 
+                  var GPSLat = "#{bean.GPSLat()}";
+                  var GPSLatArray = GPSLat.split(",");
+                  var GPSLong = "#{bean.GPSLong()}";
+                  var GPSLongArray = GPSLong.split(",");
+                  var centrepoint = "#{bean.CentrePoint()}";
+                  var values = centrepoint.split(",");
+                  var Lat = parseFloat(values[0]);
+                  var Long = parseFloat(values[1]);
+                  var markersArray = [];
+                  var bounds = new google.maps.LatLngBounds();
+                  var infowindow = new google.maps.InfoWindow();    
+                    
+              
+                       
+                  function initialize() 
+                    {
+                        for (i = 0; i < GPSLatArray.length; i++)
+                        {  
+                            var lat = parseFloat(GPSLatArray[i])
+                            var long = parseFloat(GPSLongArray[i])
+                            marker = new google.maps.Marker(
+                            {
+                                position: new google.maps.LatLng(lat, long),
+                                map: map
+                            });
+                            google.maps.event.addListener(marker, 'click', (function(marker, i) 
+                            {
+                                return function() 
+                                {
+                                  infowindow.setContent(locations[i][0]);
+                                  infowindow.open(map, marker);
+                                }
+                              }
+                              )(marker, i));
+                        }
+                            
 
-
-        </script>
+                        var mapOptions = 
+                        {
+                            center: new google.maps.LatLng(Lat, Long),
+                            zoom: 3
+                            
+                        };
+                        var map = new google.maps.Map(document.getElementById("map"),
+                        mapOptions);
+                    }
+                    google.maps.event.addDomListener(window, 'load', initialize);
+                //]]>
+            </script>
 
         <script src="http://ajax.aspnetcdn.com/ajax/jQuery/jquery-1.6.1.min.js"></script>
-        <script src="resources/JavaScript/Graph.js"></script>
+        <script type="text/javascript" src="resources/JavaScript/Graph.js"></script>
 
 
     </h:head>
@@ -45,6 +90,7 @@
             head
         </div>     
         <div id="main" >
+            
             <div id="side" >
                 Sidebar
             </div>
@@ -61,6 +107,8 @@
                                      readonly="true"/>
                     <h:inputTextarea value="#{bean.fileContent2}"
                                      readonly="true"/>
+                    
+
                 </h:form>
 
                 <h:link outcome="/Page/dataDefinitions/List" value="Show All DataDefinitions Items"/>
@@ -81,9 +129,9 @@
                 <br />
                 <h:link outcome="/Page/users/List" value="Show All Users Items"/>
             </div>
-            <div id ="graph-canvas">
+           <div id ="graph-canvas">
                 <canvas id="graph"></canvas> 
-            </div>
+           </div>
 
         </div> 
         <div id="foot" >

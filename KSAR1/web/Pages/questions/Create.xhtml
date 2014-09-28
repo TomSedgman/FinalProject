@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <ui:composition template="/template.xhtml">
+        <ui:define name="title">
+            <h:outputText value="#{bundle.CreateQuestionsTitle}"></h:outputText>
+        </ui:define>
+        <ui:define name="body">
+            <h:panelGroup id="messagePanel" layout="block">
+                <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
+            </h:panelGroup>
+            <h:form>
+                <h:panelGrid columns="1">
+                     <div class="subtitle" >Tell us what you thought of the event!</div>
+                    <h:outputLabel value="#{bundle.CreateQuestionsLabel_q1}" for="q1" />
+                    <select id="q1" value="#{questionsController.selected.q1}" title="#{bundle.CreateQuestionsTitle_q1}" >
+                        <option id="q1_1" value="#{bundle.q1_1}"/>
+                        <option id="q1_2" value="#{bundle.q1_2}"/>
+                        <option id="q1_3" value="#{bundle.q1_3}"/>
+                        <option id="q1_4" value="#{bundle.q1_4}"/>
+                        <option id="q1_5" value="#{bundle.q1_5}"/>
+                    </select>
+                    
+                    <h:outputLabel value="#{bundle.CreateQuestionsLabel_q2}" for="q2" />
+                    <h:inputTextarea id="q2" value="#{questionsController.selected.q2}" title="#{bundle.CreateQuestionsTitle_q2}" />
+                    
+                    <h:outputLabel value="#{bundle.CreateQuestionsLabel_q3}" for="q3" />
+                    <h:inputTextarea id="q3" value="#{questionsController.selected.q3}" title="#{bundle.CreateQuestionsTitle_q3}" />
+                    
+<!--                    <h:outputLabel value="#{bundle.CreateQuestionsLabel_q4}" for="q4" />
+                    <h:inputTextarea id="q4" value="#{questionsController.selected.q4}" title="#{bundle.CreateQuestionsTitle_q4}" />-->
+                    
+                    <h:outputLabel value="#{bundle.CreateQuestionsLabel_q5}" for="q5" />
+                    <h:inputTextarea id="q5" value="#{questionsController.selected.q5}" title="#{bundle.CreateQuestionsTitle_q5}" />
+                    
+                    <h:outputLabel value="#{bundle.CreateQuestionsLabel_q6}" for="q6" />
+                    <h:selectManyCheckbox id="q6" value="#{questionsController.selected.q6}" title="#{bundle.CreateQuestionsTitle_q6}">
+                        <f:selectItem itemValue="6.1" itemLabel="" />
+                        <f:selectItem itemValue="6.2" itemLabel="" />	 
+                        <f:selectItem itemValue="6.3" itemLabel="" />	 
+                        <f:selectItem itemValue="6.4" itemLabel="" />	 
+                        <f:selectItem itemValue="6.5" itemLabel="" />
+                        <f:selectItem itemValue="6.6" itemLabel="" />	 
+                    </h:selectManyCheckbox>	
+                    
+                    <h:outputLabel value="#{bundle.CreateQuestionsLabel_q7}" for="q7" />
+                    <h:inputText id="q7" value="#{questionsController.selected.q7}" title="#{bundle.CreateQuestionsTitle_q7}" />
+                    
+                    <h:outputLabel value="#{bundle.CreateQuestionsLabel_q8}" for="q8" />
+                    <h:inputText id="q8" value="#{questionsController.selected.q8}" title="#{bundle.CreateQuestionsTitle_q8}" />
+                    
+                    <div class="subtitle" >And now just a few things about yourself</div>
+                    
+                    <h:outputLabel value="#{bundle.CreateQuestionsLabel_q9}" for="q9" />
+                    <select id="q9" value="#{questionsController.selected.q1}" title="#{bundle.CreateQuestionsTitle_q1}" >
+                        <option id="q9_1" value="#{bundle.q9_1}"/>
+                        <option id="q9_2" value="#{bundle.q9_2}"/>
+                        <option id="q9_3" value="#{bundle.q9_3}"/>
+                        <option id="q9_4" value="#{bundle.q9_4}"/>
+                        <option id="q9_5" value="#{bundle.q9_5}"/>
+                        <option id="q9_6" value="#{bundle.q9_6}"/>
+                        <option id="q9_7" value="#{bundle.q9_7}"/>
+                        <option id="q9_8" value="#{bundle.q9_8}"/>
+                    </select>
+                    
+                    <h:outputLabel value="#{bundle.CreateQuestionsLabel_q10}" for="q10" />
+                    <h:selectOneRadio id="q10" value="#{questionsController.selected.q10}" title="#{bundle.CreateQuestionsTitle_q10}">
+                        <f:selectItem itemValue="10.1" itemLabel="15 or under" />
+                        <f:selectItem itemValue="10.2" itemLabel="16-25" />	 
+                        <f:selectItem itemValue="10.3" itemLabel="26-35" />	 
+                        <f:selectItem itemValue="10.4" itemLabel="36-45" />	 
+                        <f:selectItem itemValue="10.5" itemLabel="46-60" />
+                        <f:selectItem itemValue="10.6" itemLabel="61 or over" />	 
+                    </h:selectOneRadio>	
+                    
+<!--                    <h:outputLabel value="#{bundle.CreateQuestionsLabel_q11}" for="q11" />
+                    <h:inputText id="q11" value="#{questionsController.selected.q11}" title="#{bundle.CreateQuestionsTitle_q11}" />-->
+                    
+                    <h:outputLabel value="#{bundle.CreateQuestionsLabel_q12}" for="q12" />
+                    <h:selectOneRadio id="q12" value="#{questionsController.selected.q12}" title="#{bundle.CreateQuestionsTitle_q12}">
+                        <f:selectItem itemValue="12.1" itemLabel="male" />
+                        <f:selectItem itemValue="12.2" itemLabel="female" />	 
+                    </h:selectOneRadio>	
+                    
+                    <h:outputLabel value="#{bundle.CreateQuestionsLabel_q13}" for="q13" />
+                    <h:inputText id="q13" value="#{questionsController.selected.q13}" title="#{bundle.CreateQuestionsTitle_q13}" />
+                    
+                    <h:outputLabel value="#{bundle.CreateQuestionsLabel_q14}" for="q14" />
+                    <h:selectOneRadio id="q14" value="#{questionsController.selected.q14}" title="#{bundle.CreateQuestionsTitle_q14}">
+                        <f:selectItem itemValue="14.1" itemLabel="1/2 hour or less" />
+                        <f:selectItem itemValue="14.2" itemLabel="1/2 to 1 hour" />	 
+                        <f:selectItem itemValue="14.3" itemLabel="1 to 2 hours" />	 
+                        <f:selectItem itemValue="14.4" itemLabel="2 hours or more" />	 
+                    </h:selectOneRadio>	
+                    
+                    <h:outputLabel value="#{bundle.CreateQuestionsLabel_q15}" for="q15" />
+                    <h:inputTextarea id="q15" value="#{questionsController.selected.q15}" title="#{bundle.CreateQuestionsTitle_q15}" />
+                </h:panelGrid>
+                <br />
+                <h:commandLink action="#{questionsController.create}" value="#{bundle.CreateQuestionsSaveLink}" />
+                <br />
+                <br />
+                <h:commandLink action="#{questionsController.prepareList}" value="#{bundle.CreateQuestionsShowAllLink}" immediate="true"/>
+                <br />
+                <br />
+                <h:link outcome="/index" value="#{bundle.CreateQuestionsIndexLink}"/>
+            </h:form>
+        </ui:define>
+    </ui:composition>
+
+</html>

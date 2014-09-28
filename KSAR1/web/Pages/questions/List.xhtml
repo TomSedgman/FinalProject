@@ -1,0 +1,140 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <ui:composition template="/template.xhtml">
+        <ui:define name="title">
+            <h:outputText value="#{bundle.ListQuestionsTitle}"></h:outputText>
+        </ui:define>
+        <ui:define name="body">
+            <h:form styleClass="jsfcrud_list_form">
+                <h:panelGroup id="messagePanel" layout="block">
+                    <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
+                </h:panelGroup>
+                <h:outputText escape="false" value="#{bundle.ListQuestionsEmpty}" rendered="#{questionsController.items.rowCount == 0}"/>
+                <h:panelGroup rendered="#{questionsController.items.rowCount > 0}">
+                    <h:outputText value="#{questionsController.pagination.pageFirstItem + 1}..#{questionsController.pagination.pageLastItem + 1}/#{questionsController.pagination.itemsCount}"/>&nbsp;
+                    <h:commandLink action="#{questionsController.previous}" value="#{bundle.Previous} #{questionsController.pagination.pageSize}" rendered="#{questionsController.pagination.hasPreviousPage}"/>&nbsp;
+                    <h:commandLink action="#{questionsController.next}" value="#{bundle.Next} #{questionsController.pagination.pageSize}" rendered="#{questionsController.pagination.hasNextPage}"/>&nbsp;
+                    <h:dataTable value="#{questionsController.items}" var="item" border="0" cellpadding="2" cellspacing="0" rowClasses="jsfcrud_odd_row,jsfcrud_even_row" rules="all" style="border:solid 1px">
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListQuestionsTitle_id}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.id}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListQuestionsTitle_q1}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.q1}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListQuestionsTitle_q2}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.q2}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListQuestionsTitle_q3}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.q3}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListQuestionsTitle_q4}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.q4}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListQuestionsTitle_q5}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.q5}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListQuestionsTitle_q6}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.q6}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListQuestionsTitle_q7}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.q7}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListQuestionsTitle_q8}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.q8}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListQuestionsTitle_q9}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.q9}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListQuestionsTitle_q10}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.q10}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListQuestionsTitle_q11}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.q11}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListQuestionsTitle_q12}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.q12}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListQuestionsTitle_q13}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.q13}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListQuestionsTitle_q14}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.q14}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListQuestionsTitle_q15}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.q15}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="&nbsp;"/>
+                            </f:facet>
+                            <h:commandLink action="#{questionsController.prepareView}" value="#{bundle.ListQuestionsViewLink}"/>
+                            <h:outputText value=" "/>
+                            <h:commandLink action="#{questionsController.prepareEdit}" value="#{bundle.ListQuestionsEditLink}"/>
+                            <h:outputText value=" "/>
+                            <h:commandLink action="#{questionsController.destroy}" value="#{bundle.ListQuestionsDestroyLink}"/>
+                        </h:column>
+                    </h:dataTable>
+                </h:panelGroup>
+                <br />
+                <h:commandLink action="#{questionsController.prepareCreate}" value="#{bundle.ListQuestionsCreateLink}"/>
+                <br />
+                <br />
+                <h:link outcome="/index" value="#{bundle.ListQuestionsIndexLink}"/>
+            </h:form>
+        </ui:define>
+    </ui:composition>
+
+</html>

@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <ui:composition template="/template.xhtml">
+        <ui:define name="title">
+            <h:outputText value="#{bundle.EditQuestionsTitle}"></h:outputText>
+        </ui:define>
+        <ui:define name="body">
+            <h:panelGroup id="messagePanel" layout="block">
+                <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
+            </h:panelGroup>
+            <h:form>
+                <h:panelGrid columns="2">
+                    <h:outputLabel value="#{bundle.EditQuestionsLabel_id}" for="id" />
+                    <h:inputText id="id" value="#{questionsController.selected.id}" title="#{bundle.EditQuestionsTitle_id}" />
+                    <h:outputLabel value="#{bundle.EditQuestionsLabel_q1}" for="q1" />
+                    <h:inputText id="q1" value="#{questionsController.selected.q1}" title="#{bundle.EditQuestionsTitle_q1}" />
+                    <h:outputLabel value="#{bundle.EditQuestionsLabel_q2}" for="q2" />
+                    <h:inputText id="q2" value="#{questionsController.selected.q2}" title="#{bundle.EditQuestionsTitle_q2}" />
+                    <h:outputLabel value="#{bundle.EditQuestionsLabel_q3}" for="q3" />
+                    <h:inputText id="q3" value="#{questionsController.selected.q3}" title="#{bundle.EditQuestionsTitle_q3}" />
+                    <h:outputLabel value="#{bundle.EditQuestionsLabel_q4}" for="q4" />
+                    <h:inputText id="q4" value="#{questionsController.selected.q4}" title="#{bundle.EditQuestionsTitle_q4}" />
+                    <h:outputLabel value="#{bundle.EditQuestionsLabel_q5}" for="q5" />
+                    <h:inputText id="q5" value="#{questionsController.selected.q5}" title="#{bundle.EditQuestionsTitle_q5}" />
+                    <h:outputLabel value="#{bundle.EditQuestionsLabel_q6}" for="q6" />
+                    <h:inputText id="q6" value="#{questionsController.selected.q6}" title="#{bundle.EditQuestionsTitle_q6}" />
+                    <h:outputLabel value="#{bundle.EditQuestionsLabel_q7}" for="q7" />
+                    <h:inputText id="q7" value="#{questionsController.selected.q7}" title="#{bundle.EditQuestionsTitle_q7}" />
+                    <h:outputLabel value="#{bundle.EditQuestionsLabel_q8}" for="q8" />
+                    <h:inputText id="q8" value="#{questionsController.selected.q8}" title="#{bundle.EditQuestionsTitle_q8}" />
+                    <h:outputLabel value="#{bundle.EditQuestionsLabel_q9}" for="q9" />
+                    <h:inputText id="q9" value="#{questionsController.selected.q9}" title="#{bundle.EditQuestionsTitle_q9}" />
+                    <h:outputLabel value="#{bundle.EditQuestionsLabel_q10}" for="q10" />
+                    <h:inputText id="q10" value="#{questionsController.selected.q10}" title="#{bundle.EditQuestionsTitle_q10}" />
+                    <h:outputLabel value="#{bundle.EditQuestionsLabel_q11}" for="q11" />
+                    <h:inputText id="q11" value="#{questionsController.selected.q11}" title="#{bundle.EditQuestionsTitle_q11}" />
+                    <h:outputLabel value="#{bundle.EditQuestionsLabel_q12}" for="q12" />
+                    <h:inputText id="q12" value="#{questionsController.selected.q12}" title="#{bundle.EditQuestionsTitle_q12}" />
+                    <h:outputLabel value="#{bundle.EditQuestionsLabel_q13}" for="q13" />
+                    <h:inputText id="q13" value="#{questionsController.selected.q13}" title="#{bundle.EditQuestionsTitle_q13}" />
+                    <h:outputLabel value="#{bundle.EditQuestionsLabel_q14}" for="q14" />
+                    <h:inputText id="q14" value="#{questionsController.selected.q14}" title="#{bundle.EditQuestionsTitle_q14}" />
+                    <h:outputLabel value="#{bundle.EditQuestionsLabel_q15}" for="q15" />
+                    <h:inputText id="q15" value="#{questionsController.selected.q15}" title="#{bundle.EditQuestionsTitle_q15}" />
+                </h:panelGrid>
+                <h:commandLink action="#{questionsController.update}" value="#{bundle.EditQuestionsSaveLink}"/>
+                <br />
+                <br />
+                <h:link outcome="View" value="#{bundle.EditQuestionsViewLink}"/>
+                <br />
+                <h:commandLink action="#{questionsController.prepareList}" value="#{bundle.EditQuestionsShowAllLink}" immediate="true"/>
+                <br />
+                <br />
+                <h:link outcome="/index" value="#{bundle.EditQuestionsIndexLink}" />
+            </h:form>
+        </ui:define>
+    </ui:composition>
+
+</html>

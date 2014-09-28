@@ -376,11 +376,6 @@ private String projectName;
             }
             dataReturn.add(0, dataType);
         }
-        
-        
-        
-        
-        
 //        ArrayList <DataValues> dataValuesArray = new ArrayList();
 //        Collection dataValues =  dataValuesFacade.findVariable(currentNodes.getCurrentNodes().get(node), 0); // get all records for a node at index 0
 //        dataValuesArray.addAll(dataValues);

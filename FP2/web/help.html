@@ -76,10 +76,17 @@ and open the template in the editor.
 
         <div id="helpSettings" class="helpFile">
             <a name="Settings">
-                <h2>Setting up your data</h2>
+                <h2>Setting up your project</h2>
             </a> 
             <br/>
-                TEXT HERE
+                From the data visualisation page, click on ‘Settings’. This will navigate you to the Summary page. <br/><br/>
+                Firstly, click ‘Edit project information’. In the ‘Source Variable’ field, enter the column number in which the node identifier value is stored. For more information see the <a href="#Guide">guidelines for file upload</a>.<br/><br/>
+                Enter the project name and any notes about your project in the relevant fields. Click ‘Save’ to return to the summary page.<br/><br/>
+                From there, click ‘Create a New Node Type’. Enter the name of the new <a href="#Glossary">node type</a> and click ‘Save’ to return to the summary page.<br/><br/>
+                Now click ‘Create a New Data Definition’. From the drop-down menu, select the <a href="#Glossary">node type</a> you have just created. Add a variable name that represents the new <a href="#Glossary">data definition</a> (e.g. soil temperature). Enter the unit (e.g. degrees Celsius). Enter the maximum and minimum values expected from this record (e.g. -20 to +40 degrees Celsius). Enter any notes you may wish to store about this data definition (e.g. ‘needs calibrating every 6 weeks’). Choose the <a href="#Glossary">data type</a> from the drop-down list (e.g. temperature). In the event of having multiple different variants of the same data types with different (e.g. soil temperature, air temperature, water temperature) they should all be stored as the same type. Enter the <a href="#Glossary">variable position ID</a>. This represents where in the incoming data stream this data definition will be found. Please note: the time stamp should always be set as 0. Click ‘Save’ to return to the summary page.<br/><br/>
+                                Finally, click ‘Create a New Node’. From the drop-down menu, select the <a href="#Glossary">node type</a> you created earlier. Enter the identifier that this node type broadcasts. If the node is a static source then enter the GPS latitude and longitude and ensure that the ‘Is Static?’ option is ticked. If not, ensure ‘Is Static?’ is not ticked and leave the GPS coordinates empty. Click ‘Save’ to return to the summary page.<br/><br/>
+                This data can be edited or deleted at any time by clicking the ‘Edit’ or ‘Destroy’ buttons beside each line.<br/><br/>
+
         </div>
 
           <br/>
@@ -99,15 +106,27 @@ and open the template in the editor.
             </ul>
         </div>
 
-        <br/>
-        <br/>
+        <br/><br/>
 
         <div id="helpGlossary" class="helpFile"> 
             <a name="Glossary">
                 <h2>Glossary</h2>
             </a>
            <br/>
-           
+            Data definition:        The meta-data that tells the program how to handle each value in the incoming data-set. Setting up the data definition allows the program to interpret the array of data, including the variable name, the type of parameter, the unit of measurement and the range of acceptable results (max. and min.).<br/><br/>
+
+            Data type:              The restricted list of possible data types.<br/><br/>
+
+            Marker:                 A Google Maps icon displaying the location of a node.<br/><br/>
+
+            Node:                   The location of a fixed monitoring installation, represented on the map by a marker<br/><br/>
+
+            Node type:              The abstract representation of many nodes sharing the same characteristics.<br/><br/>
+
+            Variable:               The results of one instrument gathered from a node.<br/><br/>
+
+            Variable position ID:	Where in the incoming data stream this data definition will be found. Please note: time stamp should always be set as 0.<br/><br/>
+
         </div>
     </body>
 </html>

@@ -18,11 +18,8 @@
             <div id="side">
                 <h:graphicImage class="logo" name="Logo.png" library="Graphics" style="width: 100%"/>
                 <br/><br/>
-                <h:button outcome="/login" value="#{bundle.Logout}"/>
-                <br/><br/>
                 <h:commandButton id="Mhelp" value="Help" onclick="window.open('help.html', 'asdas', 'toolbars=0,width=400,height=320,left=200,top=200,scrollbars=1,resizable=1');"/>
                 <br/><br/>
-                <h:button outcome="/map.xhtml" value="#{bundle.Map}"/>
             </div>
             <h:panelGroup id="messagePanel" layout="block">
                 <h:messages errorStyle="color: red" infoStyle="color: green" layout="table" warnStyle="visibility:hidden; font-size:0px"/>
@@ -42,7 +39,7 @@
                 <h:commandLink action="#{usersController.create}" value="#{bundle.CreateUsersSaveLink}" />
                 <br />
                 <br />
-                <h:link outcome="/Page/Summary/Summary.xhtml" value="#{bundle.CreateProjectsIndexLink}"/>
+                <h:link outcome="/login.xhtml" value="#{bundle.CreateProjectsIndexLink}"/>
             </h:form>
         </div>
     </h:body>

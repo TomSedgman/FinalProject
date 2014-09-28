@@ -5,6 +5,9 @@
 package Session;
 
 import Entity.Nodes;
+import Entity.Projects;
+import java.util.List;
+import javax.ejb.EJB;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -13,8 +16,10 @@ import javax.persistence.PersistenceContext;
  *
  * @author t_sedgman
  */
-@Stateless
-public class NodesFacade extends AbstractFacade<Nodes> {
+@Stateless 
+public class NodesFacade extends AbstractFacade<Nodes> 
+{
+        
     @PersistenceContext(unitName = "MetMonitoring")
     private EntityManager em;
 
@@ -26,5 +31,10 @@ public class NodesFacade extends AbstractFacade<Nodes> {
     public NodesFacade() {
         super(Nodes.class);
     }
-    
+    public List nodesList(Projects project)
+    {
+        List<Nodes> nodeList= em.createNamedQuery("findNodesByProject", Nodes.class).setParameter("project",project).getResultList();
+        
+        return nodeList;
+    }
 }

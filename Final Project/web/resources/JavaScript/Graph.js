@@ -1,16 +1,18 @@
 
 var graph;
-var xPadding = 30;
-var yPadding = 30;
+var xPadding = 1;
+var yPadding = 1;
 
 var data = 
-{ values:[
-    { X: "Jan", Y: 12 },
-    { X: "Feb", Y: 28 },
-    { X: "Mar", Y: 50 },
-    { X: "Apr", Y: 34 },
-    { X: "May", Y: 40 },
-]};
+{ values:
+    [
+        { X: "Jan", Y: 12 },
+        { X: "Feb", Y: 28 },
+        { X: "Mar", Y: 5 },
+        { X: "Apr", Y: 34 },
+        { X: "May", Y: 40 },
+    ]
+};
 
 // Returns the max Y value from data
 function getMaxY() 
@@ -45,7 +47,7 @@ $(document).ready(function()
     graph = $('#graph');
     var c = graph[0].getContext('2d');            
 
-    c.lineWidth = 2;
+    c.lineWidth = 1;
     c.strokeStyle = '#333';
     c.font = 'italic 8pt sans-serif';
     c.textAlign = "center";
@@ -72,7 +74,7 @@ $(document).ready(function()
         c.fillText(i, xPadding - 10, getYPixel(i));
     }
 
-    c.strokeStyle = '#f00';
+    c.strokeStyle = '#f10';
 
     // Draw the line graph
     c.beginPath();

@@ -101,17 +101,7 @@
                 docUpdate.click();
                 
             }
-            function newChart()
-            {
-                var chartObject = document.getElementById("graph");
-                totalData = null;
-                chartObject.clear(); // need to replace with ajax call
-                dataCount = 0;
-                dataArray = null;
-                y1Type = null;
-                y2Type = null;
-                axisAssignment = new Array();
-            }
+            
             
             //]]>
         </script>
@@ -135,7 +125,7 @@
                 <br/><br/>
                 <h:button outcome="/Page/Summary/Summary" value="#{bundle.EditSettings}"/>
                 <br/><br/>
-                <h:commandButton id="clearGraph" value="#{bundle.ClearChart}" onclick="newChart"/>
+                <h:commandButton id="clearGraph" value="#{bundle.ClearChart}" onclick='newChart()'/>
 
                 <h:form class="hidden" id="ajaxForm">
                     <h:inputText id="node" class="ajax" value="#{bean.node}" ></h:inputText>
@@ -152,7 +142,7 @@
             
           <div id="dashboard">
               <!--<div id="vert1">-->
-                <div id ="graph" >
+                <div id="graph" >
                     <h:outputText id="instruction" value="Please select a marker, and pick a variable to view the data"/>
                     <h:panelGroup id="messagePanel" layout="block">
                 <h:messages errorStyle="color: red" infoStyle="color: green" layout="table" warnStyle="visibility:hidden"/>

@@ -4,6 +4,19 @@ google.load('visualization', '1.0', {'packages':['controls']});
 
 google.setOnLoadCallback(drawChart());
     
+    function newChart()
+            {
+                var chartObject = document.getElementById("dashboard");
+                totalData = null;
+                dataCount = 0;
+                dataArray = null;
+                y1Type = null;
+                y2Type = null;
+                axisAssignment = new Array();
+                chartObject.clearChart();
+               
+            }
+    
 function drawChart() 
 {
         
@@ -38,12 +51,13 @@ function drawChart()
         var options = 
         {
             
-            hAxis: {title: xTitle},
+            hAxis: {title: xTitle, },
                   
              series: calculateSeries(),
              vAxes: {0: {title: y1Type },
                     1: {title: y2Type}
                     },  
+                            
             pointSize: 0.5,
             lineWidth: 0,
             legend: {position: 'top', textStyle: {fontSize: 10}}
@@ -156,21 +170,18 @@ function drawChart()
         dataIn.shift();
         var axis = dataSelect(dataType);
         
-        
         var data = new google.visualization.DataTable();
-
 
         if(dataIn.length !== 0)
         {
             axisAssignment.push(axis);
-            data.addColumn('date', 'Date');
+            data.addColumn('datetime', 'Date');
             data.addColumn('number', "Node: "+NodeNameArray[currentNode]+": "+titles[currentVariable]);
             var num = (dataIn.length);
             data.addRows(num/2);
             var i = 0;
             var j = 0;
             while (i<num)
-
             {
                 var d = (dataIn[i]);
                 if (i%2===0)
@@ -192,10 +203,8 @@ function drawChart()
             data = null;
         }
         return data;
-        
-        
-        
     }
+    
     function dataSelect(type)
     {
         var axisNumber;

@@ -132,4 +132,19 @@
         <managed-bean-class>TestInput.DataReturn</managed-bean-class>
         <managed-bean-scope>request</managed-bean-scope>
     </managed-bean>
+    <managed-bean>
+        <managed-bean-name>project</managed-bean-name>
+        <managed-bean-class>PersistedVariables.PProject</managed-bean-class>
+    
+        <managed-bean-scope>request</managed-bean-scope></managed-bean>
+    <managed-bean>
+        <managed-bean-name>projects</managed-bean-name>
+        <managed-bean-class>PersistedVariables.PProjects</managed-bean-class>
+    
+        <managed-bean-scope>request</managed-bean-scope></managed-bean>
+    <managed-bean>
+        <managed-bean-name>coordinates</managed-bean-name>
+        <managed-bean-class>PersistedVariables.PCoordinates</managed-bean-class>
+    
+        <managed-bean-scope>request</managed-bean-scope></managed-bean>
 </faces-config>
