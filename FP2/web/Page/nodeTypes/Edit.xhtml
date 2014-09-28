@@ -5,42 +5,43 @@
       xmlns:h="http://xmlns.jcp.org/jsf/html"
       xmlns:f="http://xmlns.jcp.org/jsf/core">
 
-    <ui:composition template="/template.xhtml">
-        <ui:define name="title">
-            <h:outputText value="#{bundle.EditNodeTypesTitle}"></h:outputText>
-        </ui:define>
-        <ui:define name="body">
+    <h:head>
+    <h:outputStylesheet name="css/jsfcrud.css"/>
+        <title><ui:insert name="title">Project Mímir</ui:insert></title>
+</h:head>
+    <h:body>
+    <div id="head">
+            <h:outputText id="loginHead" class="title" value="#{bundle.HeadTitle}"/>
+             <h:form id="form" enctype="multipart/form-data">
+                 <h:outputText value="#{bundle.selectfile}"/>
+                 <h:inputFile id="newFile" value="#{bean.fileUpload}" />
+                    <h:commandButton value="Upload" action="#{bean.upload}"/>
+            </h:form>
+        </div>     
+        <div id="main">
+            <div id="side">
+                <h:graphicImage class="logo" name="Logo.png" library="Graphics" style="width: 100%"/>
+                <br/><br/>
+                <h:button outcome="/login" value="#{bundle.Logout}"/>
+                <br/><br/>
+                <h:commandButton id="Mhelp" value="Help" onclick="window.open('help.html', 'asdas', 'toolbars=0,width=400,height=320,left=200,top=200,scrollbars=1,resizable=1');"/>
+                <br/><br/>
+                <h:button outcome="/map.xhtml" value="#{bundle.Map}"/>
+            </div>
             <h:panelGroup id="messagePanel" layout="block">
-                <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
+                <h:messages errorStyle="color: red" infoStyle="color: green" layout="table" warnStyle="visibility:hidden; font-size:0px"/>
             </h:panelGroup>
             <h:form>
                 <h:panelGrid columns="2">
-                    <h:outputLabel value="#{bundle.EditNodeTypesLabel_nodeTypeId}" for="nodeTypeId" />
-                    <h:inputText id="nodeTypeId" value="#{nodeTypesController.selected.nodeTypeId}" title="#{bundle.EditNodeTypesTitle_nodeTypeId}" />
-                    <h:outputLabel value="#{bundle.EditNodeTypesLabel_project}" for="project" />
-                    <h:selectOneMenu id="project" value="#{nodeTypesController.selected.project}" title="#{bundle.EditNodeTypesTitle_project}" >
-                        <f:selectItems value="#{projectsController.itemsAvailableSelectOne}"/>
-                    </h:selectOneMenu>
                     <h:outputLabel value="#{bundle.EditNodeTypesLabel_nTName}" for="nTName" />
                     <h:inputText id="nTName" value="#{nodeTypesController.selected.nTName}" title="#{bundle.EditNodeTypesTitle_nTName}" />
-                    <h:outputLabel value="#{bundle.EditNodeTypesLabel_nTCreationDate}" for="nTCreationDate" />
-                    <h:inputText id="nTCreationDate" value="#{nodeTypesController.selected.nTCreationDate}" title="#{bundle.EditNodeTypesTitle_nTCreationDate}" >
-                        <f:convertDateTime pattern="MM/dd/yyyy" />
-                    </h:inputText>
-                    <h:outputLabel value="#{bundle.EditNodeTypesLabel_id}" for="id" />
-                    <h:inputText id="id" value="#{nodeTypesController.selected.id}" title="#{bundle.EditNodeTypesTitle_id}" />
                 </h:panelGrid>
                 <h:commandLink action="#{nodeTypesController.update}" value="#{bundle.EditNodeTypesSaveLink}"/>
                 <br />
                 <br />
-                <h:link outcome="View" value="#{bundle.EditNodeTypesViewLink}"/>
-                <br />
-                <h:commandLink action="#{nodeTypesController.prepareList}" value="#{bundle.EditNodeTypesShowAllLink}" immediate="true"/>
-                <br />
-                <br />
-                <h:link outcome="/index" value="#{bundle.EditNodeTypesIndexLink}" />
+                <h:link outcome="/Page/Summary/Summary.xhtml" value="#{bundle.CreateProjectsIndexLink}"/>
             </h:form>
-        </ui:define>
-    </ui:composition>
+        </div>
+        </h:body>
 
 </html>

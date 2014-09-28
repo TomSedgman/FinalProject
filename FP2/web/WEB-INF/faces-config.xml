@@ -33,6 +33,10 @@
                 <to-view-id>/Page/dataDefinitions/List.xhtml</to-view-id>
             </navigation-case>
             
+            <navigation-case>
+                <from-outcome>UserEdit</from-outcome>
+                <to-view-id>/Page/users/Edit.xhtml</to-view-id>
+            </navigation-case>
             
             <navigation-case>
                 <from-outcome>NodeTypesCreate</from-outcome>
@@ -80,6 +84,10 @@
             <navigation-case>
                 <from-outcome>ProjectEdit</from-outcome>
                 <to-view-id>/Page/projects/Edit.xhtml</to-view-id>
+            </navigation-case>
+            <navigation-case>
+                <from-outcome>ProjectCreate</from-outcome>
+                <to-view-id>/Page/projects/Create.xhtml</to-view-id>
             </navigation-case>
     </navigation-rule>
     

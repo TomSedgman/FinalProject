@@ -1,0 +1,113 @@
+<!--
+To change this template, choose Tools | Templates
+and open the template in the editor.
+-->
+<!DOCTYPE html>
+<html>
+
+    <head>
+        <title>Project Mímir</title>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <link rel="stylesheet" type="text/css" href="css/jsfcrud.css"/>
+    </head>
+    <body>
+
+        <div id="helpTitle" class="helpFile">
+            <h1>Project Mímir</h1>
+            <br/>
+                Welcome to Project Mímir, the open-source geospatial data visualization service. Click on one of the links below for more information about how to use the program.
+            <br/>
+            <br/>
+            <h2>Table Of Contents</h2>
+            <br/>
+            <a href="#Login">Logging In </a><br/>
+            <a href="#NewAccount">Creating a new account</a><br/>
+            <a href="#Visualising">Visualising your data</a><br/>
+            <a href="#Settings">Setting up your data</a><br/>
+            <a href="#Guide">File upload guidelines</a><br/>
+            <a href="#Glossary">Glossary</a><br/>
+        </div>
+
+        <br/>
+        <br/>
+
+        <div id="helpLogin" class="helpFile">
+            <a name="Login">
+                <h2>Logging in</h2>
+            </a>
+            <br/> 
+            If you have an account, please enter your username and press the ‘Login’ button. Then select from the drop-down menu the project you wish to view and click the ‘View Project’ button.<br/>
+            Please note: if you are a new user then your project will have the name ‘PlaceHolder’.<br/>
+            If you do not have a user account then please click on the ‘Register a new account’ button.
+        </div>
+
+        <br/>
+        <br/>
+
+        <div id="helpAccount" class="helpFile">
+            <a name="NewAccount">
+                <h2>Creating a new account</h2>
+            </a>
+            <br/>
+            Please choose a Username. Enter your email address, forename and surname.<br/>
+            Press ‘Index’ to cancel and go back to the Login page, or press ‘Save’ to create a new account.<br/>
+            Creating a new account will create a blank project.
+        </div>
+
+        <br/>
+        <br/>
+
+        <div id="helpVis" class="helpFile">
+            <a name="Visualising">
+                <h2>Visualising your data</h2>
+            </a>
+            <br/>
+                On first creating a new project, the map will show a blue screen with no markers and the chart object will be blank.<br/>
+                To <a href="#Settings">set up your new project</a> go to the ‘Settings’ button on the sidebar. If you wish to log out and view a different project click ‘Logout’.<br/>
+                If you wish to upload a new file click on the ‘Browse’ button (at the top-right of the screen. Actual wording of the button may vary based on your browser). A pop-up window will appear. Please select the file you wish to upload from your computer. NOTE: Please see <a href="#Guide">file upload guidelines</a> for formatting restrictions.<br/>
+                If you wish to view data then please click on a <a href="#Glossary">marker</a> on the map. Select a <a href="#Glossary">variable</a> from the drop-down menu. A chart will load displaying the selected data. If you wish to view another variable, please click on the same/a different
+                marker on the map and select another variable.<br/>
+                If you try to load more than two different types of variable a warning message will appear inviting you to either clear the chart via the ‘Clear Chart’ button, or to select variables of the same type as those already chosen.<br/>
+                To zoom in on a specific range of data on the chart, two sliders are provided at the bottom of the screen for restricting the date range. Clicking and dragging either of these will refine the range of data points shown on the chart. To reset the chart click on ‘Clear Chart’.
+        </div>
+
+        <br/>
+        <br/>
+
+        <div id="helpSettings" class="helpFile">
+            <a name="Settings">
+                <h2>Setting up your data</h2>
+            </a> 
+            <br/>
+                TEXT HERE
+        </div>
+
+          <br/>
+          <br/>
+
+        <div id="helpGuide" class="helpFile">
+            <a name="Guide">
+                <h2>File upload guidelines</h2>
+            </a>
+            <br/>
+                There are a number of restrictions that apply when uploading data:
+            <br/>
+            <ul>
+                <li>Files must be in .CSV format.</li>
+                <li>The timestamp of the data must be the first column in the text.</li>
+                <li>There must be a field in the data which identifies the source of that record: i.e. If you have three nodes, 1, 2 and 3, then one column in the data must be labeled 1, 2 or 3. Without this your data will not be visible on the graph.</li>
+            </ul>
+        </div>
+
+        <br/>
+        <br/>
+
+        <div id="helpGlossary" class="helpFile"> 
+            <a name="Glossary">
+                <h2>Glossary</h2>
+            </a>
+           <br/>
+           
+        </div>
+    </body>
+</html>

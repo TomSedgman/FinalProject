@@ -5,18 +5,34 @@
       xmlns:h="http://xmlns.jcp.org/jsf/html"
       xmlns:f="http://xmlns.jcp.org/jsf/core">
 
-    <ui:composition template="/template.xhtml">
-        <ui:define name="title">
-            <h:outputText value="#{bundle.EditNodesTitle}"></h:outputText>
-        </ui:define>
-        <ui:define name="body">
+    <h:head>
+    <h:outputStylesheet name="css/jsfcrud.css"/>
+        <title><ui:insert name="title">Project Mímir</ui:insert></title>
+</h:head>
+    <h:body>
+    <div id="head">
+            <h:outputText id="loginHead" class="title" value="#{bundle.HeadTitle}"/>
+             <h:form id="form" enctype="multipart/form-data">
+                 <h:outputText value="#{bundle.selectfile}"/>
+                 <h:inputFile id="newFile" value="#{bean.fileUpload}" />
+                    <h:commandButton value="Upload" action="#{bean.upload}"/>
+            </h:form>
+        </div>     
+        <div id="main">
+            <div id="side">
+                <h:graphicImage class="logo" name="Logo.png" library="Graphics" style="width: 100%"/>
+                <br/><br/>
+                <h:button outcome="/login" value="#{bundle.Logout}"/>
+                <br/><br/>
+                <h:commandButton id="Mhelp" value="Help" onclick="window.open('help.html', 'asdas', 'toolbars=0,width=400,height=320,left=200,top=200,scrollbars=1,resizable=1');"/>
+                <br/><br/>
+                <h:button outcome="/map.xhtml" value="#{bundle.Map}"/>
+            </div>
             <h:panelGroup id="messagePanel" layout="block">
-                <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
+                <h:messages errorStyle="color: red" infoStyle="color: green" layout="table" warnStyle="visibility:hidden; font-size:0px"/>
             </h:panelGroup>
             <h:form>
                 <h:panelGrid columns="2">
-                    <h:outputLabel value="#{bundle.EditNodesLabel_nodeId}" for="nodeId" />
-                    <h:inputText id="nodeId" value="#{nodesController.selected.nodeId}" title="#{bundle.EditNodesTitle_nodeId}" />
                     <h:outputLabel value="#{bundle.EditNodesLabel_nodeType}" for="nodeType" />
                     <h:selectOneMenu id="nodeType" value="#{nodesController.selected.nodeType}" title="#{bundle.EditNodesTitle_nodeType}" >
                         <f:selectItems value="#{nodeTypesController.itemsAvailableSelectOne}"/>
@@ -29,20 +45,13 @@
                     <h:inputText id="gPSLong" value="#{nodesController.selected.gPSLong}" title="#{bundle.EditNodesTitle_gPSLong}" />
                     <h:outputLabel value="#{bundle.CreateNodesLabel_isStatic}" for="isStatic" />
                     <h:inputText id="isStatic" value="#{nodesController.selected.isStatic}" title="#{bundle.CreateNodesTitle_isStatic}" />
-                    <h:outputLabel value="#{bundle.EditNodesLabel_id}" for="id" />
-                    <h:inputText id="id" value="#{nodesController.selected.id}" title="#{bundle.EditNodesTitle_id}" />
                 </h:panelGrid>
                 <h:commandLink action="#{nodesController.update}" value="#{bundle.EditNodesSaveLink}"/>
                 <br />
                 <br />
-                <h:link outcome="View" value="#{bundle.EditNodesViewLink}"/>
-                <br />
-                <h:commandLink action="#{nodesController.prepareList}" value="#{bundle.EditNodesShowAllLink}" immediate="true"/>
-                <br />
-                <br />
-                <h:link outcome="/index" value="#{bundle.EditNodesIndexLink}" />
+                <h:link outcome="/Page/Summary/Summary.xhtml" value="#{bundle.CreateProjectsIndexLink}"/>
             </h:form>
-        </ui:define>
-    </ui:composition>
+        </div>
+        </h:body>
 
 </html>

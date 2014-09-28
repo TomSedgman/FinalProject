@@ -3,19 +3,19 @@ root {
 }
 
 body {
-    font-family: sans-serif, Arial, Helvetica;
+    font-family:"Book Antiqua", Palatino, serif;
     font-size: small;
     background-color: #CCC9C6; 
     color: #854840;
     height: 100%; 
     width: 100%;
-    margin: 0px
+    margin: 0px;
 }
 #messagePanel {float: top} 
-html { height: 100%; width: 100%; }
-#head {height: 5%; width: 100%;}
+html { height: 100%; width: 100%; padding: 0px}
+#head {height: 5%; width: 100%;background-color: #999796;}
 #main {height: 95%; width: 100%; float: left}
-#side {height: 50%; width: 10%; float: left; background-color: #999796}
+#side {height: 100%; width: 10%; float: left; background-color: #999796; }
 #map {height: 50%; width: 90%; float: right;}
 /*#control {height: 50%; width: 30%; float: right; }*/
 #dashboard {height: 50%; width: 100%; float: right; background-color: white}
@@ -29,6 +29,11 @@ html { height: 100%; width: 100%; }
 #form {float:right}
 #instruction {font-size: 30px; margin: auto}
 #projectSelect {visibility: hidden;}
+.helpFile {padding: 10px; color: #854840}
+.title {font-size: x-large; font-weight: bolder}
+
+
+h2{color: #854840}
 
 a {
     color: #333230;
