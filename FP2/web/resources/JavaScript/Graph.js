@@ -189,7 +189,6 @@ function drawChart()
                 {
                     
                     var date = new Date(d);
-                    //date = d;
                     data.setCell(j,0,date);
                     i++;
                 }

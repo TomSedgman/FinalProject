@@ -27,13 +27,25 @@
             <h:form>
                 <h:panelGrid columns="2">
                     <h:outputLabel value="#{bundle.CreateUsersLabel_username}" for="username" />
-                    <h:inputText id="username" value="#{usersController.selected.username}" title="#{bundle.CreateUsersTitle_username}" />
+                    <h:inputText id="username" value="#{usersController.selected.username}" title="#{bundle.CreateUsersTitle_username}" >
+                        <f:validateRequired/>
+                    </h:inputText>
+                    
                     <h:outputLabel value="#{bundle.CreateUsersLabel_email}" for="email" />
-                    <h:inputText id="email" value="#{usersController.selected.email}" title="#{bundle.CreateUsersTitle_email}" />
+                    <h:inputText id="email" value="#{usersController.selected.email}" title="#{bundle.CreateUsersTitle_email}" >
+                        <f:validateRegex pattern="[\w\.-]*[a-zA-Z0-9_]@[\w\.-]*[a-zA-Z0-9]\.[a-zA-Z][a-zA-Z\.]*[a-zA-Z]" />
+
+                    </h:inputText>
+                    
                     <h:outputLabel value="#{bundle.CreateUsersLabel_forename}" for="forename" />
-                    <h:inputText id="forename" value="#{usersController.selected.forename}" title="#{bundle.CreateUsersTitle_forename}" />
+                    <h:inputText id="forename" value="#{usersController.selected.forename}" title="#{bundle.CreateUsersTitle_forename}" >
+                        <f:validateRequired/>
+                    </h:inputText>
+                    
                     <h:outputLabel value="#{bundle.CreateUsersLabel_surname}" for="surname" />
-                    <h:inputText id="surname" value="#{usersController.selected.surname}" title="#{bundle.CreateUsersTitle_surname}" />
+                    <h:inputText id="surname" value="#{usersController.selected.surname}" title="#{bundle.CreateUsersTitle_surname}" >
+                        <f:validateRequired/>
+                    </h:inputText>
                 </h:panelGrid>
                 <br />
                 <h:commandLink action="#{usersController.create}" value="#{bundle.CreateUsersSaveLink}" />

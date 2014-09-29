@@ -36,23 +36,38 @@
                     <h:outputLabel value="#{bundle.CreateDataDefinitionsLabel_nodeType}" for="nodeType" />
                     <h:selectOneMenu id="nodeType" value="#{dataDefinitionsController.selected.nodeType}" title="#{bundle.CreateDataDefinitionsTitle_nodeType}" >
                         <f:selectItems value="#{nodeTypesController.itemsAvailableSelectOne}"/>
+                        <f:validateRequired/>
                     </h:selectOneMenu>
+                    
                     <h:outputLabel value="#{bundle.CreateDataDefinitionsLabel_dDName}" for="dDName" />
-                    <h:inputText id="dDName" value="#{dataDefinitionsController.selected.dDName}" title="#{bundle.CreateDataDefinitionsTitle_dDName}" />
+                    <h:inputText id="dDName" value="#{dataDefinitionsController.selected.dDName}" title="#{bundle.CreateDataDefinitionsTitle_dDName}" >
+                    <f:validateRequired/>
+                    </h:inputText>
+                    
                     <h:outputLabel value="#{bundle.CreateDataDefinitionsLabel_dDUnit}" for="dDUnit" />
-                    <h:inputText id="dDUnit" value="#{dataDefinitionsController.selected.dDUnit}" title="#{bundle.CreateDataDefinitionsTitle_dDUnit}" />
+                    <h:inputText id="dDUnit" value="#{dataDefinitionsController.selected.dDUnit}" title="#{bundle.CreateDataDefinitionsTitle_dDUnit}" >
+                        <!--<f:validateRegex pattern="(^[0-9]+$)?"/>-->
+                    </h:inputText>
                     <h:outputLabel value="#{bundle.CreateDataDefinitionsLabel_dDMaxValue}" for="dDMaxValue" />
-                    <h:inputText id="dDMaxValue" value="#{dataDefinitionsController.selected.dDMaxValue}" title="#{bundle.CreateDataDefinitionsTitle_dDMaxValue}" />
+                    <h:inputText id="dDMaxValue" value="#{dataDefinitionsController.selected.dDMaxValue}" title="#{bundle.CreateDataDefinitionsTitle_dDMaxValue}" >
+                        <!--<f:validateRegex pattern="(^[0-9]+$)?"/>-->
+                    </h:inputText>
                     <h:outputLabel value="#{bundle.CreateDataDefinitionsLabel_dDMinValue}" for="dDMinValue" />
-                    <h:inputText id="dDMinValue" value="#{dataDefinitionsController.selected.dDMinValue}" title="#{bundle.CreateDataDefinitionsTitle_dDMinValue}" />
+                    <h:inputText id="dDMinValue" value="#{dataDefinitionsController.selected.dDMinValue}" title="#{bundle.CreateDataDefinitionsTitle_dDMinValue}" >
+                        <!--<f:validateRegex pattern="(^[0-9]+$)?"/>-->
+                    </h:inputText>
                     <h:outputLabel value="#{bundle.CreateDataDefinitionsLabel_dDNotes}" for="dDNotes" />
                     <h:inputText id="dDNotes" value="#{dataDefinitionsController.selected.dDNotes}" title="#{bundle.CreateDataDefinitionsTitle_dDNotes}" />
                     <h:outputLabel value="#{bundle.CreateDataDefinitionsLabel_dDType}" for="dDType" />
                      <h:selectOneMenu id="dDType" value="#{dataDefinitionsController.selected.dDType}" title="#{bundle.CreateDataDefinitionsTitle_dDType}" >
                          <f:selectItems value="#{acceptableDataTypesController.itemsAvailableSelectOne}"/>
-                    </h:selectOneMenu>
+                         <f:validateRequired/>
+                     </h:selectOneMenu>
                     <h:outputLabel value="#{bundle.CreateDataDefinitionsLabel_variablePositionId}" for="variablePositionId" />
-                    <h:inputText id="variablePositionId" value="#{dataDefinitionsController.selected.variablePositionId}" title="#{bundle.CreateDataDefinitionsTitle_variablePositionId}" />
+                    <h:inputText id="variablePositionId" value="#{dataDefinitionsController.selected.variablePositionId}" title="#{bundle.CreateDataDefinitionsTitle_variablePositionId}" >
+                        <!--<f:validateRegex pattern="(^[0-9]+$)?"/>-->
+                        <f:validateRequired/>
+                    </h:inputText>
                 </h:panelGrid>
                     <br />
                 <h:commandLink action="#{dataDefinitionsController.create}" value="#{bundle.CreateDataDefinitionsSaveLink}" />

@@ -36,23 +36,44 @@
                     <h:outputLabel value="#{bundle.EditDataDefinitionsLabel_nodeType}" for="nodeType" />
                     <h:selectOneMenu id="nodeType" value="#{dataDefinitionsController.selected.nodeType}" title="#{bundle.EditDataDefinitionsTitle_nodeType}" >
                         <f:selectItems value="#{nodeTypesController.itemsAvailableSelectOne}"/>
+                        <f:validateRequired/>
                     </h:selectOneMenu>
+                    
                     <h:outputLabel value="#{bundle.EditDataDefinitionsLabel_dDName}" for="dDName" />
-                    <h:inputText id="dDName" value="#{dataDefinitionsController.selected.dDName}" title="#{bundle.EditDataDefinitionsTitle_dDName}" />
+                    <h:inputText id="dDName" value="#{dataDefinitionsController.selected.dDName}" title="#{bundle.EditDataDefinitionsTitle_dDName}" >
+                        <f:validateRequired/>
+                    </h:inputText>
+                    
                     <h:outputLabel value="#{bundle.EditDataDefinitionsLabel_dDUnit}" for="dDUnit" />
-                    <h:inputText id="dDUnit" value="#{dataDefinitionsController.selected.dDUnit}" title="#{bundle.EditDataDefinitionsTitle_dDUnit}" />
+                    <h:inputText id="dDUnit" value="#{dataDefinitionsController.selected.dDUnit}" title="#{bundle.EditDataDefinitionsTitle_dDUnit}" >
+                        <!--<f:validateRegex pattern="(^[0-9]+$)?"/>-->
+                    </h:inputText>
+                                       
                     <h:outputLabel value="#{bundle.EditDataDefinitionsLabel_dDMaxValue}" for="dDMaxValue" />
-                    <h:inputText id="dDMaxValue" value="#{dataDefinitionsController.selected.dDMaxValue}" title="#{bundle.EditDataDefinitionsTitle_dDMaxValue}" />
+                    <h:inputText id="dDMaxValue" value="#{dataDefinitionsController.selected.dDMaxValue}" title="#{bundle.EditDataDefinitionsTitle_dDMaxValue}" >
+                        <!--<f:validateRegex pattern="(^[0-9]+$)?"/>-->
+                    </h:inputText>
+                    
                     <h:outputLabel value="#{bundle.EditDataDefinitionsLabel_dDMinValue}" for="dDMinValue" />
-                    <h:inputText id="dDMinValue" value="#{dataDefinitionsController.selected.dDMinValue}" title="#{bundle.EditDataDefinitionsTitle_dDMinValue}" />
+                    <h:inputText id="dDMinValue" value="#{dataDefinitionsController.selected.dDMinValue}" title="#{bundle.EditDataDefinitionsTitle_dDMinValue}" >
+                        <!--<f:validateRegex pattern="(^[0-9]+$)?"/>-->
+                    </h:inputText>
+                    
                     <h:outputLabel value="#{bundle.EditDataDefinitionsLabel_dDNotes}" for="dDNotes" />
                     <h:inputText id="dDNotes" value="#{dataDefinitionsController.selected.dDNotes}" title="#{bundle.EditDataDefinitionsTitle_dDNotes}" />
+                    
                     <h:outputLabel value="#{bundle.EditDataDefinitionsLabel_dDType}" for="dDType" />
                     <h:selectOneMenu id="dDType" value="#{dataDefinitionsController.selected.dDType}" title="#{bundle.CreateDataDefinitionsTitle_dDType}" >
-                         <f:selectItems value="#{acceptableDataTypesController.itemsAvailableSelectOne}"/>
+                        <f:selectItems value="#{acceptableDataTypesController.itemsAvailableSelectOne}">
+                        </f:selectItems>/>
+                        <f:validateRequired/>
+
                     </h:selectOneMenu>
+                    
                     <h:outputLabel value="#{bundle.EditDataDefinitionsLabel_variablePositionId}" for="variablePositionId" />
-                    <h:inputText id="variablePositionId" value="#{dataDefinitionsController.selected.variablePositionId}" title="#{bundle.EditDataDefinitionsTitle_variablePositionId}" />
+                    <h:inputText id="variablePositionId" value="#{dataDefinitionsController.selected.variablePositionId}" title="#{bundle.EditDataDefinitionsTitle_variablePositionId}" >
+                        <f:validateRegex pattern="(^[0-9]+$)?"/>
+                    </h:inputText>
                 </h:panelGrid>
                 <h:commandLink action="#{dataDefinitionsController.update}" value="#{bundle.EditDataDefinitionsSaveLink}"/>
                 <br />

@@ -33,11 +33,19 @@
             <h:form>
                 <h:panelGrid columns="2">
                     <h:outputLabel value="#{bundle.EditProjectsLabel_projectName}" for="projectName" />
-                    <h:inputText id="projectName" value="#{projectsController.selected.projectName}" title="#{bundle.EditProjectsTitle_projectName}" />
+                    <h:inputText id="projectName" value="#{projectsController.selected.projectName}" title="#{bundle.EditProjectsTitle_projectName}" >
+                        <f:validateRequired/>
+                    </h:inputText>
+                    
                     <h:outputLabel value="#{bundle.EditProjectsLabel_projectNotes}" for="projectNotes" />
-                    <h:inputText id="projectNotes" value="#{projectsController.selected.projectNotes}" title="#{bundle.EditProjectsTitle_projectNotes}" />
+                    <h:inputText id="projectNotes" value="#{projectsController.selected.projectNotes}" title="#{bundle.EditProjectsTitle_projectNotes}" >
+                        <f:validateRequired/>
+                    </h:inputText>
+                    
                     <h:outputLabel value="#{bundle.EditProjectsLabel_SourceVariable}" for="SourceVariable" />
-                    <h:inputText id="SourceVariable" value="#{projectsController.selected.sourceVariable}" title="#{bundle.EditProjectsTitle_SourceVariable}" />
+                    <h:inputText id="SourceVariable" value="#{projectsController.selected.sourceVariable}" title="#{bundle.EditProjectsTitle_SourceVariable}" >
+                        <!--<f:validateRegex pattern="(^[0-9]+$)?"/>-->
+                    </h:inputText>
                 </h:panelGrid>
                 <h:commandLink action="#{projectsController.update}" value="#{bundle.EditProjectsSaveLink}"/>
                 <br />

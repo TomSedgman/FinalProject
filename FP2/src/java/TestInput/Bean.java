@@ -373,20 +373,23 @@ private String projectName;
                     if (i%2==0)// formats i==even as date.
                     {
                         String string = dataReturn.get(i).toString();
-//                        Date date = new SimpleDateFormat(dateFormat, Locale.ENGLISH).parse(string); 
+                        Date date = new SimpleDateFormat(dateFormat, Locale.ENGLISH).parse(string); 
 
-                        DateFormat originalFormat = new SimpleDateFormat(dateFormat, Locale.ENGLISH);
-                        DateFormat targetFormat = new SimpleDateFormat("yyyy. MM. dd. HH. mm. ss");
-                        Date dateIn = originalFormat.parse(string);
-                        String formattedDate = targetFormat.format(dateIn); 
-                        Date dateOut = targetFormat.parse(formattedDate);
-                        dataReturn.set(i, formattedDate);
+//                        DateFormat originalFormat = new SimpleDateFormat(dateFormat, Locale.ENGLISH);
+//                        DateFormat targetFormat = new SimpleDateFormat("dd/MM/yy-HH:mm:ss");
+//                        Date date = originalFormat.parse(string);
+//                        String formattedDate = targetFormat.format(date);  // 20120821
+                        dataReturn.set(i, date);
                     }
 
                 }
                 dataReturn.add(0, dataType);
             }
+        
         }
+        
+        
+        
 //        ArrayList <DataValues> dataValuesArray = new ArrayList();
 //        Collection dataValues =  dataValuesFacade.findVariable(currentNodes.getCurrentNodes().get(node), 0); // get all records for a node at index 0
 //        dataValuesArray.addAll(dataValues);
@@ -443,8 +446,7 @@ private String projectName;
  */
 public static String determineDateFormat(String dateString) {
     for (String regexp : DATE_FORMAT_REGEXPS.keySet()) {
-        if (dateString.toLowerCase().matches(regexp)) 
-        {
+        if (dateString.toLowerCase().matches(regexp)) {
             return DATE_FORMAT_REGEXPS.get(regexp);
         }
     }

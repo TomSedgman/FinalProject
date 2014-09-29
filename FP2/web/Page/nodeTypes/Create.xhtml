@@ -34,7 +34,9 @@
             <h:form>
                 <h:panelGrid columns="2">
                     <h:outputLabel value="#{bundle.CreateNodeTypesLabel_nTName}" for="nTName" />
-                    <h:inputText id="nTName" value="#{nodeTypesController.selected.nTName}" title="#{bundle.CreateNodeTypesTitle_nTName}" />
+                    <h:inputText id="nTName" value="#{nodeTypesController.selected.nTName}" title="#{bundle.CreateNodeTypesTitle_nTName}" >
+                        <f:validateRequired/>
+                    </h:inputText>
                 </h:panelGrid>
                 <br />
                 <h:commandLink action="#{nodeTypesController.create}" value="#{bundle.CreateNodeTypesSaveLink}" />

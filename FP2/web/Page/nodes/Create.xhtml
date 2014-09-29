@@ -36,15 +36,30 @@
                     <h:outputLabel value="#{bundle.CreateNodesLabel_nodeType}" for="nodeType" />
                     <h:selectOneMenu id="nodeType" value="#{nodesController.selected.nodeType}" title="#{bundle.CreateNodesTitle_nodeType}" >
                         <f:selectItems value="#{nodeTypesController.itemsAvailableSelectOne}"/>
+                        <f:validateRequired/>
                     </h:selectOneMenu>
+                    
                     <h:outputLabel value="#{bundle.CreateNodesLabel_nTIdentifier}" for="nTIdentifier" />
-                    <h:inputText id="nTIdentifier" value="#{nodesController.selected.nTIdentifier}" title="#{bundle.CreateNodesTitle_nTIdentifier}" />
+                    <h:inputText id="nTIdentifier" value="#{nodesController.selected.nTIdentifier}" title="#{bundle.CreateNodesTitle_nTIdentifier}" >
+<!--                        <f:validateRegex pattern="(^[0-9]+$)?"/>
+                        <f:validateLength minimum="1"/>-->
+                    </h:inputText>
+                    
                     <h:outputLabel value="#{bundle.CreateNodesLabel_gPSLat}" for="gPSLat" />
-                    <h:inputText id="gPSLat" value="#{nodesController.selected.gPSLat}" title="#{bundle.CreateNodesTitle_gPSLat}" />
+                    <h:inputText id="gPSLat" value="#{nodesController.selected.gPSLat}" title="#{bundle.CreateNodesTitle_gPSLat}" >
+                        <!--<f:validateRegex pattern="(^[0-9]+$)?"/>-->
+                    </h:inputText>
+                    
                     <h:outputLabel value="#{bundle.CreateNodesLabel_gPSLong}" for="gPSLong" />
-                    <h:inputText id="gPSLong" value="#{nodesController.selected.gPSLong}" title="#{bundle.CreateNodesTitle_gPSLong}" />
+                    <h:inputText id="gPSLong" value="#{nodesController.selected.gPSLong}" title="#{bundle.CreateNodesTitle_gPSLong}" >
+                        <!--<f:validateRegex pattern="(^[0-9]+$)?"/>-->
+                    </h:inputText>
+                    
                     <h:outputLabel value="#{bundle.CreateNodesLabel_isStatic}" for="isStatic" />
-                    <h:inputText id="isStatic" value="#{nodesController.selected.isStatic}" title="#{bundle.CreateNodesTitle_isStatic}" />
+                    <h:inputText id="isStatic" value="#{nodesController.selected.isStatic}" title="#{bundle.CreateNodesTitle_isStatic}" >
+                        <f:validateRequired/>
+                    </h:inputText>
+                
                 </h:panelGrid>
                 <br />
                 <h:commandLink action="#{nodesController.create}" value="#{bundle.CreateNodesSaveLink}" />

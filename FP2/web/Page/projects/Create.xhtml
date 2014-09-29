@@ -34,12 +34,21 @@
             <h:form>
                     <h:panelGrid columns="2">
                     <h:outputLabel value="#{bundle.CreateProjectsLabel_projectName}" for="projectName" />
-                    <h:inputText id="projectName" value="#{projectsController.selected.projectName}" title="#{bundle.CreateProjectsTitle_projectName}" />
+                    <h:inputText id="projectName" value="#{projectsController.selected.projectName}" title="#{bundle.CreateProjectsTitle_projectName}" >
+                        <f:validateRequired/>
+                    </h:inputText>
+                    
                     <h:outputLabel value="#{bundle.CreateProjectsLabel_projectNotes}" for="projectNotes" />
-                    <h:inputText id="projectNotes" value="#{projectsController.selected.projectNotes}" title="#{bundle.CreateProjectsTitle_projectNotes}" />
+                    <h:inputText id="projectNotes" value="#{projectsController.selected.projectNotes}" title="#{bundle.CreateProjectsTitle_projectNotes}" >
+                        <f:validateRequired/>
+                    </h:inputText>
+                    
                     <h:outputLabel value="#{bundle.CreateProjectsLabel_SourceVariable}" for="SourceVariable" />
-                    <h:inputText id="SourceVariable" value="#{projectsController.selected.sourceVariable}" title="#{bundle.CreateProjectsTitle_SourceVariable}" />
-                </h:panelGrid>
+                    <h:inputText id="SourceVariable" value="#{projectsController.selected.sourceVariable}" title="#{bundle.CreateProjectsTitle_SourceVariable}" >
+                        <!--<f:validateRegex pattern="(^[0-9]+$)?"/>-->
+                    </h:inputText>
+
+                    </h:panelGrid>
                 <br />
                 <h:commandLink action="#{projectsController.create}" value="#{bundle.CreateProjectsSaveLink}" />
                 <br />
