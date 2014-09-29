@@ -9,10 +9,10 @@ function initialize()
     var root = document.getElementById('selects');
     var df = document.createDocumentFragment(); 
     map = new google.maps.Map(document.getElementById("map"), mapOptions);
-    for (var i=0; i<variableArray.length; i++) 
+    for (var i=0; i<variableArray.length; i++) // loop to generate markers, infoWindow and the dropdown menu
     {
         var id = ("select"+i);
-        var select = document.createElement('select');
+        var select = document.createElement('select'); // hiden div containing the real versions fo the dropdown menus
         select.value = i;
         select.id = id;
         select.appendChild(document.createTextNode(id));
@@ -24,7 +24,7 @@ function initialize()
             title: NodeNameArray[i],
             id: NodeNameArray[i],
             position: new google.maps.LatLng(parseFloat(GPSLatArray[i]), parseFloat(GPSLongArray[i])),
-            size: 5
+            size: 3
         });
         var Array = variableArray[i].split(",");
 
@@ -34,26 +34,26 @@ function initialize()
     } 
 }
 var previous_window = false;
-function setDropDownList(mapMarker, mapInfoWindow, names, node,id) 
+function setDropDownList(mapMarker, mapInfoWindow, names, node,id) // builds the contents of the dropfdown menu, including adding the onclick listener
 {
-    // event listener for dropdown list in the map markers' infowindow
+    
     
     var articles = document.getElementById(id);
-    articles.onchange = function() 
+    articles.onchange = function() // event listener for dropdown list in the map markers' infowindow
     {
         titles = names;
         currentNode = node;
         currentVariable = [this.options.selectedIndex];
-        ajaxCall();
+        ajaxCall(); 
     };
     var nextArticle, nextOption;
     for (var i = 0; i < names.length; i++) 
     {
         nextArticle = names[i];
-        nextOption = new Option(nextArticle);
+        nextOption = new Option(nextArticle); // iteratively building up the menu
 
 /* add the new option to the option list
-             ("null" for IE5, "-1" for all other browsers) */
+             ("null" for IE5, "-1" for all other browsers) */ 
         try 
         {
             articles.add(nextOption, -1);

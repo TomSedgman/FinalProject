@@ -4,17 +4,16 @@ google.load('visualization', '1.0', {'packages':['controls']});
 
 google.setOnLoadCallback(drawChart());
     
-    function newChart()
+    function newChart() // clears graph data and resets to begining
             {
-                var chartObject = document.getElementById("dashboard");
                 totalData = null;
                 dataCount = 0;
                 dataArray = null;
                 y1Type = null;
                 y2Type = null;
                 axisAssignment = new Array();
-                chartObject.clearChart();
-               
+                location.reload(true); // worked prevously as chart.clear, but addition of dashboard broke this. now reloads entire page
+              
             }
     
 function drawChart() 
@@ -23,14 +22,15 @@ function drawChart()
         var title = "Node: "+currentNode;
         var xTitle = "Date";
         var yTitle = titles[currentVariable];
-        if (totalData !== null)
+        if (totalData !== null) // has the chart been drawn before?
+       
         {
             var tempData = newData();
-            if (tempData === null)
+            if (tempData === null) // for handling 3rd axis error
             {
 
             }
-            else
+            else // add new data to exisiting data
             {
                 var tempData2 = totalData;
                 dataArray[dataCount] = tempData;
@@ -40,7 +40,7 @@ function drawChart()
             }
             
         }
-        else
+        else // if yes create a new table
         {
             totalData = newData();
             dataArray[dataCount] =  totalData; 
@@ -48,7 +48,7 @@ function drawChart()
         }
         
         
-        var options = 
+        var options =  
         {
             
             hAxis: {title: xTitle, },
@@ -58,14 +58,14 @@ function drawChart()
                     1: {title: y2Type}
                     },  
                             
-            pointSize: 0.5,
-            lineWidth: 0,
+            pointSize: 0.5, // 
+            lineWidth: 0, // both of these replicate the apearance of scatter
             legend: {position: 'top', textStyle: {fontSize: 10}}
             };
-        var dashboard = new google.visualization.Dashboard(document.getElementById('dashboard'));
-        var dateRangeSlider = new google.visualization.ControlWrapper(
+         var dashboard = new google.visualization.Dashboard(document.getElementById('dashboard'));
+         var dateRangeSlider = new google.visualization.ControlWrapper(
         {
-            'controlType': 'ChartRangeFilter',
+            'controlType': 'ChartRangeFilter', 
             'containerId': 'dxControls',
             'options': 
             {
@@ -82,7 +82,7 @@ function drawChart()
                 }
             }
         });
-//        var sliderArray = new Array();
+//        var sliderArray = new Array(); // previous attempt to get vertical sliders working
 //        sliderArray[0]=dateRangeSlider;
 //        var dataCol = totalData.getNumberofColumns();
 //        for (var i = 0;i<dataCol;i++)
@@ -130,10 +130,10 @@ function drawChart()
 
         dashboard.bind(dateRangeSlider, chart);
         dashboard.draw(totalData);
-
+        
         //chart.draw(totalData, options);
         
-        function calculateSeries()
+        function calculateSeries() // return array indicating which y axis data to be plotted against
           {
               var series = [];
 
@@ -164,17 +164,17 @@ function drawChart()
         
     
         
-   function newData()
+   function newData() // get data from database
     {
         var dataType = dataIn[0];
-        dataIn.shift();
+        dataIn.shift(); // remove data type for axisAssignment
         var axis = dataSelect(dataType);
         
         var data = new google.visualization.DataTable();
 
         if(dataIn.length !== 0)
         {
-            axisAssignment.push(axis);
+            axisAssignment.push(axis); 
             data.addColumn('datetime', 'Date');
             data.addColumn('number', "Node: "+NodeNameArray[currentNode]+": "+titles[currentVariable]);
             var num = (dataIn.length);
@@ -184,7 +184,7 @@ function drawChart()
             while (i<num)
             {
                 var d = (dataIn[i]);
-                if (i%2===0)
+                if (i%2===0) // convert 1d array into 2d array for Datatable
                 {
                     d = new Date(d);
                     data.setCell(j,0,d);
@@ -205,7 +205,7 @@ function drawChart()
         return data;
     }
     
-    function dataSelect(type)
+    function dataSelect(type) // calculate if an axis is occupied, and if so, is the incoming dataType matching one of the selected variable, if both axes are full, and the incoming does not match, throw the error.
     {
         var axisNumber;
         if (y1Type === null || y1Type === type)
