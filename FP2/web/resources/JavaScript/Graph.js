@@ -161,7 +161,8 @@ function drawChart()
             }
             return arrayCount;
         }
-        
+       
+    
     
         
    function newData() // get data from database
@@ -186,8 +187,10 @@ function drawChart()
                 var d = (dataIn[i]);
                 if (i%2===0) // convert 1d array into 2d array for Datatable
                 {
-                    d = new Date(d);
-                    data.setCell(j,0,d);
+                    
+                    var date = new Date(d);
+                    //date = d;
+                    data.setCell(j,0,date);
                     i++;
                 }
                 else

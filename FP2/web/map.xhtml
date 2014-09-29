@@ -25,18 +25,21 @@
             //<![CDATA[
 //            var projects = "#/{bean.loadProject()}";
 //            var nodes = "#/{bean.loadNodes()}"; 
-            var GPSLat = "#{bean.GPSLat()}";
-            var GPSLatArray = GPSLat.split(",");
-            var GPSLong = "#{bean.GPSLong()}";
-            var GPSLongArray = GPSLong.split(",");
-            var NodeName = "#{bean.NodeName()}";
-            var NodeNameArray = NodeName.split(",");
-            var centrepoint = "#{bean.CentrePoint()}";
-            var values = centrepoint.split(",");
-            var Lat = parseFloat(values[0]);
-            var Long = parseFloat(values[1]);
-            var variables = "#{bean.getVariables()}";
-            var variableArray = variables.split("//");
+            
+                var GPSLat = "#{bean.GPSLat()}";
+                var GPSLatArray = GPSLat.split(",");
+                var GPSLong = "#{bean.GPSLong()}";
+                var GPSLongArray = GPSLong.split(",");
+                var NodeName = "#{bean.NodeName()}";
+                var NodeNameArray = NodeName.split(",");
+                var centrepoint = "#{bean.CentrePoint()}";
+                var values = centrepoint.split(",");
+                var Lat = parseFloat(values[0]);
+                var Long = parseFloat(values[1]);
+                var variables = "#{bean.getVariables()}";
+                var variableArray = variables.split("//");
+            
+            
             var map;
             var returnValue;
             var dataIn;

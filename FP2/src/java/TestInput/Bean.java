@@ -34,6 +34,7 @@ import java.io.FileOutputStream;
 import java.io.FileReader;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Collection;
@@ -359,22 +360,32 @@ private String projectName;
    public List getGraphData() throws ParseException // get array of data to be plotted on the graph with the dDType prepended for efficiency.
    {
         List dataReturn = null;
-        if (currentNodes.getCurrentNodes().size()!=0)
+        if (!currentNodes.getCurrentNodes().isEmpty())
         {
             dataReturn = dataValuesFacade.findOrderedData(currentNodes.getCurrentNodes().get(node), 0, variable);
             String dataType = dataDefinitionsFacade.getDataType(currProject.getCurrentProject().getProjectId(),variable);
-            String dateFormat = determineDateFormat(dataReturn.get(0).toString());
-            for (int i = 0;i<dataReturn.size();i++)
+            String dateFormat = null;
+            if (!dataReturn.isEmpty())
             {
-                if (i%2==0)// formats i==even as date.
+                dateFormat = determineDateFormat(dataReturn.get(0).toString());
+                for (int i = 0;i<dataReturn.size();i++)
                 {
-                   String string = dataReturn.get(i).toString();
-                   Date date = new SimpleDateFormat(dateFormat, Locale.ENGLISH).parse(string); 
-                   dataReturn.set(i, date);
-                }
+                    if (i%2==0)// formats i==even as date.
+                    {
+                        String string = dataReturn.get(i).toString();
+//                        Date date = new SimpleDateFormat(dateFormat, Locale.ENGLISH).parse(string); 
 
+                        DateFormat originalFormat = new SimpleDateFormat(dateFormat, Locale.ENGLISH);
+                        DateFormat targetFormat = new SimpleDateFormat("yyyy. MM. dd. HH. mm. ss");
+                        Date dateIn = originalFormat.parse(string);
+                        String formattedDate = targetFormat.format(dateIn); 
+                        Date dateOut = targetFormat.parse(formattedDate);
+                        dataReturn.set(i, formattedDate);
+                    }
+
+                }
+                dataReturn.add(0, dataType);
             }
-            dataReturn.add(0, dataType);
         }
 //        ArrayList <DataValues> dataValuesArray = new ArrayList();
 //        Collection dataValues =  dataValuesFacade.findVariable(currentNodes.getCurrentNodes().get(node), 0); // get all records for a node at index 0
@@ -432,7 +443,8 @@ private String projectName;
  */
 public static String determineDateFormat(String dateString) {
     for (String regexp : DATE_FORMAT_REGEXPS.keySet()) {
-        if (dateString.toLowerCase().matches(regexp)) {
+        if (dateString.toLowerCase().matches(regexp)) 
+        {
             return DATE_FORMAT_REGEXPS.get(regexp);
         }
     }
