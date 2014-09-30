@@ -37,10 +37,12 @@ import java.io.InputStreamReader;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.Locale;
 import java.util.Map;
+import java.util.TimeZone;
 import javax.faces.model.SelectItem;
 import javax.servlet.http.Part;
 /**
@@ -254,6 +256,11 @@ private String projectName;
         return null;
         
     }
+//    public String logout()
+//    {
+//        currProject.setCurrentProject(null);
+//        return "logout";
+//    }
     
     
   public String GPSLat() // calculate the latitide of all the nodes and return it as a list(possible room for efficiencies)
@@ -356,6 +363,7 @@ private String projectName;
         this.variable = variable;
     }
    
+    
    
    public List getGraphData() throws ParseException // get array of data to be plotted on the graph with the dDType prepended for efficiency.
    {
@@ -368,18 +376,35 @@ private String projectName;
             if (!dataReturn.isEmpty())
             {
                 dateFormat = determineDateFormat(dataReturn.get(0).toString());
+                DateFormat originalFormat = new SimpleDateFormat(dateFormat, Locale.ENGLISH);
+                DateFormat targetFormat = new SimpleDateFormat("MMM dd yyyy HH:mm:ss");
                 for (int i = 0;i<dataReturn.size();i++)
                 {
                     if (i%2==0)// formats i==even as date.
                     {
                         String string = dataReturn.get(i).toString();
-                        Date date = new SimpleDateFormat(dateFormat, Locale.ENGLISH).parse(string); 
+                        
+                        Date date = originalFormat.parse(string);
+                        String formattedDate = targetFormat.format(date);  
+                        
+                        //DateFormat df = new SimpleDateFormat("MMM dd yyyy HH:mm:ss.SSS zzz");//, Locale.ENGLISH).parse(string); 
+                        
+//                        Calendar calendar = Calendar.getInstance(TimeZone.getTimeZone("UTC"));
+//                        calendar.clear();
+//                        Date epoch = calendar.getTime();
+                       //Date date2 = df.parse(formattedDate);
+                        //long epoch = date2.getTime();
 
+//                        calendar.set(date.);
+//                        long secondsSinceEpoch = calendar.getTimeInMillis() / 1000L;
+                        
+//                         compare = date.compareTo(epoch);
+                         
 //                        DateFormat originalFormat = new SimpleDateFormat(dateFormat, Locale.ENGLISH);
 //                        DateFormat targetFormat = new SimpleDateFormat("dd/MM/yy-HH:mm:ss");
 //                        Date date = originalFormat.parse(string);
 //                        String formattedDate = targetFormat.format(date);  // 20120821
-                        dataReturn.set(i, date);
+                        dataReturn.set(i, formattedDate);
                     }
 
                 }
@@ -387,8 +412,9 @@ private String projectName;
             }
         
         }
-        
-        
+//         EEE MMM dd HH:mm:ss zzz yyyy
+//         " Tue Sep 23 09:23:00 BST 2014"
+//         " Mon Feb 24 19:17:04 GMT 2014"
         
 //        ArrayList <DataValues> dataValuesArray = new ArrayList();
 //        Collection dataValues =  dataValuesFacade.findVariable(currentNodes.getCurrentNodes().get(node), 0); // get all records for a node at index 0
