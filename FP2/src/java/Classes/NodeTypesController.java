@@ -126,7 +126,7 @@ public class NodeTypesController implements Serializable {
         performDestroy();
         recreatePagination();
         recreateModel();
-        return "NodeTypesList";
+        return "Destroy";
     }
 
     public String destroyAndView() {
@@ -168,9 +168,8 @@ public class NodeTypesController implements Serializable {
     }
 
     public DataModel getItems() {
-        if (items == null) {
             items = getPagination().createPageDataModel();
-        }
+        
         return items;
     }
 

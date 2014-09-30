@@ -67,7 +67,7 @@ public class NodesController implements Serializable {
 //                        return new ListDataModel(getFacade().allNodes(currProject.getCurrentProject()).subList(getPageFirstItem(), getPageFirstItem() + getPageSize()));
 //
 //                    }
-                      return new ListDataModel(getFacade().allNodes(currProject.getCurrentProject()));
+                    return new ListDataModel(getFacade().allNodes(currProject.getCurrentProject()));
 
                 }
             };
@@ -126,7 +126,7 @@ public class NodesController implements Serializable {
         performDestroy();
         recreatePagination();
         recreateModel();
-        return "NodesList";
+        return "Destroy";
     }
 
     public String destroyAndView() {
@@ -166,10 +166,10 @@ public class NodesController implements Serializable {
         }
     }
 
-    public DataModel getItems() {
-        if (items == null) {
+    public DataModel getItems() 
+    {
             items = getPagination().createPageDataModel();
-        }
+        
         return items;
     }
 

@@ -4,6 +4,7 @@
  */
 package TestInput;
 
+import Classes.NodesController;
 import Classes.util.JsfUtil;
 import Entities.AcceptableDataTypes;
 import Entities.DataDefinitions;
@@ -224,6 +225,9 @@ private String projectName;
         currUser.setCurrentUser(temp);
         List projects = projectsFacade.findProjectsByUser(username);
         projectsList.setProjects(projects);
+        currProject.setCurrentProject(null);
+       
+        
     }
      
      if (projectsList.getProjects() == null)
@@ -251,16 +255,13 @@ private String projectName;
             project = projectsFacade.findProjectsByName(projectName,currUser.getCurrentUser().getUsername());
             currProject.setCurrentProject(project);
             currentNodes.setCurrentNodes(nodesFacade.allNodes(project));
+            
             return "load";
         }
         return null;
         
     }
-//    public String logout()
-//    {
-//        currProject.setCurrentProject(null);
-//        return "logout";
-//    }
+    
     
     
   public String GPSLat() // calculate the latitide of all the nodes and return it as a list(possible room for efficiencies)

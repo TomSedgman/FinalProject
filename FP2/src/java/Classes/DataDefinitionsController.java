@@ -126,7 +126,7 @@ public class DataDefinitionsController implements Serializable {
         performDestroy();
         recreatePagination();
         recreateModel();
-        return "DataDefinitionsList";
+        return "Destroy";
     }
 
     public String destroyAndView() {
@@ -175,9 +175,9 @@ public class DataDefinitionsController implements Serializable {
     }
 
     public DataModel getItems() {
-        if (items == null) {
+       
             items = getPagination().createPageDataModel();
-        }
+        
         return items;
     }
 
