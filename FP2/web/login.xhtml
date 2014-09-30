@@ -64,8 +64,15 @@
                         <f:selectItems id ="projects" value="#{bean.projectList()}" />
                     </h:selectOneMenu>
                     <h:commandButton id="goToMap" value="#{bundle.LoginLoadSingleProject}" action="#{bean.initalise()}"/>
+                                  
                 </div>
             </h:form>
+                <br/>
+                <div style="margin-top: 38%">
+                    <h:graphicImage id="ESFLogo" name="ESF.jpg" library="Graphics" style="width: 100px"/>
+                    <br/>
+                    <h:outputText id="ESFText" value=" This work is part-funded by the European Social Fund (ESF) through the European Union’s Convergence programme administered by the Welsh Government"/>
+                </div>
         </div>
     </h:body>
 
