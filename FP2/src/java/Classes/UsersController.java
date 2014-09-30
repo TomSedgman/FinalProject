@@ -5,6 +5,7 @@ import Classes.util.JsfUtil;
 import Classes.util.PaginationHelper;
 import Session.ProjectsFacade;
 import Session.UsersFacade;
+import TestInput.Bean;
 
 import java.io.Serializable;
 import java.util.ResourceBundle;
@@ -83,13 +84,38 @@ public class UsersController implements Serializable {
         return "UserCreate";
     }
 
-    public String create() {
-        try {
-            getFacade().create(current);
-            projectsFacade.createNewProject(current);
-            JsfUtil.addSuccessMessage(ResourceBundle.getBundle("/Bundle").getString("UsersCreated"));
-            return prepareCreate();
-        } catch (Exception e) {
+    private boolean nameInUse(String in)
+    {
+        try
+        {
+            Users out = ejbFacade.findUser(in);
+            return true;
+        }
+        catch (Exception e)
+        {
+            return false;
+        }
+        
+    }
+    
+    public String create() 
+    {
+        try 
+        {
+            if (!nameInUse(current.getUsername()))
+            {
+                getFacade().create(current);
+                projectsFacade.createNewProject(current);
+                JsfUtil.addSuccessMessage(ResourceBundle.getBundle("/Bundle").getString("UsersCreated"));
+                return prepareCreate();
+            }
+            else
+            {
+                throw new Exception("Username is in use");
+            }
+        }
+        catch (Exception e) 
+        {
             JsfUtil.addErrorMessage(e, ResourceBundle.getBundle("/Bundle").getString("PersistenceErrorOccured"));
             return null;
         }
